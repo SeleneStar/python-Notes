@@ -1,3 +1,28 @@
-*.zip
-# Project archives are excluded because GitHub rejects files over 100 MiB and
-# the ZIP packages account for most of the repository size.
+# Files at or above GitHub's 100 MiB hard limit are kept local.
+# All smaller ZIP archives are tracked.
+/part/人工智能/CV/目标检测项目/交通检测/Argus-master.zip
+/part/人工智能/CV/目标检测项目/交通检测/CEAM-YOLOv7-main.zip
+/part/人工智能/CV/目标检测项目/交通检测/Crosswalks-Detection-using-YOLO-main.zip
+/part/人工智能/CV/目标检测项目/交通检测/Traffic-Sign-Recognition-PyQt5-YOLOv5-GUI-main.zip
+/part/人工智能/CV/目标检测项目/交通检测/Traffic_signs_detection_darket-master.zip
+/part/人工智能/CV/目标检测项目/交通检测/YOLOP-NCNN-main.zip
+/part/人工智能/CV/目标检测项目/交通检测/YOLOP-main.zip
+/part/人工智能/CV/目标检测项目/交通检测/YOLO_Realistic_USA_RoadSigns_160classes-main.zip
+/part/人工智能/CV/目标检测项目/交通检测/Yolov5-deepsort-driverDistracted-driving-behavior-detection-1.0.zip
+/part/人工智能/CV/目标检测项目/人体检测/Interactive_ABCs_with_American_Sign_Language_using_Yolov5-master.zip
+/part/人工智能/CV/目标检测项目/人脸检测/YOLO-V3-IOU-master.zip
+/part/人工智能/CV/目标检测项目/医学领域检测/YOLOv2_skinCancer-master.zip
+/part/人工智能/CV/目标检测项目/医学领域检测/YoloV5_blood_cells-main.zip
+/part/人工智能/CV/目标检测项目/多目标跟踪/Deep-SORT-YOLOv4-master.zip
+/part/人工智能/CV/目标检测项目/多目标跟踪/Multitarget-tracker-master.zip
+/part/人工智能/CV/目标检测项目/多目标跟踪/tennis-tracking-main.zip
+/part/人工智能/CV/目标检测项目/小目标检测/simrdwn-master.zip
+/part/人工智能/CV/目标检测项目/小目标检测/slim-neck-by-gsconv-master.zip
+/part/人工智能/CV/目标检测项目/小目标检测/yolov5s_for_satellite_imagery-master.zip
+/part/人工智能/CV/目标检测项目/旋转目标检测/PolygonObjectDetection-main.zip
+/part/人工智能/CV/目标检测项目/脉冲神经网络/spiking-yolov5-main.zip
+/part/人工智能/CV/目标检测项目/自动标注工具/Auto_maker-master.zip
+/part/人工智能/CV/目标检测项目/自动标注工具/label-studio-develop.zip
+/part/人工智能/CV/目标检测项目/距离测量/yolov5-DeepSort-RealSenseD435i-master.zip
+/part/人工智能/CV/目标检测项目/车辆检测/License_Plate_Recognition-main.zip
+/part/人工智能/CV/目标检测项目/车辆检测/yolo-license-plate-detection-master.zip
