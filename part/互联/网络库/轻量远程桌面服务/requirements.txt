@@ -1,0 +1,7 @@
+mss
+Pillow
+opencv-python
+pynput
+numpy
+PyQt5
+aiohttp

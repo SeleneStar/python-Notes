@@ -1,0 +1,159 @@
+\chapter{urllib}
+\section{简介}
+\codeinline{urllib}是Python的一个标准库，它提供了一系列用于操作URL的功能。它包含以下四个模块：
+\begin{enumerate}[label=\arabic*)]
+    \item \codeinline{urllib.request}：用于打开和读取URL。
+    \item \codeinline{urllib.error}：包含了\codeinline{urllib.request}模块中产生的异常。
+    \item \codeinline{urllib.parse}：用于解析URL。
+    \item \codeinline{urllib.robotparser}：用于解析robots.txt文件。
+\end{enumerate}
+
+\section{urllib.request}
+\codeinline{urllib.request}模块提供了打开和读取URL的方法 
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 错误导入
+import urllib 
+urllib.request
+
+# 正确导入
+from urllib import request
+
+urllib.request.urlopen(url, data=None, [timeout, ]*, cafile=None, capath=None, cadefault=False, context=None)
+'''
+url: URL地址
+data: POST请求的数据
+timeout: 超时时间
+cafile: CA证书
+capath: CA证书路径
+cadefault: 是否使用默认的CA证书
+context: SSL上下文
+'''
+\end{lstlisting}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+from urllib import request
+
+url = 'http://www.baidu.com'   
+response = request.urlopen(url,timeout=1) # 打开URL,timeout=1表示超时时间为1s
+print(response.read().decode('utf-8'))    # 读取URL内容并解码
+
+# 获取状态码
+print(response.status)
+\end{lstlisting}
+
+\subsection{Get}
+
+\href{https://httpbin.org/}{httpbin}是一个HTTP测试网站，可以用来测试HTTP请求，如下是一个简单的例子：
+\codeinline{Get}请求:是从指定的资源请求数据。
+\begin{lstlisting}[style=demostyle,numbers=none]
+from urllib import request
+
+url = 'https://httpbin.org/get'
+response = request.urlopen(url,timeout=1) # 打开URL,timeout=1表示超时时间为1s
+print(response.read().decode('utf-8'))    # 读取URL内容并解码
+\end{lstlisting}
+
+\subsection{Post}
+\codeinline{Post}请求:向指定的资源提交数据进行处理请求（例如提交表单或上传文件）。数据被包含在请求体中。POST请求可能会导致新的资源的建立和/或已有资源的修改。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+from urllib import request, parse
+
+url = 'https://httpbin.org/post'
+data = bytes(parse.urlencode({'word': 'hello'}), encoding='utf8')
+response = request.urlopen(url, data=data, timeout=1)
+print(response.read().decode('utf-8'))
+\end{lstlisting}
+
+\subsection{Http Headers}
+\codeinline{Http Headers}是HTTP请求和响应的头部信息，可以通过\codeinline{add\_header}方法添加头部信息。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+from urllib import request
+
+url = 'https://httpbin.org/get'
+headers = {
+    'User-Agent': 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)',
+    'Host': 'httpbin.org',
+    'Accept': '*/*',
+    'Accept-Language': 'zh-CN,zh;q=0.9',
+    'Accept-Encoding': 'gzip, deflate',
+    'Connection': 'keep-alive',
+    'Cookie': '_gauth=1; _ga=GA1.2.123456789.1599999999; _gid=GA1.2.123456789.1599999999'
+}
+
+# Create the Request object with the custom headers
+req = request.Request(url, headers=headers)
+
+# Send the request and get the response
+response = request.urlopen(req)
+
+# Read and print the response
+print(response.read().decode('utf-8'))
+\end{lstlisting}
+
+\subsection{Proxy}
+\codeinline{Proxy}是一种网络服务，它充当客户端和其他服务器之间的中间服务器。客户端发送请求到代理服务器，代理服务器再发送请求到其他服务器，并将其他服务器的响应返回给客户端。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+import requests
+
+url = 'https://httpbin.org/get'
+headers = {
+    'User-Agent': 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)',
+    'Host': 'httpbin.org',
+    'Accept': '*/*',
+    'Accept-Language': 'zh-CN,zh;q=0.9',
+    'Accept-Encoding': 'gzip, deflate',
+    'Connection': 'keep-alive',
+    'Cookie': '_gauth=1; _ga=GA1.2.123456789.1599999999; _gid=GA1.2.123456789.1599999999'
+}
+
+# Define your proxy
+proxies = {
+    'http': 'http://your_proxy_ip:your_proxy_port',
+    'https': 'http://your_proxy_ip:your_proxy_port'
+}
+
+# Send the GET request with the headers and proxy
+response = requests.get(url, headers=headers, proxies=proxies)
+
+# Print the response
+print(response.text)
+\end{lstlisting}
+
+\section{requests}
+\codeinline{requests}是一个Python的第三方库，它提供了更多的功能和更简单的API，相比于\codeinline{urllib}。
+\subsection{安装}
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 安装
+conda install requests
+pip install requests
+\end{lstlisting}
+
+\subsection{Get}
+\begin{lstlisting}[style=demostyle,numbers=none]
+import requests
+
+url = 'https://httpbin.org/get'
+data = {
+    'word': 'hello'
+}
+response = requests.get(url, params=data)
+print(response.text)
+\end{lstlisting}
+
+\subsection{Post}
+\begin{lstlisting}[style=demostyle,numbers=none]
+import requests
+
+url = 'https://httpbin.org/post'
+data = {
+    'word': 'hello'
+}
+response = requests.post(url, data=data)
+print(response.text)
+\end{lstlisting}
+
+

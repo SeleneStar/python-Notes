@@ -1,0 +1,809 @@
+\contentsline {part}{第一部分\hspace {1em}基础配置}{1}{part.1}%
+\contentsline {chapter}{\numberline {第一章\hspace {.3em}}pip}{3}{chapter.1}%
+\contentsline {section}{\numberline {一、}下载}{3}{section.1.1}%
+\contentsline {section}{\numberline {二、}国内源}{3}{section.1.2}%
+\contentsline {subsection}{\numberline {1)}配置国内源}{3}{subsection.1.2.1}%
+\contentsline {section}{\numberline {三、}使用}{4}{section.1.3}%
+\contentsline {subsection}{\numberline {1)}升级}{4}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {2)}搜索包}{4}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {3)}安装包}{4}{subsection.1.3.3}%
+\contentsline {subsection}{\numberline {4)}查看包}{4}{subsection.1.3.4}%
+\contentsline {subsection}{\numberline {5)}升级包}{5}{subsection.1.3.5}%
+\contentsline {subsection}{\numberline {6)}卸载包}{5}{subsection.1.3.6}%
+\contentsline {chapter}{\numberline {第二章\hspace {.3em}}(Ana/mini)conda}{7}{chapter.2}%
+\contentsline {section}{\numberline {一、}简介}{7}{section.2.1}%
+\contentsline {subsection}{\numberline {1)}conda}{7}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2)}虚拟环境}{7}{subsection.2.1.2}%
+\contentsline {section}{\numberline {二、}安装}{7}{section.2.2}%
+\contentsline {subsection}{\numberline {1)}安装anaconda}{7}{subsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {(1)}Linux安装}{7}{subsubsection.2.2.1.1}%
+\contentsline {subsection}{\numberline {2)}安装miniconda}{7}{subsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {(1)}Linux安装}{7}{subsubsection.2.2.2.1}%
+\contentsline {subsubsection}{\numberline {(2)}Windows安装}{8}{subsubsection.2.2.2.2}%
+\contentsline {section}{\numberline {三、}配置国内源}{9}{section.2.3}%
+\contentsline {subsection}{\numberline {1)}linux}{9}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2)}windows}{9}{subsection.2.3.2}%
+\contentsline {subsubsection}{\numberline {(1)}手动配置}{10}{subsubsection.2.3.2.1}%
+\contentsline {subsubsection}{\numberline {(2)}命令行配置}{10}{subsubsection.2.3.2.2}%
+\contentsline {subsubsection}{\numberline {(3)}移除镜像}{11}{subsubsection.2.3.2.3}%
+\contentsline {subsubsection}{\numberline {(4)}验证}{11}{subsubsection.2.3.2.4}%
+\contentsline {section}{\numberline {四、}虚拟环境}{12}{section.2.4}%
+\contentsline {subsection}{\numberline {1)}修改默认虚拟环境路径}{12}{subsection.2.4.1}%
+\contentsline {subsubsection}{\numberline {(1)}Linux}{12}{subsubsection.2.4.1.1}%
+\contentsline {subsubsection}{\numberline {(2)}Windows}{13}{subsubsection.2.4.1.2}%
+\contentsline {subsection}{\numberline {2)}创建虚拟环境}{13}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {3)}查看虚拟环境}{14}{subsection.2.4.3}%
+\contentsline {subsection}{\numberline {4)}激活虚拟环境}{14}{subsection.2.4.4}%
+\contentsline {subsection}{\numberline {5)}删除虚拟环境}{14}{subsection.2.4.5}%
+\contentsline {subsection}{\numberline {6)}虚拟环境重新命名}{14}{subsection.2.4.6}%
+\contentsline {section}{\numberline {五、}包管理}{14}{section.2.5}%
+\contentsline {subsection}{\numberline {1)}查询包}{14}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2)}安装包}{15}{subsection.2.5.2}%
+\contentsline {subsubsection}{\numberline {(1)}在线安装}{15}{subsubsection.2.5.2.1}%
+\contentsline {subsubsubsection}{\numberline {1}conda安装}{15}{subsubsubsection.2.5.2.1.1}%
+\contentsline {subsubsubsection}{\numberline {2}pip安装}{15}{subsubsubsection.2.5.2.1.2}%
+\contentsline {subsubsection}{\numberline {(2)}离线安装}{15}{subsubsection.2.5.2.2}%
+\contentsline {subsubsection}{\numberline {(3)}批量安装}{15}{subsubsection.2.5.2.3}%
+\contentsline {subsection}{\numberline {3)}卸载包}{16}{subsection.2.5.3}%
+\contentsline {subsection}{\numberline {4)}查看包}{16}{subsection.2.5.4}%
+\contentsline {subsection}{\numberline {5)}更新包}{16}{subsection.2.5.5}%
+\contentsline {subsection}{\numberline {6)}清空缓存}{17}{subsection.2.5.6}%
+\contentsline {section}{\numberline {六、}Vscode配置}{17}{section.2.6}%
+\contentsline {chapter}{\numberline {第三章\hspace {.3em}}venv 环境}{19}{chapter.3}%
+\contentsline {section}{\numberline {一、}概述}{19}{section.3.1}%
+\contentsline {section}{\numberline {二、}使用}{19}{section.3.2}%
+\contentsline {section}{\numberline {三、}常用命令}{19}{section.3.3}%
+\contentsline {subsection}{\numberline {1)}指定python版本}{19}{subsection.3.3.1}%
+\contentsline {section}{\numberline {四、}与Vscode结合}{19}{section.3.4}%
+\contentsline {chapter}{\numberline {第四章\hspace {.3em}}Jupter Notebook}{21}{chapter.4}%
+\contentsline {section}{\numberline {一、}简介}{21}{section.4.1}%
+\contentsline {subsection}{\numberline {1)}notebook 运行逻辑}{21}{subsection.4.1.1}%
+\contentsline {section}{\numberline {二、}安装}{22}{section.4.2}%
+\contentsline {subsection}{\numberline {1)}安装IPython(非必须)}{22}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {2)}安装Jupyter}{22}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {3)}添加Kernel}{22}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4)}代码补全}{22}{subsection.4.2.4}%
+\contentsline {section}{\numberline {三、}使用}{22}{section.4.3}%
+\contentsline {subsection}{\numberline {1)}本地使用}{22}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {2)}远程使用}{23}{subsection.4.3.2}%
+\contentsline {subsubsection}{\numberline {(1)}远程服务器配置}{23}{subsubsection.4.3.2.1}%
+\contentsline {subsubsection}{\numberline {(2)}本地访问远程JupterLab}{24}{subsubsection.4.3.2.2}%
+\contentsline {subsubsubsection}{\numberline {1}配置防火墙访问}{24}{subsubsubsection.4.3.2.2.1}%
+\contentsline {subsubsubsection}{\numberline {2}SSH端口转发}{25}{subsubsubsection.4.3.2.2.2}%
+\contentsline {subsubsubsection}{\numberline {3}配置密码}{25}{subsubsubsection.4.3.2.2.3}%
+\contentsline {chapter}{\numberline {第五章\hspace {.3em}}Jupter Notebook语法}{27}{chapter.5}%
+\contentsline {section}{\numberline {一、}JupyterLab的语法指令}{27}{section.5.1}%
+\contentsline {subsection}{\numberline {1)}writefile 写到一个文件}{27}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {2)}pycat 显示一个文件}{27}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {3)}run 执行一个文件}{27}{subsection.5.1.3}%
+\contentsline {subsection}{\numberline {4)}计算代码运行时间}{28}{subsection.5.1.4}%
+\contentsline {subsection}{\numberline {5)}whos 查看当前内存中的变量}{28}{subsection.5.1.5}%
+\contentsline {subsection}{\numberline {6)}lsmagic 查看所有的魔法指令}{28}{subsection.5.1.6}%
+\contentsline {chapter}{\numberline {第六章\hspace {.3em}}自定义包}{31}{chapter.6}%
+\contentsline {section}{\numberline {一、}模块}{31}{section.6.1}%
+\contentsline {section}{\numberline {二、}概述}{31}{section.6.2}%
+\contentsline {part}{第二部分\hspace {1em}基本语法}{33}{part.2}%
+\contentsline {chapter}{\numberline {第七章\hspace {.3em}}操作数相关}{35}{chapter.7}%
+\contentsline {section}{\numberline {一、}概述}{35}{section.7.1}%
+\contentsline {subsection}{\numberline {1)}标识符(变量名)}{35}{subsection.7.1.1}%
+\contentsline {chapter}{\numberline {第八章\hspace {.3em}}基本数据类型}{37}{chapter.8}%
+\contentsline {section}{\numberline {一、}Number——数字类型}{37}{section.8.1}%
+\contentsline {subsection}{\numberline {1)}int 整数类型}{37}{subsection.8.1.1}%
+\contentsline {subsubsection}{\numberline {(1)}bool 布尔类型}{37}{subsubsection.8.1.1.1}%
+\contentsline {subsubsection}{\numberline {(2)}数字分隔符}{37}{subsubsection.8.1.1.2}%
+\contentsline {subsection}{\numberline {2)}float——浮点数(科学计数法)}{38}{subsection.8.1.2}%
+\contentsline {subsubsection}{\numberline {(1)}浮点数精度问题}{38}{subsubsection.8.1.2.1}%
+\contentsline {subsection}{\numberline {3)}bool——布尔类型}{39}{subsection.8.1.3}%
+\contentsline {subsection}{\numberline {4)}complex——复数类型}{39}{subsection.8.1.4}%
+\contentsline {section}{\numberline {二、}类型转换}{39}{section.8.2}%
+\contentsline {subsection}{\numberline {1)}type}{39}{subsection.8.2.1}%
+\contentsline {subsection}{\numberline {2)}显式类型转换}{39}{subsection.8.2.2}%
+\contentsline {section}{\numberline {三、}缓存重用机制}{40}{section.8.3}%
+\contentsline {chapter}{\numberline {第九章\hspace {.3em}}[序列] 数据结构}{43}{chapter.9}%
+\contentsline {section}{\numberline {一、}序列}{43}{section.9.1}%
+\contentsline {subsection}{\numberline {1)}序列内置函数}{43}{subsection.9.1.1}%
+\contentsline {subsubsection}{\numberline {(1)}len 序列的长度}{43}{subsubsection.9.1.1.1}%
+\contentsline {subsubsection}{\numberline {(2)}max 序列的最大值}{44}{subsubsection.9.1.1.2}%
+\contentsline {subsubsection}{\numberline {(3)}min 序列的最小值}{45}{subsubsection.9.1.1.3}%
+\contentsline {subsubsection}{\numberline {(4)}sum 返回序列的和}{45}{subsubsection.9.1.1.4}%
+\contentsline {subsubsection}{\numberline {(5)}sorted 返回排序后的序列}{46}{subsubsection.9.1.1.5}%
+\contentsline {subsubsection}{\numberline {(6)}reversed 返回逆序的序列}{47}{subsubsection.9.1.1.6}%
+\contentsline {subsubsection}{\numberline {(7)}enumerate 返回索引和元素组成的元组}{47}{subsubsection.9.1.1.7}%
+\contentsline {subsection}{\numberline {2)}序列的通用操作}{48}{subsection.9.1.2}%
+\contentsline {subsubsection}{\numberline {(1)}[] 索引访问}{48}{subsubsection.9.1.2.1}%
+\contentsline {subsubsection}{\numberline {(2)}index 查找元素的索引}{49}{subsubsection.9.1.2.2}%
+\contentsline {subsubsection}{\numberline {(3)}count 统计元素出现的次数}{50}{subsubsection.9.1.2.3}%
+\contentsline {subsubsection}{\numberline {(4)}切片}{51}{subsubsection.9.1.2.4}%
+\contentsline {subsubsection}{\numberline {(5)}split 分割}{52}{subsubsection.9.1.2.5}%
+\contentsline {subsubsection}{\numberline {(6)}in/not in 成员关系}{52}{subsubsection.9.1.2.6}%
+\contentsline {subsubsection}{\numberline {(7)}拼接}{53}{subsubsection.9.1.2.7}%
+\contentsline {subsubsection}{\numberline {(8)}join 连接}{54}{subsubsection.9.1.2.8}%
+\contentsline {subsubsection}{\numberline {(9)}* 重复}{55}{subsubsection.9.1.2.9}%
+\contentsline {subsubsection}{\numberline {(10)}append 追加}{56}{subsubsection.9.1.2.10}%
+\contentsline {subsubsection}{\numberline {(11)}extend 扩展}{56}{subsubsection.9.1.2.11}%
+\contentsline {subsubsection}{\numberline {(12)}insert 插入}{57}{subsubsection.9.1.2.12}%
+\contentsline {subsubsection}{\numberline {(13)}update 更新}{58}{subsubsection.9.1.2.13}%
+\contentsline {subsubsection}{\numberline {(14)}remove 删除}{58}{subsubsection.9.1.2.14}%
+\contentsline {subsubsection}{\numberline {(15)}pop 弹出}{59}{subsubsection.9.1.2.15}%
+\contentsline {subsubsection}{\numberline {(16)}clear 清空}{60}{subsubsection.9.1.2.16}%
+\contentsline {subsubsection}{\numberline {(17)}del 删除}{60}{subsubsection.9.1.2.17}%
+\contentsline {subsection}{\numberline {3)}序列间转换}{61}{subsection.9.1.3}%
+\contentsline {subsubsection}{\numberline {(1)}list 将序列转为列表}{61}{subsubsection.9.1.3.1}%
+\contentsline {subsubsection}{\numberline {(2)}tuple 将序列转为元组}{62}{subsubsection.9.1.3.2}%
+\contentsline {subsubsection}{\numberline {(3)}set 将序列转为集合}{63}{subsubsection.9.1.3.3}%
+\contentsline {section}{\numberline {二、}列表(list)}{63}{section.9.2}%
+\contentsline {subsection}{\numberline {1)}创建}{63}{subsection.9.2.1}%
+\contentsline {subsubsection}{\numberline {(1)}直接生成}{63}{subsubsection.9.2.1.1}%
+\contentsline {subsubsection}{\numberline {(2)}list 显式转换}{64}{subsubsection.9.2.1.2}%
+\contentsline {subsubsection}{\numberline {(3)}列表推导式}{64}{subsubsection.9.2.1.3}%
+\contentsline {subsection}{\numberline {2)}修改}{65}{subsection.9.2.2}%
+\contentsline {subsection}{\numberline {3)}栈}{65}{subsection.9.2.3}%
+\contentsline {subsection}{\numberline {4)}collections 实现栈和队列}{66}{subsection.9.2.4}%
+\contentsline {section}{\numberline {三、}字符串}{66}{section.9.3}%
+\contentsline {subsection}{\numberline {1)}定义}{66}{subsection.9.3.1}%
+\contentsline {section}{\numberline {四、}集合}{66}{section.9.4}%
+\contentsline {subsection}{\numberline {1)}定义}{66}{subsection.9.4.1}%
+\contentsline {subsubsection}{\numberline {(1)}集合推导式}{66}{subsubsection.9.4.1.1}%
+\contentsline {subsection}{\numberline {2)}集合间运算}{67}{subsection.9.4.2}%
+\contentsline {section}{\numberline {五、}字典}{68}{section.9.5}%
+\contentsline {subsection}{\numberline {1)}创建}{68}{subsection.9.5.1}%
+\contentsline {subsubsection}{\numberline {(1)}直接生成}{68}{subsubsection.9.5.1.1}%
+\contentsline {subsubsection}{\numberline {(2)}字典推导式}{68}{subsubsection.9.5.1.2}%
+\contentsline {section}{\numberline {六、}元组(tuple)}{69}{section.9.6}%
+\contentsline {subsection}{\numberline {1)}定义}{69}{subsection.9.6.1}%
+\contentsline {subsection}{\numberline {2)}创建}{69}{subsection.9.6.2}%
+\contentsline {subsubsection}{\numberline {(1)}直接生成}{69}{subsubsection.9.6.2.1}%
+\contentsline {subsubsection}{\numberline {(2)}tuple 显式转换}{69}{subsubsection.9.6.2.2}%
+\contentsline {subsubsection}{\numberline {(3)}元组推导式(生成器表达式)}{69}{subsubsection.9.6.2.3}%
+\contentsline {chapter}{\numberline {第十章\hspace {.3em}}(动作行为)语法相关}{71}{chapter.10}%
+\contentsline {section}{\numberline {一、}行为规范}{71}{section.10.1}%
+\contentsline {subsection}{\numberline {1)}注释}{71}{subsection.10.1.1}%
+\contentsline {subsection}{\numberline {2)}行与缩进}{71}{subsection.10.1.2}%
+\contentsline {subsection}{\numberline {3)}多行语句}{71}{subsection.10.1.3}%
+\contentsline {section}{\numberline {二、}运算符}{72}{section.10.2}%
+\contentsline {subsection}{\numberline {1)}算术运算符}{72}{subsection.10.2.1}%
+\contentsline {subsection}{\numberline {2)}赋值运算符}{73}{subsection.10.2.2}%
+\contentsline {subsection}{\numberline {3)}位运算符}{74}{subsection.10.2.3}%
+\contentsline {subsection}{\numberline {4)}比较运算符}{75}{subsection.10.2.4}%
+\contentsline {subsection}{\numberline {5)}逻辑运算符}{76}{subsection.10.2.5}%
+\contentsline {section}{\numberline {三、}逻辑}{76}{section.10.3}%
+\contentsline {subsection}{\numberline {1)}条件}{76}{subsection.10.3.1}%
+\contentsline {subsection}{\numberline {2)}三元运算符}{77}{subsection.10.3.2}%
+\contentsline {subsection}{\numberline {3)}循环}{77}{subsection.10.3.3}%
+\contentsline {subsection}{\numberline {4)}while}{77}{subsection.10.3.4}%
+\contentsline {subsection}{\numberline {5)}for}{78}{subsection.10.3.5}%
+\contentsline {chapter}{\numberline {第十一章\hspace {.3em}}异常}{81}{chapter.11}%
+\contentsline {section}{\numberline {一、}异常}{81}{section.11.1}%
+\contentsline {section}{\numberline {二、}异常的种类}{82}{section.11.2}%
+\contentsline {subsection}{\numberline {1)}文件}{82}{subsection.11.2.1}%
+\contentsline {subsection}{\numberline {2)}除零}{82}{subsection.11.2.2}%
+\contentsline {subsection}{\numberline {3)}输入异常}{82}{subsection.11.2.3}%
+\contentsline {subsection}{\numberline {4)}捕获多个异常}{83}{subsection.11.2.4}%
+\contentsline {subsection}{\numberline {5)}捕获所有异常}{83}{subsection.11.2.5}%
+\contentsline {subsection}{\numberline {6)}自定义异常返回信息——raise}{84}{subsection.11.2.6}%
+\contentsline {subsection}{\numberline {7)}自定义异常}{84}{subsection.11.2.7}%
+\contentsline {section}{\numberline {三、}异常的处理}{84}{section.11.3}%
+\contentsline {chapter}{\numberline {第十二章\hspace {.3em}}函数与模块}{87}{chapter.12}%
+\contentsline {section}{\numberline {一、}迭代器与生成器}{87}{section.12.1}%
+\contentsline {subsection}{\numberline {1)}迭代器}{87}{subsection.12.1.1}%
+\contentsline {subsubsection}{\numberline {(1)}创建迭代器}{87}{subsubsection.12.1.1.1}%
+\contentsline {subsubsection}{\numberline {(2)}StopIteration异常}{88}{subsubsection.12.1.1.2}%
+\contentsline {subsection}{\numberline {2)}生成器}{89}{subsection.12.1.2}%
+\contentsline {section}{\numberline {二、}Lambda表达式}{89}{section.12.2}%
+\contentsline {section}{\numberline {三、}内建函数}{90}{section.12.3}%
+\contentsline {section}{\numberline {四、}闭包}{91}{section.12.4}%
+\contentsline {section}{\numberline {五、}装饰器(Decorator)}{91}{section.12.5}%
+\contentsline {section}{\numberline {六、}模块}{92}{section.12.6}%
+\contentsline {chapter}{\numberline {第十三章\hspace {.3em}}装饰器(decorator)}{93}{chapter.13}%
+\contentsline {section}{\numberline {一、}概述}{93}{section.13.1}%
+\contentsline {chapter}{\numberline {第十四章\hspace {.3em}}[标准库] math (标量)数学库}{97}{chapter.14}%
+\contentsline {section}{\numberline {一、}数学常数}{97}{section.14.1}%
+\contentsline {section}{\numberline {二、}三角函数相关}{97}{section.14.2}%
+\contentsline {subsection}{\numberline {1)}角度转换}{97}{subsection.14.2.1}%
+\contentsline {subsection}{\numberline {2)}基本三角函数}{97}{subsection.14.2.2}%
+\contentsline {subsection}{\numberline {3)}反三角函数}{97}{subsection.14.2.3}%
+\contentsline {section}{\numberline {三、}指数与对数相关}{98}{section.14.3}%
+\contentsline {section}{\numberline {四、}幂函数与开方}{98}{section.14.4}%
+\contentsline {section}{\numberline {五、}特殊功能函数}{98}{section.14.5}%
+\contentsline {subsection}{\numberline {1)}取整相关}{98}{subsection.14.5.1}%
+\contentsline {subsection}{\numberline {2)}数值处理}{98}{subsection.14.5.2}%
+\contentsline {subsection}{\numberline {3)}特殊判断}{98}{subsection.14.5.3}%
+\contentsline {chapter}{\numberline {第十五章\hspace {.3em}}自定义包}{101}{chapter.15}%
+\contentsline {section}{\numberline {一、}模块}{101}{section.15.1}%
+\contentsline {section}{\numberline {二、}概述}{101}{section.15.2}%
+\contentsline {part}{第三部分\hspace {1em}系统编程}{103}{part.3}%
+\contentsline {chapter}{\numberline {第十六章\hspace {.3em}}多线程编程}{105}{chapter.16}%
+\contentsline {section}{\numberline {一、}线程}{105}{section.16.1}%
+\contentsline {section}{\numberline {二、}线程同步}{106}{section.16.2}%
+\contentsline {section}{\numberline {三、}线程池}{109}{section.16.3}%
+\contentsline {subsection}{\numberline {1)}ThreadPoolExecutor}{109}{subsection.16.3.1}%
+\contentsline {subsection}{\numberline {2)}返回值}{110}{subsection.16.3.2}%
+\contentsline {section}{\numberline {四、}Python中的多线程}{111}{section.16.4}%
+\contentsline {chapter}{\numberline {第十七章\hspace {.3em}}多进程编程}{113}{chapter.17}%
+\contentsline {section}{\numberline {一、}进程}{113}{section.17.1}%
+\contentsline {section}{\numberline {二、}进程间通信}{114}{section.17.2}%
+\contentsline {subsection}{\numberline {1)}Queue}{115}{subsection.17.2.1}%
+\contentsline {section}{\numberline {三、}进程池}{116}{section.17.3}%
+\contentsline {subsection}{\numberline {1)}同步执行}{116}{subsection.17.3.1}%
+\contentsline {subsection}{\numberline {2)}异步执行}{117}{subsection.17.3.2}%
+\contentsline {chapter}{\numberline {第十八章\hspace {.3em}}系统信息}{121}{chapter.18}%
+\contentsline {section}{\numberline {一、}获取CPU信息}{121}{section.18.1}%
+\contentsline {section}{\numberline {二、}获取内存信息}{121}{section.18.2}%
+\contentsline {section}{\numberline {三、}获取磁盘信息}{121}{section.18.3}%
+\contentsline {section}{\numberline {四、}获取网络信息}{122}{section.18.4}%
+\contentsline {subsection}{\numberline {1)}网络连接信息}{124}{subsection.18.4.1}%
+\contentsline {chapter}{\numberline {第十九章\hspace {.3em}}进程管理}{125}{chapter.19}%
+\contentsline {section}{\numberline {一、}创建进程}{125}{section.19.1}%
+\contentsline {section}{\numberline {二、}获取进程}{125}{section.19.2}%
+\contentsline {subsection}{\numberline {1)}显示所有进程及对应的名称}{125}{subsection.19.2.1}%
+\contentsline {subsection}{\numberline {2)}根据名称获取进程ID}{126}{subsection.19.2.2}%
+\contentsline {section}{\numberline {三、}结束进程}{127}{section.19.3}%
+\contentsline {chapter}{\numberline {第二十章\hspace {.3em}}pywin23概述}{129}{chapter.20}%
+\contentsline {section}{\numberline {一、}概述}{129}{section.20.1}%
+\contentsline {section}{\numberline {二、}安装}{129}{section.20.2}%
+\contentsline {chapter}{\numberline {第二十一章\hspace {.3em}}进程管理}{131}{chapter.21}%
+\contentsline {section}{\numberline {一、}创建进程}{131}{section.21.1}%
+\contentsline {section}{\numberline {二、}获取进程}{131}{section.21.2}%
+\contentsline {subsection}{\numberline {1)}显示所有进程及对应的名称}{131}{subsection.21.2.1}%
+\contentsline {subsection}{\numberline {2)}根据名称获取进程ID}{132}{subsection.21.2.2}%
+\contentsline {chapter}{\numberline {第二十二章\hspace {.3em}}GUI操作}{133}{chapter.22}%
+\contentsline {section}{\numberline {一、}获取窗口}{133}{section.22.1}%
+\contentsline {section}{\numberline {二、}窗口截图}{133}{section.22.2}%
+\contentsline {section}{\numberline {三、}窗口操作}{133}{section.22.3}%
+\contentsline {part}{第四部分\hspace {1em}存储}{135}{part.4}%
+\contentsline {chapter}{\numberline {第二十三章\hspace {.3em}}输入输出}{137}{chapter.23}%
+\contentsline {section}{\numberline {一、}input 输入}{137}{section.23.1}%
+\contentsline {section}{\numberline {二、}print 输出}{137}{section.23.2}%
+\contentsline {subsection}{\numberline {1)}分隔符}{137}{subsection.23.2.1}%
+\contentsline {subsection}{\numberline {2)}结尾符}{138}{subsection.23.2.2}%
+\contentsline {subsection}{\numberline {3)}输出位置}{138}{subsection.23.2.3}%
+\contentsline {subsection}{\numberline {4)}格式化输出}{138}{subsection.23.2.4}%
+\contentsline {section}{\numberline {三、}文件的内建函数和方法}{139}{section.23.3}%
+\contentsline {chapter}{\numberline {第二十四章\hspace {.3em}}文本操作的应用}{141}{chapter.24}%
+\contentsline {chapter}{\numberline {第二十五章\hspace {.3em}}上下文管理}{153}{chapter.25}%
+\contentsline {section}{\numberline {一、}with 简化资源管理}{153}{section.25.1}%
+\contentsline {subsection}{\numberline {1)}基本语法}{153}{subsection.25.1.1}%
+\contentsline {subsection}{\numberline {2)}工作原理}{155}{subsection.25.1.2}%
+\contentsline {section}{\numberline {二、}创建自定义的上下文管理器}{155}{section.25.2}%
+\contentsline {subsection}{\numberline {1)}类的方式}{155}{subsection.25.2.1}%
+\contentsline {subsection}{\numberline {2)}contextlib 模块}{156}{subsection.25.2.2}%
+\contentsline {part}{第五部分\hspace {1em}[编程范式] 面向对象编程}{157}{part.5}%
+\contentsline {chapter}{\numberline {第二十六章\hspace {.3em}}面向对象}{159}{chapter.26}%
+\contentsline {section}{\numberline {一、}类与对象}{159}{section.26.1}%
+\contentsline {subsection}{\numberline {1)}类}{159}{subsection.26.1.1}%
+\contentsline {subsection}{\numberline {2)}继承}{159}{subsection.26.1.2}%
+\contentsline {subsection}{\numberline {3)}接口}{160}{subsection.26.1.3}%
+\contentsline {subsection}{\numberline {4)}封装}{160}{subsection.26.1.4}%
+\contentsline {subsubsection}{\numberline {(1)}私有属性}{160}{subsubsection.26.1.4.1}%
+\contentsline {subsubsection}{\numberline {(2)}私有方法}{160}{subsubsection.26.1.4.2}%
+\contentsline {subsection}{\numberline {5)}多态}{161}{subsection.26.1.5}%
+\contentsline {part}{第六部分\hspace {1em}图形可视化}{163}{part.6}%
+\contentsline {chapter}{\numberline {第二十七章\hspace {.3em}}PySide概述}{165}{chapter.27}%
+\contentsline {section}{\numberline {一、}PySide简介}{165}{section.27.1}%
+\contentsline {subsection}{\numberline {1)}Qt 、PyQt 、PySide 之间的关系}{165}{subsection.27.1.1}%
+\contentsline {subsection}{\numberline {2)}PySide与PyQt的比较}{166}{subsection.27.1.2}%
+\contentsline {subsection}{\numberline {3)}主要模块}{166}{subsection.27.1.3}%
+\contentsline {section}{\numberline {二、}安装PySide}{167}{section.27.2}%
+\contentsline {subsection}{\numberline {1)}常见问题}{167}{subsection.27.2.1}%
+\contentsline {subsubsection}{\numberline {(1)}PySide找不到libstdc++}{167}{subsubsection.27.2.1.1}%
+\contentsline {subsubsection}{\numberline {(2)}conda的python版本与系统的版本不一致}{167}{subsubsection.27.2.1.2}%
+\contentsline {chapter}{\numberline {第二十八章\hspace {.3em}}[Python库] Matplotlib概述}{171}{chapter.28}%
+\contentsline {section}{\numberline {一、}简介}{171}{section.28.1}%
+\contentsline {section}{\numberline {二、}安装}{171}{section.28.2}%
+\contentsline {section}{\numberline {三、}基本框架}{171}{section.28.3}%
+\contentsline {chapter}{\numberline {第二十九章\hspace {.3em}}[matplotlib] 绘图}{175}{chapter.29}%
+\contentsline {section}{\numberline {一、}折线/散点图}{175}{section.29.1}%
+\contentsline {subsection}{\numberline {1)}plt.plot 折线/散点图}{175}{subsection.29.1.1}%
+\contentsline {subsubsection}{\numberline {(1)}-o 将散点图连线}{178}{subsubsection.29.1.1.1}%
+\contentsline {subsubsection}{\numberline {(2)}设置散点图属性}{180}{subsubsection.29.1.1.2}%
+\contentsline {subsubsection}{\numberline {(3)}绘制折线图}{180}{subsubsection.29.1.1.3}%
+\contentsline {subsection}{\numberline {2)}plt.scatter 散点图}{181}{subsection.29.1.2}%
+\contentsline {section}{\numberline {二、}条形图/柱形图}{186}{section.29.2}%
+\contentsline {subsection}{\numberline {1)}plt.bar 垂直条形图}{186}{subsection.29.2.1}%
+\contentsline {subsection}{\numberline {2)}plt.bar 堆叠条形图}{187}{subsection.29.2.2}%
+\contentsline {subsection}{\numberline {3)}plt.bar 并列条形图}{188}{subsection.29.2.3}%
+\contentsline {subsection}{\numberline {4)}plt.barh 水平条形图}{189}{subsection.29.2.4}%
+\contentsline {section}{\numberline {三、}pie 饼图}{190}{section.29.3}%
+\contentsline {section}{\numberline {四、}boxplot 箱线图}{192}{section.29.4}%
+\contentsline {section}{\numberline {五、}直方图}{194}{section.29.5}%
+\contentsline {subsection}{\numberline {1)}plt.hist 一维频率直方图}{194}{subsection.29.5.1}%
+\contentsline {subsection}{\numberline {2)}plt.hist2d 二维频率直方图}{197}{subsection.29.5.2}%
+\contentsline {subsection}{\numberline {3)}plt.hexbin 六边形区间划分}{199}{subsection.29.5.3}%
+\contentsline {section}{\numberline {六、}imshow热力图}{199}{section.29.6}%
+\contentsline {section}{\numberline {七、}等高线图}{200}{section.29.7}%
+\contentsline {subsection}{\numberline {1)}plt.contour 等高线图}{200}{subsection.29.7.1}%
+\contentsline {subsection}{\numberline {2)}plt.contourf 带填充色的等高线图}{203}{subsection.29.7.2}%
+\contentsline {section}{\numberline {八、}三维图}{206}{section.29.8}%
+\contentsline {subsection}{\numberline {1)}plt.plot3D 三维数据点与线}{206}{subsection.29.8.1}%
+\contentsline {subsection}{\numberline {2)}plt.contour3D 三维等高线图}{206}{subsection.29.8.2}%
+\contentsline {subsection}{\numberline {3)}plt.plot\_wireframe 线框图}{209}{subsection.29.8.3}%
+\contentsline {subsection}{\numberline {4)}plt.plot\_surface 曲面图}{210}{subsection.29.8.4}%
+\contentsline {subsubsection}{\numberline {(1)}plt.plot\_surface 极坐标曲面图}{213}{subsubsection.29.8.4.1}%
+\contentsline {subsubsection}{\numberline {(2)}plt.plot\_trisurf 曲面三角剖分}{214}{subsubsection.29.8.4.2}%
+\contentsline {chapter}{\numberline {第三十章\hspace {.3em}}[matplotlib] 图片样式与排版}{215}{chapter.30}%
+\contentsline {section}{\numberline {一、}默认配置}{215}{section.30.1}%
+\contentsline {section}{\numberline {二、}显示中文}{216}{section.30.2}%
+\contentsline {section}{\numberline {三、}图片的属性}{217}{section.30.3}%
+\contentsline {section}{\numberline {四、}matplotlib线条}{218}{section.30.4}%
+\contentsline {subsection}{\numberline {1)}线条的颜色}{218}{subsection.30.4.1}%
+\contentsline {subsection}{\numberline {2)}线条的粗细}{220}{subsection.30.4.2}%
+\contentsline {subsection}{\numberline {3)}线条的样式}{221}{subsection.30.4.3}%
+\contentsline {subsection}{\numberline {4)}线条的标记}{222}{subsection.30.4.4}%
+\contentsline {section}{\numberline {五、}图片的边界}{224}{section.30.5}%
+\contentsline {section}{\numberline {六、}坐标轴}{225}{section.30.6}%
+\contentsline {subsection}{\numberline {1)}坐标记号标签}{226}{subsection.30.6.1}%
+\contentsline {subsection}{\numberline {2)}坐标轴的标签}{227}{subsection.30.6.2}%
+\contentsline {subsection}{\numberline {3)}坐标轴移动}{228}{subsection.30.6.3}%
+\contentsline {subsection}{\numberline {4)}添加图例}{229}{subsection.30.6.4}%
+\contentsline {subsection}{\numberline {5)}坐标轴的网格}{231}{subsection.30.6.5}%
+\contentsline {subsection}{\numberline {6)}特殊点的注释}{232}{subsection.30.6.6}%
+\contentsline {section}{\numberline {七、}箭头}{233}{section.30.7}%
+\contentsline {section}{\numberline {八、}图片风格}{234}{section.30.8}%
+\contentsline {section}{\numberline {九、}多图的排列}{236}{section.30.9}%
+\contentsline {subsection}{\numberline {1)}plt.subplot()}{236}{subsection.30.9.1}%
+\contentsline {subsubsection}{\numberline {(1)}add\_subplot()添加子图}{238}{subsubsection.30.9.1.1}%
+\contentsline {subsection}{\numberline {2)}plt.subplots()}{239}{subsection.30.9.2}%
+\contentsline {subsection}{\numberline {3)}GridSpec}{240}{subsection.30.9.3}%
+\contentsline {subsection}{\numberline {4)}自定义子图大小和间距}{241}{subsection.30.9.4}%
+\contentsline {chapter}{\numberline {第三十一章\hspace {.3em}}[Python库] Pyecharts概述}{243}{chapter.31}%
+\contentsline {section}{\numberline {一、}简介}{243}{section.31.1}%
+\contentsline {section}{\numberline {二、}安装}{243}{section.31.2}%
+\contentsline {chapter}{\numberline {第三十二章\hspace {.3em}}图表类型}{245}{chapter.32}%
+\contentsline {chapter}{\numberline {第三十三章\hspace {.3em}}Manim概述}{247}{chapter.33}%
+\contentsline {section}{\numberline {一、}简介}{247}{section.33.1}%
+\contentsline {section}{\numberline {二、}Manim(ManimCE)}{247}{section.33.2}%
+\contentsline {subsection}{\numberline {1)}安装}{247}{subsection.33.2.1}%
+\contentsline {subsection}{\numberline {2)}使用}{248}{subsection.33.2.2}%
+\contentsline {subsection}{\numberline {3)}测试}{248}{subsection.33.2.3}%
+\contentsline {section}{\numberline {三、}ManimGL}{249}{section.33.3}%
+\contentsline {section}{\numberline {四、}ManimCairo}{249}{section.33.4}%
+\contentsline {chapter}{\numberline {第三十四章\hspace {.3em}}Manim基本图形}{251}{chapter.34}%
+\contentsline {section}{\numberline {一、}点}{251}{section.34.1}%
+\contentsline {section}{\numberline {二、}线}{251}{section.34.2}%
+\contentsline {subsection}{\numberline {1)}直线}{251}{subsection.34.2.1}%
+\contentsline {subsection}{\numberline {2)}虚线}{252}{subsection.34.2.2}%
+\contentsline {subsection}{\numberline {3)}带箭头的线}{253}{subsection.34.2.3}%
+\contentsline {section}{\numberline {三、}圆}{253}{section.34.3}%
+\contentsline {subsection}{\numberline {1)}正圆}{253}{subsection.34.3.1}%
+\contentsline {subsection}{\numberline {2)}椭圆}{254}{subsection.34.3.2}%
+\contentsline {subsection}{\numberline {3)}圆弧}{254}{subsection.34.3.3}%
+\contentsline {section}{\numberline {四、}多边形}{255}{section.34.4}%
+\contentsline {subsection}{\numberline {1)}三角形}{255}{subsection.34.4.1}%
+\contentsline {subsection}{\numberline {2)}矩形}{257}{subsection.34.4.2}%
+\contentsline {subsubsection}{\numberline {(1)}正方形}{257}{subsubsection.34.4.2.1}%
+\contentsline {subsubsection}{\numberline {(2)}矩形}{258}{subsubsection.34.4.2.2}%
+\contentsline {subsubsection}{\numberline {(3)}圆角矩形}{259}{subsubsection.34.4.2.3}%
+\contentsline {subsection}{\numberline {3)}星形}{261}{subsection.34.4.3}%
+\contentsline {subsection}{\numberline {4)}任意多边形}{262}{subsection.34.4.4}%
+\contentsline {subsubsection}{\numberline {(1)}多边形}{262}{subsubsection.34.4.4.1}%
+\contentsline {subsubsection}{\numberline {(2)}任意正多边形}{263}{subsubsection.34.4.4.2}%
+\contentsline {section}{\numberline {五、}自定义图片}{264}{section.34.5}%
+\contentsline {subsection}{\numberline {1)}SVG}{264}{subsection.34.5.1}%
+\contentsline {section}{\numberline {六、}公共样式}{266}{section.34.6}%
+\contentsline {section}{\numberline {七、}图像样式}{266}{section.34.7}%
+\contentsline {subsection}{\numberline {1)}边框}{267}{subsection.34.7.1}%
+\contentsline {subsection}{\numberline {2)}颜色}{268}{subsection.34.7.2}%
+\contentsline {subsubsection}{\numberline {(1)}预制颜色}{268}{subsubsection.34.7.2.1}%
+\contentsline {subsubsection}{\numberline {(2)}填充和透明度}{269}{subsubsection.34.7.2.2}%
+\contentsline {section}{\numberline {八、}坐标系}{271}{section.34.8}%
+\contentsline {subsection}{\numberline {1)}一维坐标系}{271}{subsection.34.8.1}%
+\contentsline {subsection}{\numberline {2)}二维坐标系}{272}{subsection.34.8.2}%
+\contentsline {subsubsection}{\numberline {(1)}NumberPlane 实数平面}{272}{subsubsection.34.8.2.1}%
+\contentsline {subsubsection}{\numberline {(2)}ComplexPlane 复数平面}{273}{subsubsection.34.8.2.2}%
+\contentsline {subsubsection}{\numberline {(3)}PolarPlane 极坐标平面}{274}{subsubsection.34.8.2.3}%
+\contentsline {subsubsection}{\numberline {(4)}Axes 二维笛卡尔坐标轴}{275}{subsubsection.34.8.2.4}%
+\contentsline {subsection}{\numberline {3)}三维坐标系}{276}{subsection.34.8.3}%
+\contentsline {subsubsection}{\numberline {(1)}ThreeDAxes 三维笛卡尔坐标系}{276}{subsubsection.34.8.3.1}%
+\contentsline {chapter}{\numberline {第三十五章\hspace {.3em}}Manim文字和公式}{281}{chapter.35}%
+\contentsline {section}{\numberline {一、}Text文字}{281}{section.35.1}%
+\contentsline {subsection}{\numberline {1)}一般文本}{281}{subsection.35.1.1}%
+\contentsline {subsection}{\numberline {2)}多行文本}{282}{subsection.35.1.2}%
+\contentsline {subsection}{\numberline {3)}富文本}{282}{subsection.35.1.3}%
+\contentsline {section}{\numberline {二、}Tex公式}{284}{section.35.2}%
+\contentsline {subsection}{\numberline {1)}公式}{284}{subsection.35.2.1}%
+\contentsline {subsection}{\numberline {2)}列表}{285}{subsection.35.2.2}%
+\contentsline {subsection}{\numberline {3)}标题}{285}{subsection.35.2.3}%
+\contentsline {section}{\numberline {三、}文本样式}{287}{section.35.3}%
+\contentsline {subsection}{\numberline {1)}颜色相关}{288}{subsection.35.3.1}%
+\contentsline {subsubsection}{\numberline {(1)}color 单色}{288}{subsubsection.35.3.1.1}%
+\contentsline {subsubsection}{\numberline {(2)}gradient 渐变色}{289}{subsubsection.35.3.1.2}%
+\contentsline {subsubsection}{\numberline {(3)}按字符设置颜色}{290}{subsubsection.35.3.1.3}%
+\contentsline {subsection}{\numberline {2)}字体相关}{292}{subsection.35.3.2}%
+\contentsline {subsubsection}{\numberline {(1)}font 字体}{292}{subsubsection.35.3.2.1}%
+\contentsline {subsubsection}{\numberline {(2)}font\_size 字体大小}{292}{subsubsection.35.3.2.2}%
+\contentsline {subsubsection}{\numberline {(3)}weight 字重}{293}{subsubsection.35.3.2.3}%
+\contentsline {subsubsection}{\numberline {(4)}slant 倾斜}{295}{subsubsection.35.3.2.4}%
+\contentsline {subsubsection}{\numberline {(5)}按字符设置}{296}{subsubsection.35.3.2.5}%
+\contentsline {chapter}{\numberline {第三十六章\hspace {.3em}}manim动画效果}{299}{chapter.36}%
+\contentsline {section}{\numberline {一、}创建}{299}{section.36.1}%
+\contentsline {subsection}{\numberline {1)}Create 创建图形}{299}{subsection.36.1.1}%
+\contentsline {subsection}{\numberline {2)}Write 书写效果}{300}{subsection.36.1.2}%
+\contentsline {subsection}{\numberline {3)}FadeIn 淡入效果}{300}{subsection.36.1.3}%
+\contentsline {subsection}{\numberline {4)}add 添加元素}{301}{subsection.36.1.4}%
+\contentsline {section}{\numberline {二、}销毁}{301}{section.36.2}%
+\contentsline {subsection}{\numberline {1)}Uncreate 擦除图形}{301}{subsection.36.2.1}%
+\contentsline {subsection}{\numberline {2)}Unwrite 擦除文字}{302}{subsection.36.2.2}%
+\contentsline {subsection}{\numberline {3)}FadeOut 淡出效果}{302}{subsection.36.2.3}%
+\contentsline {section}{\numberline {三、}移动}{303}{section.36.3}%
+\contentsline {subsection}{\numberline {1)}shift 移动指定距离}{303}{subsection.36.3.1}%
+\contentsline {subsection}{\numberline {2)}move\_to 移动到指定位置}{303}{subsection.36.3.2}%
+\contentsline {subsection}{\numberline {3)}MoveAlongPath 沿路径移动}{304}{subsection.36.3.3}%
+\contentsline {subsection}{\numberline {4)}TracedPath 保留运动路径}{305}{subsection.36.3.4}%
+\contentsline {section}{\numberline {四、}Rotate 旋转}{306}{section.36.4}%
+\contentsline {section}{\numberline {五、}变换}{307}{section.36.5}%
+\contentsline {subsection}{\numberline {1)}图形变换}{307}{subsection.36.5.1}%
+\contentsline {subsubsection}{\numberline {(1)}TransformFromCopy 保留原图形}{307}{subsubsection.36.5.1.1}%
+\contentsline {subsubsection}{\numberline {(2)}ReplacementTransform 原图形直接变换成新的图形}{308}{subsubsection.36.5.1.2}%
+\contentsline {subsection}{\numberline {2)}文字变换}{308}{subsection.36.5.2}%
+\contentsline {subsubsection}{\numberline {(1)}TransformFromCopy 保留原文字}{308}{subsubsection.36.5.2.1}%
+\contentsline {subsubsection}{\numberline {(2)}ReplacementTransform 原文字直接变换成新的文字}{309}{subsubsection.36.5.2.2}%
+\contentsline {section}{\numberline {六、}动画效果属性}{311}{section.36.6}%
+\contentsline {section}{\numberline {七、}光照样式}{311}{section.36.7}%
+\contentsline {section}{\numberline {八、}三维对象样式}{311}{section.36.8}%
+\contentsline {section}{\numberline {九、}动画组合}{312}{section.36.9}%
+\contentsline {subsection}{\numberline {1)}LaggedStart 延迟启动}{312}{subsection.36.9.1}%
+\contentsline {subsection}{\numberline {2)}Succession 顺序启动}{313}{subsection.36.9.2}%
+\contentsline {section}{\numberline {十、}动画联动}{314}{section.36.10}%
+\contentsline {section}{\numberline {十一、}相机}{319}{section.36.11}%
+\contentsline {subsection}{\numberline {1)}相机概念}{319}{subsection.36.11.1}%
+\contentsline {subsection}{\numberline {2)}相机移动}{319}{subsection.36.11.2}%
+\contentsline {subsubsection}{\numberline {(1)}move\_to 移动焦点}{319}{subsubsection.36.11.2.1}%
+\contentsline {subsubsection}{\numberline {(2)}set 改变视野}{320}{subsubsection.36.11.2.2}%
+\contentsline {subsection}{\numberline {3)}鹰眼效果}{321}{subsection.36.11.3}%
+\contentsline {subsection}{\numberline {4)}追踪物体}{321}{subsection.36.11.4}%
+\contentsline {subsection}{\numberline {5)}3D 场景}{322}{subsection.36.11.5}%
+\contentsline {part}{第七部分\hspace {1em}互联}{325}{part.7}%
+\contentsline {chapter}{\numberline {第三十七章\hspace {.3em}}urllib}{327}{chapter.37}%
+\contentsline {section}{\numberline {一、}简介}{327}{section.37.1}%
+\contentsline {section}{\numberline {二、}urllib.request}{327}{section.37.2}%
+\contentsline {subsection}{\numberline {1)}Get}{328}{subsection.37.2.1}%
+\contentsline {subsection}{\numberline {2)}Post}{328}{subsection.37.2.2}%
+\contentsline {subsection}{\numberline {3)}Http Headers}{328}{subsection.37.2.3}%
+\contentsline {subsection}{\numberline {4)}Proxy}{329}{subsection.37.2.4}%
+\contentsline {section}{\numberline {三、}requests}{329}{section.37.3}%
+\contentsline {subsection}{\numberline {1)}安装}{330}{subsection.37.3.1}%
+\contentsline {subsection}{\numberline {2)}Get}{330}{subsection.37.3.2}%
+\contentsline {subsection}{\numberline {3)}Post}{330}{subsection.37.3.3}%
+\contentsline {chapter}{\numberline {第三十八章\hspace {.3em}}django概述}{331}{chapter.38}%
+\contentsline {section}{\numberline {一、}概述}{331}{section.38.1}%
+\contentsline {section}{\numberline {二、}MVC模型}{331}{section.38.2}%
+\contentsline {subsection}{\numberline {1)}MTV模型}{331}{subsection.38.2.1}%
+\contentsline {subsection}{\numberline {2)}Django的工作流程}{332}{subsection.38.2.2}%
+\contentsline {section}{\numberline {三、}Django的安装}{333}{section.38.3}%
+\contentsline {subsection}{\numberline {1)}conda安装}{333}{subsection.38.3.1}%
+\contentsline {subsection}{\numberline {2)}pip安装}{333}{subsection.38.3.2}%
+\contentsline {section}{\numberline {四、}主项目}{333}{section.38.4}%
+\contentsline {subsection}{\numberline {1)}创建项目}{333}{subsection.38.4.1}%
+\contentsline {subsection}{\numberline {2)}查询帮助}{333}{subsection.38.4.2}%
+\contentsline {subsection}{\numberline {3)}启动项目}{336}{subsection.38.4.3}%
+\contentsline {section}{\numberline {五、}创建子应用}{336}{section.38.5}%
+\contentsline {subsubsection}{\numberline {(1)}子应用的作用}{336}{subsubsection.38.5.0.1}%
+\contentsline {subsection}{\numberline {1)}创建子应用}{336}{subsection.38.5.1}%
+\contentsline {subsection}{\numberline {2)}注册子应用}{337}{subsection.38.5.2}%
+\contentsline {chapter}{\numberline {第三十九章\hspace {.3em}}Django模型(数据库)}{339}{chapter.39}%
+\contentsline {section}{\numberline {一、}Django模型简介}{339}{section.39.1}%
+\contentsline {section}{\numberline {二、}数据库的配置}{339}{section.39.2}%
+\contentsline {subsection}{\numberline {1)}sqlite3数据库配置}{339}{subsection.39.2.1}%
+\contentsline {subsubsection}{\numberline {(1)}settings.py配置}{339}{subsubsection.39.2.1.1}%
+\contentsline {subsection}{\numberline {2)}MySQL数据库配置}{339}{subsection.39.2.2}%
+\contentsline {subsubsection}{\numberline {(1)}安装MySQL驱动}{339}{subsubsection.39.2.2.1}%
+\contentsline {subsubsection}{\numberline {(2)}提前配置数据库}{340}{subsubsection.39.2.2.2}%
+\contentsline {subsubsection}{\numberline {(3)}配置settings.py}{341}{subsubsection.39.2.2.3}%
+\contentsline {subsection}{\numberline {3)}PostgreSQL数据库配置}{343}{subsection.39.2.3}%
+\contentsline {subsubsection}{\numberline {(1)}安装psycopg2}{343}{subsubsection.39.2.3.1}%
+\contentsline {subsubsection}{\numberline {(2)}[可选]配置 PostgreSQL 的远程访问}{343}{subsubsection.39.2.3.2}%
+\contentsline {subsubsection}{\numberline {(3)}配置settings.py}{344}{subsubsection.39.2.3.3}%
+\contentsline {subsection}{\numberline {4)}Redis数据库配置}{345}{subsection.39.2.4}%
+\contentsline {section}{\numberline {三、}定义模型}{345}{section.39.3}%
+\contentsline {subsection}{\numberline {1)}前提准备————创建子应用}{345}{subsection.39.3.1}%
+\contentsline {subsection}{\numberline {2)}定义表结构}{346}{subsection.39.3.2}%
+\contentsline {subsubsection}{\numberline {(1)}ORM的字段类型}{346}{subsubsection.39.3.2.1}%
+\contentsline {subsubsection}{\numberline {(2)}外键关联}{347}{subsubsection.39.3.2.2}%
+\contentsline {subsection}{\numberline {3)}添加INSTALLED\_APPS}{347}{subsection.39.3.3}%
+\contentsline {subsection}{\numberline {4)}生成迁移文件}{348}{subsection.39.3.4}%
+\contentsline {subsubsection}{\numberline {(1)}查看数据库}{349}{subsubsection.39.3.4.1}%
+\contentsline {subsection}{\numberline {5)}常见报错}{349}{subsection.39.3.5}%
+\contentsline {subsubsection}{\numberline {(1)}mysqlclient报错}{350}{subsubsection.39.3.5.1}%
+\contentsline {section}{\numberline {四、}对象关系映射(ORM)}{350}{section.39.4}%
+\contentsline {subsection}{\numberline {1)}ORM与数据库的对应关系}{350}{subsection.39.4.1}%
+\contentsline {subsection}{\numberline {2)}数据库操作}{350}{subsection.39.4.2}%
+\contentsline {subsubsection}{\numberline {(1)}增}{350}{subsubsection.39.4.2.1}%
+\contentsline {subsubsection}{\numberline {(2)}查询}{351}{subsubsection.39.4.2.2}%
+\contentsline {subsubsection}{\numberline {(3)}改}{352}{subsubsection.39.4.2.3}%
+\contentsline {subsubsection}{\numberline {(4)}删}{352}{subsubsection.39.4.2.4}%
+\contentsline {section}{\numberline {五、}后台管理}{353}{section.39.5}%
+\contentsline {subsection}{\numberline {1)}创建超级用户}{353}{subsection.39.5.1}%
+\contentsline {subsection}{\numberline {2)}设置中文}{353}{subsection.39.5.2}%
+\contentsline {subsection}{\numberline {3)}注册模型}{353}{subsection.39.5.3}%
+\contentsline {subsection}{\numberline {4)}问题}{355}{subsection.39.5.4}%
+\contentsline {chapter}{\numberline {第四十章\hspace {.3em}}视图}{357}{chapter.40}%
+\contentsline {section}{\numberline {一、}视图}{357}{section.40.1}%
+\contentsline {section}{\numberline {二、}视图函数}{357}{section.40.2}%
+\contentsline {subsection}{\numberline {1)}视图函数——HttpResponse}{357}{subsection.40.2.1}%
+\contentsline {subsection}{\numberline {2)}渲染模板——render}{357}{subsection.40.2.2}%
+\contentsline {section}{\numberline {三、}URL配置(URLconf)}{358}{section.40.3}%
+\contentsline {subsection}{\numberline {1)}path() 将URL模式映射到视图}{359}{subsection.40.3.1}%
+\contentsline {subsection}{\numberline {2)}[弃用] url()/re\_path 将URL模式映射到视图}{360}{subsection.40.3.2}%
+\contentsline {subsection}{\numberline {3)}[不单独使用] include() 导入URL模式}{361}{subsection.40.3.3}%
+\contentsline {section}{\numberline {四、}路由视图过程}{362}{section.40.4}%
+\contentsline {chapter}{\numberline {第四十一章\hspace {.3em}}模板template}{365}{chapter.41}%
+\contentsline {section}{\numberline {一、}模板概述}{365}{section.41.1}%
+\contentsline {subsection}{\numberline {1)}模板的定义}{368}{subsection.41.1.1}%
+\contentsline {section}{\numberline {二、}静态文件}{369}{section.41.2}%
+\contentsline {subsection}{\numberline {1)}静态文件的作用}{369}{subsection.41.2.1}%
+\contentsline {subsection}{\numberline {2)}静态文件的配置}{369}{subsection.41.2.2}%
+\contentsline {part}{第八部分\hspace {1em}数据处理与分析}{371}{part.8}%
+\contentsline {chapter}{\numberline {第四十二章\hspace {.3em}}[Python库] Pandas}{373}{chapter.42}%
+\contentsline {section}{\numberline {一、}简介}{373}{section.42.1}%
+\contentsline {section}{\numberline {二、}安装}{373}{section.42.2}%
+\contentsline {chapter}{\numberline {第四十三章\hspace {.3em}}Pandas的数据结构}{375}{chapter.43}%
+\contentsline {section}{\numberline {一、}Series}{375}{section.43.1}%
+\contentsline {section}{\numberline {二、}DataFrame}{375}{section.43.2}%
+\contentsline {section}{\numberline {三、}Index}{375}{section.43.3}%
+\contentsline {chapter}{\numberline {第四十四章\hspace {.3em}}Pandas数据的引用和读取}{377}{chapter.44}%
+\contentsline {section}{\numberline {一、}数据的引用}{377}{section.44.1}%
+\contentsline {section}{\numberline {二、}文件的读取与写入}{377}{section.44.2}%
+\contentsline {subsection}{\numberline {1)}CSV}{377}{subsection.44.2.1}%
+\contentsline {subsection}{\numberline {2)}Excel}{377}{subsection.44.2.2}%
+\contentsline {subsection}{\numberline {3)}JSON}{377}{subsection.44.2.3}%
+\contentsline {subsection}{\numberline {4)}HDF5}{377}{subsection.44.2.4}%
+\contentsline {chapter}{\numberline {第四十五章\hspace {.3em}}Pandas数据的聚合和排序}{379}{chapter.45}%
+\contentsline {part}{第九部分\hspace {1em}人工智能}{381}{part.9}%
+\contentsline {chapter}{\numberline {第四十六章\hspace {.3em}}PyTorch}{383}{chapter.46}%
+\contentsline {section}{\numberline {一、}概述}{383}{section.46.1}%
+\contentsline {subsection}{\numberline {1)}与TensorFlow的比较}{383}{subsection.46.1.1}%
+\contentsline {section}{\numberline {二、}PyTorch的历史}{384}{section.46.2}%
+\contentsline {section}{\numberline {三、}PyTorch的主要应用}{384}{section.46.3}%
+\contentsline {section}{\numberline {四、}Pytorch环境搭建}{385}{section.46.4}%
+\contentsline {subsection}{\numberline {1)}前提条件}{385}{subsection.46.4.1}%
+\contentsline {subsection}{\numberline {2)}CPU版本}{385}{subsection.46.4.2}%
+\contentsline {subsection}{\numberline {3)}GPU版本}{385}{subsection.46.4.3}%
+\contentsline {subsubsection}{\numberline {(1)}conda安装}{385}{subsubsection.46.4.3.1}%
+\contentsline {subsubsection}{\numberline {(2)}whl安装}{386}{subsubsection.46.4.3.2}%
+\contentsline {subsection}{\numberline {4)}问题}{386}{subsection.46.4.4}%
+\contentsline {subsection}{\numberline {5)}后续辅助}{386}{subsection.46.4.5}%
+\contentsline {section}{\numberline {五、}PyTorch 模块结构}{387}{section.46.5}%
+\contentsline {subsection}{\numberline {1)}Torch 相关}{387}{subsection.46.5.1}%
+\contentsline {subsubsection}{\numberline {(1)}PyTorch 安装目录}{387}{subsubsection.46.5.1.1}%
+\contentsline {subsubsection}{\numberline {(2)}PyTorch的主要模块}{387}{subsubsection.46.5.1.2}%
+\contentsline {subsection}{\numberline {2)}torchvision 相关}{389}{subsection.46.5.2}%
+\contentsline {subsubsection}{\numberline {(1)}torchvision 安装目录}{389}{subsubsection.46.5.2.1}%
+\contentsline {subsubsection}{\numberline {(2)}torchvision的主要模块}{389}{subsubsection.46.5.2.2}%
+\contentsline {chapter}{\numberline {第四十七章\hspace {.3em}}PyTorch基础}{393}{chapter.47}%
+\contentsline {section}{\numberline {一、}Tensor概述}{393}{section.47.1}%
+\contentsline {subsection}{\numberline {1)}Tensor简介}{393}{subsection.47.1.1}%
+\contentsline {subsection}{\numberline {2)}Tensor的作用}{393}{subsection.47.1.2}%
+\contentsline {subsection}{\numberline {3)}torch.Tensor和torch.tensor}{393}{subsection.47.1.3}%
+\contentsline {subsection}{\numberline {4)}Tensor的历史演变}{394}{subsection.47.1.4}%
+\contentsline {subsection}{\numberline {5)}Tensor的结构属性}{394}{subsection.47.1.5}%
+\contentsline {section}{\numberline {二、}Tensor操作}{395}{section.47.2}%
+\contentsline {subsection}{\numberline {1)}Tensor操作分类}{395}{subsection.47.2.1}%
+\contentsline {subsection}{\numberline {2)}创建Tensor}{396}{subsection.47.2.2}%
+\contentsline {subsubsection}{\numberline {(1)}直接创建}{397}{subsubsection.47.2.2.1}%
+\contentsline {subsubsection}{\numberline {(2)}从NumPy数组创建}{398}{subsubsection.47.2.2.2}%
+\contentsline {subsubsection}{\numberline {(3)}概率分布创建张量}{399}{subsubsection.47.2.2.3}%
+\contentsline {subsubsection}{\numberline {(4)}根据数值创建Tensor}{405}{subsubsection.47.2.2.4}%
+\contentsline {subsubsection}{\numberline {(5)}创建特殊张量}{411}{subsubsection.47.2.2.5}%
+\contentsline {subsection}{\numberline {3)}Tensor的转换}{412}{subsection.47.2.3}%
+\contentsline {subsection}{\numberline {4)}数学运算函数}{413}{subsection.47.2.4}%
+\contentsline {subsubsection}{\numberline {(1)}torch.add() 张量逐元素相加}{413}{subsubsection.47.2.4.1}%
+\contentsline {subsubsection}{\numberline {(2)}torch.addcdiv() 张量逐元素相加并除以第三个张量}{414}{subsubsection.47.2.4.2}%
+\contentsline {subsubsection}{\numberline {(3)}torch.addcmul() 张量逐元素相加并乘以第三个张量}{414}{subsubsection.47.2.4.3}%
+\contentsline {subsubsection}{\numberline {(4)}torch.sub()}{415}{subsubsection.47.2.4.4}%
+\contentsline {subsubsection}{\numberline {(5)}torch.mul() 逐元素相乘}{415}{subsubsection.47.2.4.5}%
+\contentsline {subsubsection}{\numberline {(6)}torch.div()}{416}{subsubsection.47.2.4.6}%
+\contentsline {subsubsection}{\numberline {(7)}torch.matmul() 矩阵乘法}{416}{subsubsection.47.2.4.7}%
+\contentsline {subsubsection}{\numberline {(8)}torch.dot()}{417}{subsubsection.47.2.4.8}%
+\contentsline {subsubsection}{\numberline {(9)}torch.pow()}{417}{subsubsection.47.2.4.9}%
+\contentsline {subsubsection}{\numberline {(10)}torch.exp()}{417}{subsubsection.47.2.4.10}%
+\contentsline {subsubsection}{\numberline {(11)}torch.log()}{418}{subsubsection.47.2.4.11}%
+\contentsline {subsubsection}{\numberline {(12)}torch.log2()}{418}{subsubsection.47.2.4.12}%
+\contentsline {subsubsection}{\numberline {(13)}torch.log10()}{418}{subsubsection.47.2.4.13}%
+\contentsline {subsubsection}{\numberline {(14)}torch.sqrt()}{419}{subsubsection.47.2.4.14}%
+\contentsline {subsubsection}{\numberline {(15)}torch.sin()}{419}{subsubsection.47.2.4.15}%
+\contentsline {subsubsection}{\numberline {(16)}torch.cos()}{419}{subsubsection.47.2.4.16}%
+\contentsline {subsubsection}{\numberline {(17)}torch.tan()}{420}{subsubsection.47.2.4.17}%
+\contentsline {subsubsection}{\numberline {(18)}torch.asin()}{420}{subsubsection.47.2.4.18}%
+\contentsline {subsubsection}{\numberline {(19)}torch.acos()}{421}{subsubsection.47.2.4.19}%
+\contentsline {subsubsection}{\numberline {(20)}torch.atan()}{421}{subsubsection.47.2.4.20}%
+\contentsline {subsubsection}{\numberline {(21)}torch.atan2()}{421}{subsubsection.47.2.4.21}%
+\contentsline {subsubsection}{\numberline {(22)}torch.sinh()}{422}{subsubsection.47.2.4.22}%
+\contentsline {subsubsection}{\numberline {(23)}torch.cosh()}{422}{subsubsection.47.2.4.23}%
+\contentsline {subsubsection}{\numberline {(24)}torch.tanh()}{422}{subsubsection.47.2.4.24}%
+\contentsline {subsubsection}{\numberline {(25)}torch.mean()}{423}{subsubsection.47.2.4.25}%
+\contentsline {subsubsection}{\numberline {(26)}torch.sum()}{423}{subsubsection.47.2.4.26}%
+\contentsline {subsubsection}{\numberline {(27)}torch取整函数}{423}{subsubsection.47.2.4.27}%
+\contentsline {subsection}{\numberline {5)}随机抽样函数}{424}{subsection.47.2.5}%
+\contentsline {subsubsection}{\numberline {(1)}torch.seed()}{424}{subsubsection.47.2.5.1}%
+\contentsline {subsubsection}{\numberline {(2)}torch.manual\_seed(seed)}{424}{subsubsection.47.2.5.2}%
+\contentsline {subsubsection}{\numberline {(3)}torch.initial\_seed()}{425}{subsubsection.47.2.5.3}%
+\contentsline {subsubsection}{\numberline {(4)}torch.get\_rng\_state()}{425}{subsubsection.47.2.5.4}%
+\contentsline {subsubsection}{\numberline {(5)}torch.set\_rng\_state(new\_state)}{425}{subsubsection.47.2.5.5}%
+\contentsline {subsection}{\numberline {6)}统计函数}{426}{subsection.47.2.6}%
+\contentsline {subsubsection}{\numberline {(1)}torch.prob() 所有元素的积}{426}{subsubsection.47.2.6.1}%
+\contentsline {subsubsection}{\numberline {(2)}torch.sum() 所有元素的和}{426}{subsubsection.47.2.6.2}%
+\contentsline {subsubsection}{\numberline {(3)}torch.mean() 所有元素的平均值}{427}{subsubsection.47.2.6.3}%
+\contentsline {subsubsection}{\numberline {(4)}torch.max() 所有元素的最大值}{428}{subsubsection.47.2.6.4}%
+\contentsline {subsubsection}{\numberline {(5)}torch.min() 所有元素的最小值}{429}{subsubsection.47.2.6.5}%
+\contentsline {subsubsection}{\numberline {(6)}torch.median() 所有元素的中位数}{430}{subsubsection.47.2.6.6}%
+\contentsline {subsubsection}{\numberline {(7)}torch.mode() 所有元素的众数}{432}{subsubsection.47.2.6.7}%
+\contentsline {subsubsection}{\numberline {(8)}torch.var() 所有元素的方差}{433}{subsubsection.47.2.6.8}%
+\contentsline {subsubsection}{\numberline {(9)}torch.std() 所有元素的标准差}{437}{subsubsection.47.2.6.9}%
+\contentsline {subsection}{\numberline {7)}Tensor的形状}{437}{subsection.47.2.7}%
+\contentsline {subsubsection}{\numberline {(1)}获取Tensor的形状}{438}{subsubsection.47.2.7.1}%
+\contentsline {subsubsection}{\numberline {(2)}Tensor的形状变换}{438}{subsubsection.47.2.7.2}%
+\contentsline {subsection}{\numberline {8)}Tensor的索引}{442}{subsection.47.2.8}%
+\contentsline {subsubsection}{\numberline {(1)}index\_select() 按照索引获取张量中的元素}{442}{subsubsection.47.2.8.1}%
+\contentsline {subsubsection}{\numberline {(2)}masked\_select() 按照掩码获取张量中的元素}{445}{subsubsection.47.2.8.2}%
+\contentsline {subsection}{\numberline {9)}Tensor的广播机制}{448}{subsection.47.2.9}%
+\contentsline {subsection}{\numberline {10)}归并操作}{450}{subsection.47.2.10}%
+\contentsline {subsection}{\numberline {11)}比较操作}{452}{subsection.47.2.11}%
+\contentsline {subsection}{\numberline {12)}矩阵操作}{454}{subsection.47.2.12}%
+\contentsline {subsection}{\numberline {13)}矩阵转秩 (维度转换)}{457}{subsection.47.2.13}%
+\contentsline {subsubsection}{\numberline {(1)}permute() }{457}{subsubsection.47.2.13.1}%
+\contentsline {subsubsection}{\numberline {(2)}transpose()}{458}{subsubsection.47.2.13.2}%
+\contentsline {subsection}{\numberline {14)}增减维度}{458}{subsection.47.2.14}%
+\contentsline {subsubsection}{\numberline {(1)}squeeze() 删除维度为1的维度}{458}{subsubsection.47.2.14.1}%
+\contentsline {subsubsection}{\numberline {(2)}手动删除维度}{462}{subsubsection.47.2.14.2}%
+\contentsline {subsubsection}{\numberline {(3)}unsqueeze() 增加维度}{462}{subsubsection.47.2.14.3}%
+\contentsline {subsection}{\numberline {15)}Tensor 的连接操作}{464}{subsection.47.2.15}%
+\contentsline {subsubsection}{\numberline {(1)}cat() 不变维度连接}{464}{subsubsection.47.2.15.1}%
+\contentsline {subsubsection}{\numberline {(2)}stack() 增加维度连接}{470}{subsubsection.47.2.15.2}%
+\contentsline {subsection}{\numberline {16)}Tensor的切片}{475}{subsection.47.2.16}%
+\contentsline {subsubsection}{\numberline {(1)}chunk() 均分}{475}{subsubsection.47.2.16.1}%
+\contentsline {subsubsection}{\numberline {(2)}split() 按照指定大小切分}{478}{subsubsection.47.2.16.2}%
+\contentsline {subsubsection}{\numberline {(3)}unbind() 按照指定维度切分}{481}{subsubsection.47.2.16.3}%
+\contentsline {subsection}{\numberline {17)}根据操作张量中的元素分类}{483}{subsection.47.2.17}%
+\contentsline {subsubsection}{\numberline {(1)}逐元素操作}{483}{subsubsection.47.2.17.1}%
+\contentsline {subsubsection}{\numberline {(2)}in-place操作}{486}{subsubsection.47.2.17.2}%
+\contentsline {subsubsection}{\numberline {(3)}内存布局连续}{487}{subsubsection.47.2.17.3}%
+\contentsline {section}{\numberline {三、}autograd自动求导微分}{490}{section.47.3}%
+\contentsline {subsection}{\numberline {1)}Tensor与Variable}{490}{subsection.47.3.1}%
+\contentsline {subsection}{\numberline {2)}自动求导要点}{491}{subsection.47.3.2}%
+\contentsline {subsection}{\numberline {3)}计算图}{492}{subsection.47.3.3}%
+\contentsline {subsubsection}{\numberline {(1)}计算图的推导}{492}{subsubsection.47.3.3.1}%
+\contentsline {subsubsection}{\numberline {(2)}计算图的元素}{496}{subsubsection.47.3.3.2}%
+\contentsline {subsubsection}{\numberline {(3)}计算图的属性 grad\_fn}{497}{subsubsection.47.3.3.3}%
+\contentsline {subsection}{\numberline {4)}autograd包}{499}{subsection.47.3.4}%
+\contentsline {subsubsection}{\numberline {(1)}torch.autograd 简介}{499}{subsubsection.47.3.4.1}%
+\contentsline {subsubsection}{\numberline {(2)}torch.autograd.backward()}{500}{subsubsection.47.3.4.2}%
+\contentsline {subsubsubsection}{\numberline {1}标量反向传播}{504}{subsubsubsection.47.3.4.2.1}%
+\contentsline {subsubsubsection}{\numberline {2}非标量反向传播}{508}{subsubsubsection.47.3.4.2.2}%
+\contentsline {subsubsection}{\numberline {(3)}torch.autograd.grad()}{511}{subsubsection.47.3.4.3}%
+\contentsline {subsubsection}{\numberline {(4)}torch.autograd.Function}{513}{subsubsection.47.3.4.4}%
+\contentsline {subsection}{\numberline {5)}autograd的注意事项}{519}{subsection.47.3.5}%
+\contentsline {subsubsection}{\numberline {(1)}梯度不会自动清零}{519}{subsubsection.47.3.5.1}%
+\contentsline {subsubsection}{\numberline {(2)}叶子结点不可执行in-place}{520}{subsubsection.47.3.5.2}%
+\contentsline {subsubsection}{\numberline {(3)}detach 切断一些分支的反向传播}{520}{subsubsection.47.3.5.3}%
+\contentsline {section}{\numberline {四、}Tensor与Numpy比较}{522}{section.47.4}%
+\contentsline {chapter}{\numberline {第四十八章\hspace {.3em}}PyTorch数据处理}{533}{chapter.48}%
+\contentsline {section}{\numberline {一、}数据处理工具箱概述}{533}{section.48.1}%
+\contentsline {section}{\numberline {二、}utils.data}{533}{section.48.2}%
+\contentsline {subsection}{\numberline {1)}Dataset 数据交互模块}{534}{subsection.48.2.1}%
+\contentsline {subsection}{\numberline {2)}DataLoader 数据加载模块}{535}{subsection.48.2.2}%
+\contentsline {section}{\numberline {三、}torchvision 图形处理工具箱}{537}{section.48.3}%
+\contentsline {subsection}{\numberline {1)}torchvision安装}{537}{subsection.48.3.1}%
+\contentsline {subsection}{\numberline {2)}torchvision.datasets}{537}{subsection.48.3.2}%
+\contentsline {subsection}{\numberline {3)}torchvision.models}{537}{subsection.48.3.3}%
+\contentsline {subsection}{\numberline {4)}torchvision.transforms}{537}{subsection.48.3.4}%
+\contentsline {subsection}{\numberline {5)}torchvision.utils}{538}{subsection.48.3.5}%
+\contentsline {section}{\numberline {四、}可视化工具}{538}{section.48.4}%
+\contentsline {subsection}{\numberline {1)}TensorBoard}{538}{subsection.48.4.1}%
+\contentsline {subsubsection}{\numberline {(1)}安装}{539}{subsubsection.48.4.1.1}%
+\contentsline {subsubsection}{\numberline {(2)}使用}{539}{subsubsection.48.4.1.2}%
+\contentsline {chapter}{\numberline {第四十九章\hspace {.3em}}PyTorch神经网络工具}{543}{chapter.49}%
+\contentsline {section}{\numberline {一、}神经网络核心组件}{543}{section.49.1}%
+\contentsline {section}{\numberline {二、}构建神经网络的主要工具}{544}{section.49.2}%
+\contentsline {subsection}{\numberline {1)}nn.Module}{544}{subsection.49.2.1}%
+\contentsline {subsection}{\numberline {2)}nn.functional}{544}{subsection.49.2.2}%
+\contentsline {subsubsection}{\numberline {(1)}nn.Module和nn.functional的区别}{544}{subsubsection.49.2.2.1}%
+\contentsline {section}{\numberline {三、}构建模型的方法}{547}{section.49.3}%
+\contentsline {subsection}{\numberline {1)}继承nn.Module基类构建模型}{548}{subsection.49.3.1}%
+\contentsline {subsection}{\numberline {2)}使用nn.Sequential按层顺序构建模型}{550}{subsection.49.3.2}%
+\contentsline {subsection}{\numberline {3)}继承nn.Module基类构建模型，再使用相关模型容器进行封装}{554}{subsection.49.3.3}%
+\contentsline {section}{\numberline {四、}损失优化}{557}{section.49.4}%
+\contentsline {subsection}{\numberline {1)}Pytorch激活函数}{557}{subsection.49.4.1}%
+\contentsline {subsection}{\numberline {2)}Pytorch损失函数}{558}{subsection.49.4.2}%
+\contentsline {subsection}{\numberline {3)}Pytorch优化器}{564}{subsection.49.4.3}%
+\contentsline {section}{\numberline {五、}训练模型}{567}{section.49.5}%
+\contentsline {subsection}{\numberline {1)}加载和预处理数据集}{567}{subsection.49.5.1}%
+\contentsline {subsection}{\numberline {2)}定义损失函数}{567}{subsection.49.5.2}%
+\contentsline {subsection}{\numberline {3)}定义优化方法}{567}{subsection.49.5.3}%
+\contentsline {subsection}{\numberline {4)}循环训练模型}{567}{subsection.49.5.4}%
+\contentsline {subsection}{\numberline {5)}循环测试或验证模型}{568}{subsection.49.5.5}%
+\contentsline {subsubsection}{\numberline {(1)}比较model.train()和model.eval()的区别}{568}{subsubsection.49.5.5.1}%
+\contentsline {subsection}{\numberline {6)}可视化结果}{568}{subsection.49.5.6}%
+\contentsline {section}{\numberline {六、}正则化}{568}{section.49.6}%
+\contentsline {subsection}{\numberline {1)}L1正则化}{568}{subsection.49.6.1}%
+\contentsline {subsection}{\numberline {2)}L2正则化}{568}{subsection.49.6.2}%
+\contentsline {subsection}{\numberline {3)}Dropout}{569}{subsection.49.6.3}%
+\contentsline {subsection}{\numberline {4)}Batch Normalization}{569}{subsection.49.6.4}%
+\contentsline {section}{\numberline {七、}训练技巧}{569}{section.49.7}%
+\contentsline {section}{\numberline {八、}保存和加载模型}{569}{section.49.8}%
+\contentsline {section}{\numberline {九、}实例}{569}{section.49.9}%
+\contentsline {subsection}{\numberline {1)}模拟余弦函数曲线}{569}{subsection.49.9.1}%
+\contentsline {part}{第十部分\hspace {1em}办公自动化}{573}{part.10}%
+\contentsline {chapter}{\numberline {第五十章\hspace {.3em}}excel自动化概述}{575}{chapter.50}%
+\contentsline {section}{\numberline {一、}Excel介绍}{575}{section.50.1}%
+\contentsline {section}{\numberline {二、}处理Excel文件的Python模块}{575}{section.50.2}%
+\contentsline {chapter}{\numberline {第五十一章\hspace {.3em}}Pandas处理Excel}{577}{chapter.51}%
+\contentsline {section}{\numberline {一、}Excel文件操作}{577}{section.51.1}%
+\contentsline {subsection}{\numberline {1)}read\_excel 文件读取}{577}{subsection.51.1.1}%
+\contentsline {subsection}{\numberline {2)}DataFrame.to\_excel 文件写入}{577}{subsection.51.1.2}%
+\contentsline {section}{\numberline {二、}Sheet工作表(sheet)}{578}{section.51.2}%
+\contentsline {subsection}{\numberline {1)}读取工作表(sheet)}{578}{subsection.51.2.1}%
+\contentsline {subsection}{\numberline {2)}写入工作表(sheet)}{578}{subsection.51.2.2}%
+\contentsline {section}{\numberline {三、}Cell单元格}{578}{section.51.3}%
+\contentsline {subsection}{\numberline {1)}获取单元格}{579}{subsection.51.3.1}%
+\contentsline {subsubsection}{\numberline {(1)}按行/列索引获取单元格}{579}{subsubsection.51.3.1.1}%
+\contentsline {subsubsection}{\numberline {(2)}按区块获取单元格}{579}{subsubsection.51.3.1.2}%
+\contentsline {subsection}{\numberline {2)}数据筛选}{579}{subsection.51.3.2}%
+\contentsline {subsection}{\numberline {3)}sort\_values 排序}{579}{subsection.51.3.3}%
+\contentsline {subsection}{\numberline {4)}数据运算}{579}{subsection.51.3.4}%
+\contentsline {subsection}{\numberline {5)}drop 删除行/列}{580}{subsection.51.3.5}%
+\contentsline {subsection}{\numberline {6)}数据表的拼接}{580}{subsection.51.3.6}%
+\contentsline {subsubsection}{\numberline {(1)}merge 拼接}{580}{subsubsection.51.3.6.1}%
+\contentsline {subsubsection}{\numberline {(2)}concat 全连接}{581}{subsubsection.51.3.6.2}%
+\contentsline {subsubsection}{\numberline {(3)}append 纵向拼接}{582}{subsubsection.51.3.6.3}%
+\contentsline {chapter}{\numberline {第五十二章\hspace {.3em}}[麻烦] xlrd、xlwt与xlutils库}{585}{chapter.52}%
+\contentsline {section}{\numberline {一、}安装}{585}{section.52.1}%
+\contentsline {section}{\numberline {二、}读取Excel内容}{586}{section.52.2}%
+\contentsline {section}{\numberline {三、}写入Excel内容}{587}{section.52.3}%
+\contentsline {section}{\numberline {四、}类型转换}{588}{section.52.4}%
+\contentsline {section}{\numberline {五、}合并单元格}{591}{section.52.5}%
+\contentsline {section}{\numberline {六、}使用Excel函数}{592}{section.52.6}%
+\contentsline {section}{\numberline {七、}复制现有的Excel文件并添加新的数据}{597}{section.52.7}%
+\contentsline {section}{\numberline {八、}合并多个Excel文件}{598}{section.52.8}%
+\contentsline {section}{\numberline {九、}修改现有的Excel文件}{599}{section.52.9}%
+\contentsline {chapter}{\numberline {第五十三章\hspace {.3em}}[简洁] openpyxl库}{601}{chapter.53}%
+\contentsline {section}{\numberline {一、}安装}{601}{section.53.1}%
+\contentsline {section}{\numberline {二、}创建Excel文件}{601}{section.53.2}%
+\contentsline {section}{\numberline {三、}读取Excel内容}{601}{section.53.3}%
+\contentsline {subsection}{\numberline {1)}load\_workbook() 打开文件}{602}{subsection.53.3.1}%
+\contentsline {subsection}{\numberline {2)}sheet表单}{602}{subsection.53.3.2}%
+\contentsline {section}{\numberline {四、}写入Excel内容}{603}{section.53.4}%
+\contentsline {section}{\numberline {五、}修改Excel文件单元格内容}{604}{section.53.5}%
+\contentsline {section}{\numberline {六、}修改Excel文件样式}{605}{section.53.6}%
+\contentsline {subsection}{\numberline {1)}基本样式}{605}{subsection.53.6.1}%
+\contentsline {subsection}{\numberline {2)}自定义样式}{606}{subsection.53.6.2}%
+\contentsline {section}{\numberline {七、}操作大型Excel文件}{608}{section.53.7}%
+\contentsline {subsection}{\numberline {1)}read\_only模式}{609}{subsection.53.7.1}%
+\contentsline {subsection}{\numberline {2)}write\_only模式}{610}{subsection.53.7.2}%
+\contentsline {chapter}{\numberline {第五十四章\hspace {.3em}}[必须安装Excel] xlwings库}{611}{chapter.54}%
+\contentsline {section}{\numberline {一、}简介}{611}{section.54.1}%
+\contentsline {subsection}{\numberline {1)}xlwings的数据结构}{611}{subsection.54.1.1}%
+\contentsline {section}{\numberline {二、}安装}{612}{section.54.2}%
+\contentsline {section}{\numberline {三、}App应用程序}{612}{section.54.3}%
+\contentsline {section}{\numberline {四、}Book工作簿(Excel文件)}{612}{section.54.4}%
+\contentsline {subsection}{\numberline {1)}新建/保存关闭工作簿}{612}{subsection.54.4.1}%
+\contentsline {subsection}{\numberline {2)}获取当前活动工作簿}{613}{subsection.54.4.2}%
+\contentsline {subsection}{\numberline {3)}删除工作簿}{614}{subsection.54.4.3}%
+\contentsline {section}{\numberline {五、}Sheet工作表(sheet)}{614}{section.54.5}%
+\contentsline {subsection}{\numberline {1)}新建工作表(sheet)}{614}{subsection.54.5.1}%
+\contentsline {subsubsection}{\numberline {(1)}获取工作表(sheet)}{615}{subsubsection.54.5.1.1}%
+\contentsline {subsubsection}{\numberline {(2)}按索引/名称获取工作表}{615}{subsubsection.54.5.1.2}%
+\contentsline {subsection}{\numberline {2)}获取工作簿中所有工作表}{615}{subsection.54.5.2}%
+\contentsline {subsection}{\numberline {3)}删除工作表(sheet)}{616}{subsection.54.5.3}%
+\contentsline {subsection}{\numberline {4)}重命名工作表}{616}{subsection.54.5.4}%
+\contentsline {section}{\numberline {六、}Range区域/单元格}{617}{section.54.6}%
+\contentsline {subsection}{\numberline {1)}获取单元格}{617}{subsection.54.6.1}%
+\contentsline {subsection}{\numberline {2)}清除单元格}{617}{subsection.54.6.2}%
+\contentsline {subsection}{\numberline {3)}删除单元格}{618}{subsection.54.6.3}%
+\contentsline {subsection}{\numberline {4)}插入单元格}{619}{subsection.54.6.4}%
+\contentsline {section}{\numberline {七、}xlwings与panads的结合}{619}{section.54.7}%
+\contentsline {chapter}{\numberline {第五十五章\hspace {.3em}}word自动化}{621}{chapter.55}%
+\contentsline {section}{\numberline {一、}docx库}{621}{section.55.1}%
+\contentsline {subsection}{\numberline {1)}安装}{621}{subsection.55.1.1}%
+\contentsline {subsection}{\numberline {2)}创建Word文档}{621}{subsection.55.1.2}%
+\contentsline {chapter}{\numberline {第五十六章\hspace {.3em}}web自动化}{623}{chapter.56}%
+\contentsline {section}{\numberline {一、}selenium介绍}{623}{section.56.1}%
+\contentsline {subsection}{\numberline {1)}组成部分}{623}{subsection.56.1.1}%
+\contentsline {subsection}{\numberline {2)}Selenium WebDriver}{623}{subsection.56.1.2}%
+\contentsline {section}{\numberline {二、}selenium安装}{623}{section.56.2}%
+\contentsline {section}{\numberline {三、}启动浏览器}{624}{section.56.3}%
+\contentsline {subsection}{\numberline {1)}Selenium 操作流程}{625}{subsection.56.3.1}%
+\contentsline {chapter}{\numberline {第五十七章\hspace {.3em}}OCR识别}{627}{chapter.57}%
+\contentsline {section}{\numberline {一、}在线识别}{627}{section.57.1}%
+\contentsline {section}{\numberline {二、}离线识别}{627}{section.57.2}%
+\contentsline {subsection}{\numberline {1)}pytesseract}{627}{subsection.57.2.1}%
+\contentsline {chapter}{Index}{629}{section*.157}%

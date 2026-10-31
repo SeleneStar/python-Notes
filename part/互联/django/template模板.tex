@@ -1,0 +1,269 @@
+\chapter{模板template}
+Django 模板是一个文本文件，它包含静态的 HTML，以及嵌入式的 Django 模板语言(DTL)代码。
+
+\section{模板概述}
+在Django中，创建一个\codeinline{base.html}文件，作为模板的基础文件，其他模板文件可以继承这个基础文件，从而减少重复代码。
+
+\begin{enumerate}[label=\arabic*)]
+  \item 一般在\textcolor{YBXPurple}{主项目根目录}创建一个\codeinline{templates}文件夹，用于存放模板文件。
+\begin{lstlisting}[style=demostyle,numbers=none]
+$> tree 
+.
+|-- manage.py
+|-- TestModel  # 子应用
+|   |-- admin.py
+|   |-- apps.py
+|   |-- views.py
+|   |-- urls.py
+|   |-- models.py
+|   |-- tests.py
+|   `-- migrate
+|-- mysite   # 主项目目录
+│   |-- __init__.py
+│   |-- settings.py
+│   |-- urls.py
+│   `-- wsgi.py
+`-- templates # 模板文件夹
+\end{lstlisting}
+
+  \item 在\textcolor{YBXPurple}{主项目}的\codeinline{settings.py}文件中配置模板文件路径。
+    
+\begin{lstlisting}[style=demostyle,numbers=none]
+$> cat mysite/settings.py    
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        # 'DIRS': [], # 之前的配置
+        # 修改为
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],       
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+\end{lstlisting}
+
+  \item 在\codeinline{templates}文件夹下创建一个\codeinline{base.html}文件，作为模板的基础文件，其他模板文件可以继承这个基础文件，从而减少重复代码。
+\begin{lstlisting}[style=demostyle, numbers=none]
+$> cat templates/base.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block delihead %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试文件标题</title>
+    <link rel="icon" href="static/images/logo.png">
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    {% endblock %}
+</head>
+
+<body>
+    <h2>美使馆</h2>
+    {% block content %}
+    {% endblock %}
+</body> 
+
+<footer>
+    <small>&copy 2020 美使馆<a href="http://www.baidu.com">JJW</a></small>
+</footer>
+
+</html>
+\end{lstlisting}
+
+  \item 在\codeinline{urls.py}文件中配置路径。
+\begin{lstlisting}[style=demostyle,numbers=none]
+$> cat urls.py
+from django.urls import path
+ 
+from . import views
+ 
+urlpatterns = [
+    path('hello/', views.hello),
+]
+\end{lstlisting}
+
+\item 在\textcolor{YBXPurple}{子应用}的目录可以创建一个\codeinline{templates}文件夹，用于存放子应用的模板文件。
+\begin{lstlisting}[style=demostyle,numbers=none]
+$> tree TestModel
+TestModel/
+|-- __init__.py
+|-- admin.py
+|-- apps.py
+|-- __pycache__
+│   |-- __init__.cpython-39.pyc
+│   |-- views.cpython-39.pyc
+│   `-- urls.cpython-39.pyc
+|-- templates
+│   `-- hello.html
+|--tests.py
+|-- urls.py
+`-- views.py
+\end{lstlisting}  
+
+其中 \codeinline{hello.html} 是子应用\codeinline{TestModel}的模板文件。
+\begin{lstlisting}[style=demostyle,numbers=none]
+$> cat templates/hello.html
+{% extends 'base.html' %} <!-- 继承temples的base.html -->
+
+{% block content %} <!-- 重写base.html的content -->
+    <h3>Register</h3>
+    <form action="/login/create_user" method="POST">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="password" name="password2" placeholder="Confirm Password" required>
+        <button type="submit">Register</button>
+    </form>
+{% endblock %}
+\end{lstlisting}
+  
+  \item 在\textcolor{YBXPurple}{子应用}的\codeinline{views.py}文件中增加一个新的对象，
+  用于向模板提交数据。
+\begin{lstlisting}[style=demostyle,numbers=none]
+$> cat TestModel/views.py
+from django.shortcuts import render
+
+"""
+一个视图函数 hello
+  接受一个 request 对象作为参数，并返回一个 HTTP 响应
+"""
+def hello(request):  
+    context = {}     
+    # context 是一个字典，用来存储传递给模板的上下文数据。在这个字典中，键是模板变量的名称，值是要传递给模板的实际数据。
+    context['hello'] = 'Hello World!' 
+    # 将 'Hello World!' 赋值给 context 字典中的 'hello' 键。这样，hello 将作为模板变量传递给模板，并且在模板中可以使用这个值。
+    return render(request, 'hello.html', context)
+\end{lstlisting}
+
+  \item 启动服务器，访问\codeinline{http://localhost:8000/hello/}，可以看到页面显示\codeinline{Hello World!}。
+
+\end{enumerate}
+
+\subsection{模板的定义}
+\begin{enumerate}[label=\arabic*)]
+    \item 模板变量：\codeinline{\{\{ 变量名 \}\}}
+    \item 从URL获取模板变量
+\begin{lstlisting}[style=demostyle, numbers=none]
+{% url '路由名' 参数 %}    
+\end{lstlisting}    
+
+\begin{example}
+    \exProblem
+    在\codeinline{urls.py}中定义一个
+\begin{lstlisting}[style=demostyle, numbers=none]
+re_path('(?P<year>[0-9]{4}).html', views.myyear, name='urlyear'),        
+
+# 1.(?P<year>[0-9]{4})：
+这是正则表达式中的一个命名捕获组，(?P<year>[0-9]{4})的含义是匹配4位数字（0-9之间），并将匹配到的内容命名为year。
+# 2.views.myyear：当URL匹配成功后，Django会调用 views.myyear 这个视图函数，并将匹配到的 year 参数传递给它。
+例如，如果URL是 2023.html，那么 views.myyear 会接收到 year=2023。
+# 3.name='urlyear'：
+这是给这个URL模式起的一个名字，方便在Django的其他地方通过名称来引用该URL。
+通过这个名字，你可以使用 reverse() 函数或 {% url %} 模板标签来生成对应的URL，例如 {% url 'urlyear' year=2023 %} 会生成 2023.html。
+\end{lstlisting}    
+
+
+    
+而在模板文件夹的\codeinline{test.html}中，
+\begin{lstlisting}[style=demostyle, numbers=none]
+<a href="{% url 'urlyear' 2019 %}">2019年度</a>
+\end{lstlisting}        
+    \exSolution
+
+    当找到\codeinline{test.html}模板文件时，会到\codeinline{urls.py}中找到\codeinline{urlyear}这个路由，
+    并将\codeinline{2019}作为参数传递给\codeinline{myyear}函数。
+    从而在浏览器中显示\codeinline{2019年度}的超链接。
+
+\begin{lstlisting}[style=demostyle, numbers=none]
+<a href="/2019.html">2019年度</a>
+\end{lstlisting}            
+    
+\end{example}
+
+    \item 读取静态资源内容
+\begin{lstlisting}[style=demostyle, numbers=none]
+{% static "css/style.css" %} 
+\end{lstlisting}
+    \item for遍历：\codeinline{\{\% for 变量名 in 列表名 \%\}}
+\begin{lstlisting}[style=demostyle, numbers=none]
+{% for item in list %}
+    {{ item }}
+{% endfor %}    
+\end{lstlisting}
+    \item if判断：\codeinline{\{\% if 条件 \%\}}
+\begin{lstlisting}[style=demostyle, numbers=none]
+{% if 条件 %}
+    {{ 变量 }}
+{% endif %}
+\end{lstlisting}       
+\end{enumerate}
+
+
+\section{静态文件}
+
+\subsection{静态文件的作用}
+
+静态文件是指不需要经过服务器处理，直接可以被浏览器访问的文件，例如：图片、CSS、JavaScript等。
+
+\begin{enumerate}[label=\arabic*)]
+    \item 图片：\codeinline{.jpg}、\codeinline{.png}、\codeinline{.gif}等。
+    \item CSS：\codeinline{.css}文件，用于设置网页的样式。
+    \item JavaScript：\codeinline{.js}文件，用于设置网页的交互效果。
+\end{enumerate}
+
+\subsection{静态文件的配置}
+\begin{enumerate}[label=\arabic*)]
+  \item 在 \textcolor{YBXPurple}{主项目}的\codeinline{settings.py}文件中配置静态文件路径。
+\begin{lstlisting}[style=demostyle,numbers=none]
+STATIC_URL = '/static/'
+if not DEBUG:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# 重写 STATICFILES_DIRS    
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),) # 必须是一个元组(,)要有,
+\end{lstlisting} 
+
+  \item 想要引用static资源文件的\textcolor{YBXPurple}{子项目}，
+  需要在\textcolor{YBXPurple}{子项目}的\codeinline{urls.py}文件中的\codeinline{urlpatterns}列表中添加一条配置，
+  用于访问静态文件。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+from django.urls import path
+from . import views  # Import the views module
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+    path("", views.open_register, name="open register"),  
+    
+] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0]) 
+# 在 settings.py 中配置了 STATICFILES_DIRS，所以这里可以直接使用 settings.STATICFILES_DIRS[0] 来获取静态文件目录
+\end{lstlisting} 
+\end{enumerate}
+
+在\textcolor{YBXPurple}{子项目}的视图\codeinline{views.py}中，可以通过\codeinline{render}函数将静态文件传递给模板。
+\begin{lstlisting}[style=demostyle,numbers=none]
+from django.shortcuts import render
+from django.template import loader
+from django.http import HttpResponse
+
+# Create your views here.
+def open_register(request):
+    template = loader.get_template('login/register.html')
+    return HttpResponse(template.render({}, request))
+\end{lstlisting}
+
+
+
+
+
+

@@ -1,0 +1,161 @@
+\documentclass{YBXstyle}
+\begin{document}
+\frontmatter
+\thispagestyle{empty}
+\begin{adjustwidth}{}{-1.5in}
+
+\centering
+\vspace{1in}
+\Huge Python
+\normalsize
+\vspace{1in}
+
+杨秉学
+
+
+
+\vspace{1in}
+
+\today
+
+\vspace{1in}
+\end{adjustwidth}
+
+\cleardoublepage
+\tableofcontents
+\mainmatter
+
+% 书籍正文
+\part{基础配置}
+%% 包管理器
+\input{part/软件工程/环境搭建/pip/pip.tex}
+%% 虚拟环境
+\input{part/软件工程/环境搭建/虚拟环境/anaconda/anaconda.tex}
+\input{part/软件工程/环境搭建/虚拟环境/venv概述.tex}
+%% Jupyter notebook
+\input{part/软件工程/环境搭建/JupyterNotbook/jupyternotebook概述.tex}
+\input{part/软件工程/环境搭建/JupyterNotbook/jupyternotebook语法.tex}
+
+\input{part/软件工程/打包发布/python包.tex}
+
+
+\part{基本语法}
+% 操作数
+\input{part/基本语法/操作数/操作数相关.tex}
+\input{part/基本语法/操作数/基本数据类型.tex}
+\input{part/基本语法/操作数/序列数据类型.tex} % python原生数据结构
+% 语法
+\input{part/基本语法/语法/语法相关.tex}
+\input{part/基本语法/语法/异常.tex}
+\input{part/基本语法/语法/函数与模块.tex}
+% \input{part/基本语法/语法/面向对象.tex}
+\input{part/基本语法/语法/装饰器.tex}
+
+% 标准库
+\input{part/基本语法/python标准/标准库.tex}
+\input{part/基本语法/python标准/模块-math.tex}
+
+\input{part/软件工程/打包发布/python包.tex}
+
+\part{系统编程}
+% python原生
+\input{part/系统编程/python原生/多线程编程.tex}
+\input{part/系统编程/python原生/多进程编程.tex}
+
+%% psutil
+\input{part/系统编程/psutil/系统信息.tex}
+\input{part/系统编程/psutil/进程管理.tex}
+%% pywin32
+\input{part/系统编程/pywin32/pywin32概述.tex}
+\input{part/系统编程/pywin32/进程管理.tex}
+\input{part/系统编程/pywin32/GUI操作.tex}
+
+\part{存储}
+% 文件
+\input{part/存储/文件/文件操作.tex}
+\input{part/存储/文件/应用.tex}
+% 数据库
+
+% 上下文管理
+\input{part/存储/上下文管理/上下文管理.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 编程范式
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\part{[编程范式] 面向对象编程}
+\input{part/软件工程/编程范式/面向对象/面向对象.tex}
+
+\part{图形可视化}
+\input{part/图形化/PySide/PySide概述.tex}
+%% Matplotlib
+\input{part/图形化/Matplotlib/Matplotlib概述.tex}
+\input{part/图形化/Matplotlib/绘图.tex}
+\input{part/图形化/Matplotlib/图片样式与排版.tex}
+%% Pyecharts
+\input{part/图形化/Pyecharts/Pyecharts概述.tex}
+\input{part/图形化/Pyecharts/图表类型.tex}
+%% manim
+\input{part/图形化/manim/manim概述.tex}
+\input{part/图形化/manim/基本图形.tex}
+\input{part/图形化/manim/文字和公式.tex}
+\input{part/图形化/manim/动画效果.tex}
+
+
+\part{互联}
+\input{part/互联/网络库/urllib.tex}
+\input{part/互联/网络库/requests.tex}
+\input{part/互联/网络库/BeautifulSoup.tex}
+% Django
+\input{part/互联/django/django概述.tex}
+\input{part/互联/django/django模型.tex}
+\input{part/互联/django/view视图.tex}
+\input{part/互联/django/template模板.tex}
+
+\part{数据处理与分析}
+%% Pandas
+\input{part/数据分析/Pandas/Pandas概述.tex}
+\input{part/数据分析/Pandas/Pandas的数据结构.tex}
+\input{part/数据分析/Pandas/Pandas数据的引用和读取.tex}
+\input{part/数据分析/Pandas/Pandas数据的聚合和排序.tex}
+
+
+\part{人工智能}
+% \input{part/深度学习框架/Tensorflow/Tensorflow概述.tex}
+\input{part/人工智能/深度学习框架/Pytorch/Pytorch概述.tex}
+\input{part/人工智能/深度学习框架/Pytorch/PyTorch基础.tex}
+\input{part/人工智能/深度学习框架/Pytorch/PyTorch数据处理.tex}
+\input{part/人工智能/深度学习框架/Pytorch/PyTorch神经网络工具.tex}
+\input{part/人工智能/深度学习框架/Pytorch/PyTorch可视化.tex}
+
+% \part{深度学习应用}
+% \input{part/深度学习应用/推荐算法.tex}
+% \input{part/深度学习应用/语音识别.tex}
+% \input{part/深度学习应用/模式识别.tex}
+% \input{part/深度学习应用/目标检测.tex}
+% \input{part/深度学习应用/智慧城市.tex}
+\part{办公自动化}
+\input{part/自动化/办公自动化/excel/excel自动化概述.tex}
+\input{part/自动化/办公自动化/excel/pandas处理excel.tex}
+\input{part/自动化/办公自动化/excel/xlrd、xlwt、xlutils.tex}
+\input{part/自动化/办公自动化/excel/openpyxl.tex}
+\input{part/自动化/办公自动化/excel/xlwings.tex}
+\input{part/自动化/办公自动化/word.tex}
+\input{part/自动化/网页自动化/Selenium/Selenium概述.tex}
+\input{part/自动化/通讯软件/邮件.tex}
+\input{part/自动化/办公自动化/OCR识别.tex}
+
+
+% 书的索引
+\cleardoublepage 
+\phantomsection
+\addcontentsline{toc}{chapter}{Index}
+\RaggedRight
+\thispagestyle{empty}
+\printindex
+
+\bibliographystyle{plain}
+\bibliography{Ref}
+\end{document} 
+
+
+
