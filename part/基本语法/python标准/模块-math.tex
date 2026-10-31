@@ -1,0 +1,79 @@
+\chapter{[标准库] math (标量)数学库}
+
+\section{数学常数}
+\begin{lstlisting}[style=demostyle,numbers=none]
+import math
+math.pi  # 圆周率 π ≈ 3.141592653589793
+math.e   # 自然对数底数 e ≈ 2.718281828459045
+\end{lstlisting}
+
+\section{三角函数相关}
+\subsection{角度转换}
+\begin{lstlisting}[style=demostyle,numbers=none]
+import math
+math.degrees(x)  # 弧度转角度（180°/π×x）
+math.radians(x)  # 角度转弧度（π/180°×x）
+
+
+# 例如：
+math.radians(180)  # 180° = π
+math.degrees(math.pi)  # π = 180°
+\end{lstlisting}
+
+\subsection{基本三角函数}
+\begin{lstlisting}[style=demostyle,numbers=none]
+import math
+math.sin(x)    # 正弦函数（x为弧度）
+math.cos(x)    # 余弦函数
+math.tan(x)    # 正切函数
+math.hypot(x,y) # 直角三角形斜边 √(x²+y²)
+\end{lstlisting}
+
+\subsection{反三角函数}
+\begin{lstlisting}[style=demostyle,numbers=none]
+import math
+
+math.asin(x)   # 反正弦（返回弧度）
+math.acos(x)   # 反余弦
+math.atan(x)   # 反正切
+\end{lstlisting}
+
+\section{指数与对数相关}
+\begin{lstlisting}[style=demostyle,numbers=none]
+math.exp(x)    # e的x次方（等价于 e^x）
+math.log(x)    # 自然对数 ln(x)
+math.log1p(x)  # ln(1+x)（更精确的x接近0时的计算）
+math.log10(x)  # 常用对数 lg(x)
+math.log2(x)   # 二进制对数 log₂(x)
+\end{lstlisting}
+
+
+\section{幂函数与开方}
+\begin{lstlisting}[style=demostyle,numbers=none]
+math.sqrt(x)   # 平方根 √x
+math.pow(x,y)  # x的y次方（等价于x**y）
+math.cbrt(x)   # 立方根 ∛x
+math.isqrt(x)  # 整数平方根（返回整数部分）
+\end{lstlisting}
+
+\section{特殊功能函数}
+\subsection{取整相关}
+\begin{lstlisting}[style=demostyle,numbers=none]
+math.ceil(x)   # 向上取整（返回≥x的最小整数）
+math.floor(x)  # 向下取整（返回≤x的最大整数）
+math.trunc(x)  # 截断取整（直接去除小数部分）
+\end{lstlisting}
+
+\subsection{数值处理}
+\begin{lstlisting}[style=demostyle,numbers=none]
+math.fabs(x)   # 绝对值（返回浮点数）
+math.factorial(x) # 阶乘 x!
+math.fsum(iterable) # 高精度迭代求和
+math.modf(x)   # 分解为(小数部分, 整数部分)元组
+\end{lstlisting}
+
+\subsection{特殊判断}
+\begin{lstlisting}[style=demostyle,numbers=none]
+math.isinf(x)  # 判断是否为无穷大
+math.isnan(x)  # 判断是否为NaN（非数值）
+\end{lstlisting}

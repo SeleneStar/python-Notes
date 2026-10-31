@@ -1,0 +1,285 @@
+\chapter{(动作行为)语法相关}
+
+\section{行为规范}
+\subsection{注释}
+Python中单行注释以 \codeinline{\#} 开头
+\begin{lstlisting}[style=pythonstyle]
+# 这是一个注释
+print("hello world!")
+\end{lstlisting}
+
+多行注释使用\codeinline{'''...'''}
+
+\subsection{行与缩进}
+python最具特色的就是使用缩进来表示代码块,
+缩进的空格数是可变的，但是\textcolor{red}{\textbf{同一个代码块的语句必须包含相同的缩进空格数}}。
+\begin{lstlisting}[style=pythonstyle]
+if True:
+    print ("True")
+else:
+    print ("False")
+\end{lstlisting}    
+
+\subsection{多行语句}
+Python 通常是一行写完一条语句，但如果语句很长，我们可以使用反斜杠 \codeinline{\textbackslash} 来实现多行语句
+\begin{lstlisting}[style=pythonstyle]
+item_one = 1
+item_two = 2
+item_three = 3
+total = item_one + \
+        item_two + \
+        item_three
+print(total) # 输出为 6
+\end{lstlisting}  
+
+\section{运算符}
+python中常用的运算符有：
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{1}{|c|}{类型}  & \multicolumn{1}{c|}{包含的运算符}                                                                                                                 \\ \hline
+算术运算符                   & \begin{tabular}[c]{@{}l@{}}**(指数)\\ ~(按位翻转)\\ +(一元加号)\\ -(一元减号)\\ *(乘)\\ /(除)\\ \%(取模)\\ //(取整除)\\ +(加)\\ -(减)\\ \textless\textless(左移)\\ \textgreater\textgreater(右移)\end{tabular} \\ \hline
+位运算符                     & \begin{tabular}[c]{@{}l@{}}\&(按位与)\\ |(按位或)\\ \textasciicircum(按位异或)\\ \textasciitilde(按位取反)\end{tabular}                                                                 \\ \hline
+赋值运算符                   & \begin{tabular}[c]{@{}l@{}}=(基础赋值)\\ +=(加后赋值)\\ -=(减后赋值)\\ *=(乘后赋值)\\ /=(除后赋值)\\ \%=(取模后赋值)\\ //=(取整除后赋值)\\ **=(指数后赋值)\\ \textless\textless=(左移后赋值)\\ \textgreater\textgreater=(右移后赋值)\end{tabular} \\ \hline
+逻辑运算符                   & \begin{tabular}[c]{@{}l@{}}not(逻辑非)\\ and(逻辑与)\\ or(逻辑或)\end{tabular}                                                                                      \\ \hline
+关系运算符                   & \begin{tabular}[c]{@{}l@{}}\textless(小于)\\ \textless=(小于等于)\\ \textgreater(大于)\\ \textgreater=(大于等于)\\ ==(等于)\\ != 或 \textless\textgreater(不等于)\end{tabular} \\ \hline
+身份运算符                   & \begin{tabular}[c]{@{}l@{}}is(对象同一性)\\ is not(对象非同一性)\end{tabular}                                                                                 \\ \hline
+成员运算符                   & \begin{tabular}[c]{@{}l@{}}in(存在于序列)\\ not in(不存在于序列)\end{tabular}                                                                                 \\ \hline
+其他运算符                    & \begin{tabular}[c]{@{}l@{}}sizeof(Python 3.11+新增)\\ ?:(三元运算符)\\ .(属性访问)\\ \string[ \string](列表/字典访问)\\ ( )(元组/函数调用)\\ @(矩阵乘法)\\ ,(元组拼接)\end{tabular}                                                                 \\ \hline
+\end{tabular}
+\caption{Python运算符分类(基于Python 3.x语法)}
+\label{tab:python_operators}
+\end{table}
+
+\subsection{算术运算符}
+\begin{enumerate}[label=\arabic*)]
+    \item \codeinline{+} 加法
+    \item \codeinline{-} 减法
+    \item \codeinline{*} 乘法
+    \item \codeinline{/} 除法
+    \item \codeinline{//} 整除
+    \item \codeinline{\%} 取余
+    \item \codeinline{**} 幂
+\end{enumerate}
+
+\begin{lstlisting}[style=pythonstyle]
+x = 5
+y = 2
+print(x + y)
+print(x - y)
+print(x * y)
+print(x / y)
+print(x // y)
+print(x % y)
+print(x ** y)
+\end{lstlisting}
+\begin{lstlisting}[style=demostyle,numbers=none]
+7
+3
+10
+2.5
+2
+1
+25
+\end{lstlisting}
+
+其中\codeinline{+}还可以拼接字符串, \codeinline{*}可以重复字符串
+\begin{lstlisting}[style=pythonstyle]
+x = 'abc'
+y = 'def'
+print(x + y)
+print(x * 3)
+\end{lstlisting}
+\begin{lstlisting}[style=demostyle,numbers=none]
+abcdef
+abcabcabc
+\end{lstlisting}
+
+\subsection{赋值运算符}
+\begin{enumerate}[label=\arabic*)]
+    \item \codeinline{=} 简单赋值
+    \item \codeinline{+=} 加法赋值
+    \item \codeinline{-=} 减法赋值
+    \item \codeinline{*=} 乘法赋值
+    \item \codeinline{/=} 除法赋值
+    \item \codeinline{//=} 整除赋值
+    \item \codeinline{\%=} 取余赋值
+    \item \codeinline{**=} 幂赋值
+    \item \codeinline{|=} 或赋值
+    \item \codeinline{\&=} 与赋值
+    \item \codeinline{\textasciicircum{}=} 异或赋值
+    \item \codeinline{>>=} 右移赋值
+    \item \codeinline{<<=} 左移赋值
+\end{enumerate}
+\begin{lstlisting}[style=pythonstyle]
+x = 5
+x += 2
+print("x += 2:", x)
+x -= 2
+print("x -= 2:", x)
+x *= 2
+print("x *= 2:", x)
+x /= 2
+print("x /= 2:", x)
+x //= 2
+print("x //= 2:", x)
+x **= 2
+print("x **= 2:", x)
+x %= 2
+print("x %= 2:", x)
+
+y = 16
+y |= 2
+print("y |= 2:", y)
+y=16
+y &= 4
+print("y &= 2:", y)
+y=16
+y >>= 2
+print("y >>= 2:", y)
+y <<= 2
+print("y <<= 2:", y)
+y ^= 2
+print("y ^= 2:", y)
+\end{lstlisting}
+\begin{lstlisting}[style=demostyle,numbers=none]
+x += 2: 7
+x -= 2: 5
+x *= 2: 10
+x /= 2: 5.0
+x //= 2: 2.0
+x **= 2: 4.0
+x %= 2: 0.0
+y |= 2: 18
+y &= 2: 0
+y >>= 2: 4
+y <<= 2: 16
+y ^= 2: 18
+\end{lstlisting}
+
+\subsection{位运算符}
+\begin{enumerate}[label=\arabic*)]
+    \item \codeinline{\&} 与
+    \item \codeinline{|} 或
+    \item \codeinline{\textasciicircum{}} 异或
+    \item \codeinline{\textasciitilde{}} 取反
+    \item \codeinline{<<} 左移
+    \item \codeinline{>>} 右移
+\end{enumerate}
+\begin{lstlisting}[style=pythonstyle]
+x = 16
+y = 2
+print("x & y:", x & y)
+print("x | y:", x | y)
+print("x ^ y:", x ^ y)
+print("~x:", ~x)
+print("x << 2:", x << 2)
+print("x >> 2:", x >> 2)
+\end{lstlisting}    
+\begin{lstlisting}[style=demostyle,numbers=none]  
+x & y: 0
+x | y: 18
+x ^ y: 18
+~x: -17
+x << 2: 64
+x >> 2: 4    
+\end{lstlisting}    
+
+\subsection{比较运算符}
+\begin{enumerate}[label=\arabic*)]
+    \item \codeinline{==} 两个变量的值是否相等
+    \item \codeinline{!=} 不等于
+    \item \codeinline{>} 大于
+    \item \codeinline{<} 小于
+    \item \codeinline{>=} 大于等于
+    \item \codeinline{<=} 小于等于
+    \item \codeinline{is} 判断两个变量所引用的对象是否相同
+    \item \codeinline{is not} 判断两个变量所引用的对象是否不相同
+\end{enumerate}
+
+\begin{lstlisting}[style=pythonstyle]
+import time #引入 time 模块
+
+t1 = time.gmtime() # gmtime()用来获取当前时间(秒)
+t2 = time.gmtime()
+
+print(t1 == t2) #输出 True
+print(t1 is t2) #输出 False
+\end{lstlisting}
+
+\subsection{逻辑运算符}
+\begin{enumerate}[label=\arabic*)]
+    \item \codeinline{and} 与
+    \item \codeinline{or} 或
+    \item \codeinline{not} 非
+\end{enumerate}
+
+\begin{lstlisting}[style=pythonstyle]
+x = 5
+y = 2
+print(x > y and x < y)
+print(x > y or x < y)
+print(not x > y)
+\end{lstlisting} 
+\begin{lstlisting}[style=demostyle,numbers=none]  
+False
+True
+False
+\end{lstlisting}
+
+
+\section{逻辑}
+\subsection{条件}
+\begin{lstlisting}[style=pythonstyle]
+x = 'abc'
+if x == 'abc':
+    print('x is abc')
+elif x == 'def':
+    print('x is def')
+else:
+    print('x is not abc or def')
+\end{lstlisting}
+
+\subsection{三元运算符}
+\begin{lstlisting}[style=demostyle,numbers=none]  
+表达式1 if 条件 else 表达式2
+\end{lstlisting}
+
+\begin{lstlisting}[style=pythonstyle]
+x = 'abc'
+print('x is abc') if x == 'abc' else print('x is not abc')
+\end{lstlisting}
+\begin{lstlisting}[style=demostyle,numbers=none] 
+x is abc
+\end{lstlisting}
+
+\begin{lstlisting}[style=pythonstyle]
+a = 10
+b = 15
+max = a if a>b else b
+print("max=", max)
+\end{lstlisting}
+\begin{lstlisting}[style=demostyle,numbers=none] 
+max= 15
+\end{lstlisting}
+
+
+
+\subsection{循环}
+\subsection{while}
+\begin{lstlisting}[style=pythonstyle,numbers=none]
+i = 0
+while i < 5:
+    print(i)
+    i += 1
+\end{lstlisting}
+
+\subsection{for}
+Python中的\codeinline{for}和C语言中的\codeinline{for}有所不同, Python的\codeinline{for}是用来遍历序列的。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+for i in range(5):
+    print(i)
+\end{lstlisting}
+

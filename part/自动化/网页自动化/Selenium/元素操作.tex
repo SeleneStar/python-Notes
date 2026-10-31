@@ -1,0 +1,740 @@
+\chapter{元素操作}
+
+\section{元素定位策略}
+
+\subsection{8种元素定位方法详解}
+
+在 Selenium 中，要操作网页元素，首先需要定位到这些元素。Selenium 提供了8种常用的元素定位方法，每种方法都有其特定的使用场景和优缺点。
+
+\subsubsection{1. ID定位}
+ID定位是最常用和最可靠的定位方式，因为HTML规范要求ID在同一个页面中是唯一的。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+driver = webdriver.Chrome()
+driver.get("https://www.baidu.com")
+
+# 通过ID定位搜索框
+search_box = driver.find_element(By.ID, "kw")
+search_box.send_keys("Selenium自动化")
+
+# 通过ID定位搜索按钮
+search_btn = driver.find_element(By.ID, "su")
+search_btn.click()
+\end{lstlisting}
+
+\textbf{优点：}定位速度快，准确性高\\
+\textbf{缺点：}依赖开发人员为元素设置ID，有些动态生成的ID可能会变化
+
+\subsubsection{2. Name定位}
+通过元素的name属性进行定位，常用于表单元素。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 通过Name定位
+username_input = driver.find_element(By.NAME, "username")
+password_input = driver.find_element(By.NAME, "password")
+
+username_input.send_keys("testuser")
+password_input.send_keys("testpass123")
+\end{lstlisting}
+
+\subsubsection{3. Class Name定位}
+通过元素的class属性进行定位。需要注意，如果class包含多个值，只能使用其中一个。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 通过Class Name定位
+login_btn = driver.find_element(By.CLASS_NAME, "login-button")
+login_btn.click()
+
+# 查找多个相同class的元素
+buttons = driver.find_elements(By.CLASS_NAME, "btn")
+print(f"找到 {len(buttons)} 个按钮")
+\end{lstlisting}
+
+\subsubsection{4. Tag Name定位}
+通过HTML标签名进行定位，通常用于查找页面上所有特定类型的元素。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 通过Tag Name定位
+all_links = driver.find_elements(By.TAG_NAME, "a")
+all_inputs = driver.find_elements(By.TAG_NAME, "input")
+
+# 获取页面标题
+title_element = driver.find_element(By.TAG_NAME, "title")
+print(title_element.get_attribute("text"))
+\end{lstlisting}
+
+\subsubsection{5. XPath定位}
+XPath是一种在XML文档中查找信息的语言，功能非常强大，可以定位页面上的任何元素。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 绝对路径（不推荐）
+element = driver.find_element(By.XPATH, "/html/body/div[1]/div[2]/input")
+
+# 相对路径（推荐）
+search_box = driver.find_element(By.XPATH, "//input[@id='kw']")
+
+# 使用文本内容定位
+link = driver.find_element(By.XPATH, "//a[text()='登录']")
+
+# 使用contains函数进行模糊匹配
+button = driver.find_element(By.XPATH, "//button[contains(@class,'submit')]")
+
+# 使用属性组合定位
+element = driver.find_element(By.XPATH, "//input[@name='username' and @type='text']")
+
+# 使用轴定位（父子兄弟关系）
+parent = driver.find_element(By.XPATH, "//input[@id='username']/parent::div")
+next_sibling = driver.find_element(By.XPATH, "//input[@id='username']/following-sibling::input")
+\end{lstlisting}
+
+\subsubsection{6. CSS选择器定位}
+CSS选择器是另一种强大的定位方式，语法相对简洁，性能通常比XPath更好。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 通过ID选择器
+element = driver.find_element(By.CSS_SELECTOR, "#kw")
+
+# 通过class选择器
+element = driver.find_element(By.CSS_SELECTOR, ".login-button")
+
+# 通过属性选择器
+element = driver.find_element(By.CSS_SELECTOR, "input[name='username']")
+
+# 组合选择器
+element = driver.find_element(By.CSS_SELECTOR, "div.form-group input[type='text']")
+
+# 伪类选择器
+first_item = driver.find_element(By.CSS_SELECTOR, "li:first-child")
+last_item = driver.find_element(By.CSS_SELECTOR, "li:last-child")
+
+# 层次选择器
+child_element = driver.find_element(By.CSS_SELECTOR, "div > input")
+descendant = driver.find_element(By.CSS_SELECTOR, "form input")
+\end{lstlisting}
+
+\subsubsection{7. 链接文本定位}
+专门用于定位链接元素（<a>标签），通过链接的完整文本内容进行定位。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 通过完整链接文本定位
+login_link = driver.find_element(By.LINK_TEXT, "用户登录")
+login_link.click()
+
+register_link = driver.find_element(By.LINK_TEXT, "立即注册")
+register_link.click()
+\end{lstlisting}
+
+\subsubsection{8. 部分链接文本定位}
+当链接文本较长或包含动态内容时，可以使用部分文本进行匹配。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 通过部分链接文本定位
+help_link = driver.find_element(By.PARTIAL_LINK_TEXT, "帮助")
+contact_link = driver.find_element(By.PARTIAL_LINK_TEXT, "联系我们")
+
+# 处理动态文本
+dynamic_link = driver.find_element(By.PARTIAL_LINK_TEXT, "查看详情")
+\end{lstlisting}
+
+\subsection{定位策略的选择原则}
+
+选择合适的定位策略对于编写稳定可靠的自动化脚本至关重要：
+
+\begin{enumerate}
+    \item \textbf{优先级顺序：}ID > Name > CSS选择器 > XPath > Class Name > Tag Name > Link Text
+    \item \textbf{ID定位：}首选方案，速度快且唯一性强
+    \item \textbf{CSS选择器：}性能优于XPath，语法简洁
+    \item \textbf{XPath：}功能最强大，但性能相对较差，适合复杂定位
+    \item \textbf{避免使用：}绝对路径XPath、依赖位置的选择器
+\end{enumerate}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 定位策略选择示例
+def smart_find_element(driver, **kwargs):
+    """智能元素定位函数"""
+    if 'id' in kwargs:
+        return driver.find_element(By.ID, kwargs['id'])
+    elif 'name' in kwargs:
+        return driver.find_element(By.NAME, kwargs['name'])
+    elif 'css' in kwargs:
+        return driver.find_element(By.CSS_SELECTOR, kwargs['css'])
+    elif 'xpath' in kwargs:
+        return driver.find_element(By.XPATH, kwargs['xpath'])
+    else:
+        raise ValueError("请提供有效的定位策略")
+
+# 使用示例
+element = smart_find_element(driver, id="username")
+element = smart_find_element(driver, css="input[name='password']")
+\end{lstlisting}
+
+\subsection{动态元素定位技巧}
+
+现代Web应用中经常遇到动态生成的元素，需要特殊的定位技巧：
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 1. 使用contains()函数处理动态ID
+dynamic_element = driver.find_element(By.XPATH, "//div[contains(@id,'user_')]")
+
+# 2. 使用starts-with()处理前缀固定的动态属性
+element = driver.find_element(By.XPATH, "//input[starts-with(@id,'search_')]")
+
+# 3. 使用多个属性组合定位
+element = driver.find_element(By.XPATH, 
+    "//button[@type='submit' and contains(@class,'btn')]")
+
+# 4. 通过相邻元素定位
+target = driver.find_element(By.XPATH, 
+    "//label[text()='用户名']/following-sibling::input")
+
+# 5. 使用CSS属性选择器
+element = driver.find_element(By.CSS_SELECTOR, "input[class*='form-control']")
+\end{lstlisting}
+
+\subsection{等待机制}
+
+等待机制是处理页面加载和元素渲染的重要手段，Selenium提供了三种等待方式：
+
+\subsubsection{隐式等待}
+设置全局等待时间，对所有元素查找操作生效。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+from selenium import webdriver
+
+driver = webdriver.Chrome()
+# 设置隐式等待时间为10秒
+driver.implicitly_wait(10)
+
+driver.get("https://example.com")
+# 如果元素未立即找到，会等待最多10秒
+element = driver.find_element(By.ID, "dynamic-content")
+\end{lstlisting}
+
+\subsubsection{显式等待}
+针对特定元素设置等待条件，更加灵活和精确。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+
+driver = webdriver.Chrome()
+wait = WebDriverWait(driver, 10)
+
+# 等待元素可见
+element = wait.until(EC.visibility_of_element_located((By.ID, "submit-btn")))
+
+# 等待元素可点击
+button = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "login-button")))
+button.click()
+
+# 等待元素消失
+wait.until(EC.invisibility_of_element_located((By.ID, "loading")))
+
+# 等待标题包含特定文本
+wait.until(EC.title_contains("登录成功"))
+
+# 等待URL变化
+wait.until(EC.url_contains("/dashboard"))
+
+# 等待frame可用并切换
+wait.until(EC.frame_to_be_available_and_switch_to_it("main-frame"))
+\end{lstlisting}
+
+\subsubsection{流畅等待（Fluent Wait）}
+提供更细粒度的等待控制，可以自定义轮询频率和忽略的异常。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
+
+# 自定义流畅等待
+def fluent_wait(driver, locator, timeout=10, poll_frequency=0.5):
+    wait = WebDriverWait(
+        driver, 
+        timeout, 
+        poll_frequency=poll_frequency,
+        ignored_exceptions=[NoSuchElementException]
+    )
+    return wait.until(lambda d: d.find_element(*locator))
+
+# 使用流畅等待
+try:
+    element = fluent_wait(driver, (By.ID, "dynamic-element"))
+    element.click()
+except TimeoutException:
+    print("元素在指定时间内未出现")
+\end{lstlisting}
+
+\section{元素操作方法}
+
+\subsection{基础操作}
+
+掌握基础的元素操作是进行Web自动化的基础技能。
+
+\subsubsection{点击操作}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
+
+driver = webdriver.Chrome()
+driver.get("https://example.com")
+
+# 基础点击
+button = driver.find_element(By.ID, "submit-btn")
+button.click()
+
+# 右键点击
+context_menu_element = driver.find_element(By.ID, "context-menu")
+ActionChains(driver).context_click(context_menu_element).perform()
+
+# 双击
+double_click_element = driver.find_element(By.ID, "double-click-area")
+ActionChains(driver).double_click(double_click_element).perform()
+
+# 检查元素是否可点击
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+wait = WebDriverWait(driver, 10)
+clickable_element = wait.until(EC.element_to_be_clickable((By.ID, "submit-btn")))
+clickable_element.click()
+\end{lstlisting}
+
+\subsubsection{输入和清除操作}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 文本输入
+username_field = driver.find_element(By.NAME, "username")
+username_field.send_keys("testuser")
+
+# 清除文本
+password_field = driver.find_element(By.NAME, "password")
+password_field.clear()
+password_field.send_keys("newpassword")
+
+# 组合输入（清除后输入）
+def clear_and_send_keys(element, text):
+    element.clear()
+    element.send_keys(text)
+
+email_field = driver.find_element(By.ID, "email")
+clear_and_send_keys(email_field, "test@example.com")
+
+# 特殊按键输入
+from selenium.webdriver.common.keys import Keys
+
+search_box = driver.find_element(By.NAME, "q")
+search_box.send_keys("Selenium")
+search_box.send_keys(Keys.ENTER)  # 回车键
+
+# 组合键
+search_box.send_keys(Keys.CONTROL, "a")  # Ctrl+A 全选
+search_box.send_keys(Keys.DELETE)        # 删除
+\end{lstlisting}
+
+\subsubsection{获取元素信息}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+element = driver.find_element(By.ID, "sample-element")
+
+# 获取元素文本
+text_content = element.text
+print(f"元素文本: {text_content}")
+
+# 获取属性值
+class_attribute = element.get_attribute("class")
+href_attribute = element.get_attribute("href")
+
+# 获取元素是否可见
+is_visible = element.is_displayed()
+
+# 获取元素是否可用
+is_enabled = element.is_enabled()
+
+# 获取元素是否被选中（复选框、单选框）
+is_selected = element.is_selected()
+
+# 获取元素位置和大小
+location = element.location
+size = element.size
+rect = element.rect  # 包含位置和大小信息
+
+print(f"位置: {location}, 大小: {size}")
+\end{lstlisting}
+
+\subsection{表单操作}
+
+表单是Web应用中最常见的交互元素，需要特别掌握各种表单控件的操作方法。
+
+\subsubsection{下拉框操作}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+from selenium.webdriver.support.ui import Select
+
+# 标准下拉框操作
+select_element = driver.find_element(By.ID, "country-select")
+select = Select(select_element)
+
+# 通过可见文本选择
+select.select_by_visible_text("中国")
+
+# 通过值选择
+select.select_by_value("CN")
+
+# 通过索引选择（从0开始）
+select.select_by_index(1)
+
+# 获取所有选项
+all_options = select.options
+for option in all_options:
+    print(f"选项: {option.text}, 值: {option.get_attribute('value')}")
+
+# 获取当前选中的选项
+selected_option = select.first_selected_option
+print(f"当前选择: {selected_option.text}")
+
+# 多选下拉框
+multi_select = Select(driver.find_element(By.ID, "multi-select"))
+multi_select.select_by_value("option1")
+multi_select.select_by_value("option2")
+
+# 取消选择
+multi_select.deselect_by_value("option1")
+multi_select.deselect_all()
+\end{lstlisting}
+
+\subsubsection{复选框和单选框操作}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 复选框操作
+checkbox = driver.find_element(By.ID, "agree-terms")
+
+# 检查是否已选中
+if not checkbox.is_selected():
+    checkbox.click()  # 如果未选中，则点击选中
+
+# 取消选中
+if checkbox.is_selected():
+    checkbox.click()  # 如果已选中，则点击取消
+
+# 单选框操作
+radio_option = driver.find_element(By.ID, "payment-card")
+if not radio_option.is_selected():
+    radio_option.click()
+
+# 批量处理复选框
+checkboxes = driver.find_elements(By.CSS_SELECTOR, "input[type='checkbox']")
+for checkbox in checkboxes:
+    if not checkbox.is_selected():
+        checkbox.click()
+
+# 根据标签文本选择单选框
+gender_male = driver.find_element(By.XPATH, "//input[@type='radio' and @name='gender' and @value='male']")
+gender_male.click()
+\end{lstlisting}
+
+\subsection{高级操作}
+
+\subsubsection{文件上传}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+import os
+
+# 标准文件上传（input type="file"）
+file_input = driver.find_element(By.ID, "file-upload")
+file_path = os.path.abspath("test-file.pdf")
+file_input.send_keys(file_path)
+
+# 多文件上传
+file_input = driver.find_element(By.ID, "multiple-files")
+file_paths = [
+    os.path.abspath("file1.jpg"),
+    os.path.abspath("file2.pdf"),
+    os.path.abspath("file3.docx")
+]
+file_input.send_keys("\n".join(file_paths))
+
+# 处理隐藏的文件上传控件
+# 使用JavaScript使元素可见
+driver.execute_script("arguments[0].style.display = 'block';", file_input)
+file_input.send_keys(file_path)
+
+# 拖拽文件上传（需要配合ActionChains）
+def drag_and_drop_file(driver, drop_area, file_path):
+    # 这种方式需要特殊处理，通常使用JavaScript
+    js_code = """
+    var input = arguments[0];
+    var file = arguments[1];
+    var dt = new DataTransfer();
+    dt.items.add(new File([file], 'test.txt'));
+    input.files = dt.files;
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+    """
+    driver.execute_script(js_code, drop_area, file_path)
+\end{lstlisting}
+
+\subsubsection{拖拽操作}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+from selenium.webdriver.common.action_chains import ActionChains
+
+# 基础拖拽
+source = driver.find_element(By.ID, "draggable")
+target = driver.find_element(By.ID, "droppable")
+
+# 方法1：drag_and_drop
+ActionChains(driver).drag_and_drop(source, target).perform()
+
+# 方法2：click_and_hold + move_to_element + release
+ActionChains(driver).click_and_hold(source).move_to_element(target).release().perform()
+
+# 方法3：按偏移量拖拽
+ActionChains(driver).click_and_hold(source).move_by_offset(100, 50).release().perform()
+
+# 复杂拖拽（包含暂停）
+ActionChains(driver).click_and_hold(source).pause(1).move_to_element(target).pause(1).release().perform()
+
+# 滑块拖拽
+slider = driver.find_element(By.CLASS_NAME, "slider-handle")
+# 向右拖拽100像素
+ActionChains(driver).click_and_hold(slider).move_by_offset(100, 0).release().perform()
+\end{lstlisting}
+
+\subsubsection{鼠标悬停}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 基础悬停
+menu_item = driver.find_element(By.ID, "menu-item")
+ActionChains(driver).move_to_element(menu_item).perform()
+
+# 悬停后点击子菜单
+main_menu = driver.find_element(By.ID, "main-menu")
+sub_menu = driver.find_element(By.ID, "sub-menu")
+
+ActionChains(driver).move_to_element(main_menu).pause(1).move_to_element(sub_menu).click().perform()
+
+# 悬停显示工具提示
+tooltip_trigger = driver.find_element(By.ID, "tooltip-trigger")
+ActionChains(driver).move_to_element(tooltip_trigger).perform()
+
+# 等待工具提示出现
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+tooltip = WebDriverWait(driver, 5).until(
+    EC.visibility_of_element_located((By.CLASS_NAME, "tooltip"))
+)
+tooltip_text = tooltip.text
+print(f"工具提示内容: {tooltip_text}")
+\end{lstlisting}
+
+\section{鼠标和键盘操作}
+
+\subsection{高级鼠标操作}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+from selenium.webdriver.common.action_chains import ActionChains
+
+actions = ActionChains(driver)
+
+# 鼠标移动到指定坐标
+actions.move_by_offset(100, 100).perform()
+
+# 鼠标移动到元素的指定偏移位置
+element = driver.find_element(By.ID, "target")
+actions.move_to_element_with_offset(element, 10, 10).perform()
+
+# 按住鼠标左键
+actions.click_and_hold().perform()
+
+# 释放鼠标
+actions.release().perform()
+
+# 鼠标滚轮操作
+element = driver.find_element(By.ID, "scrollable-area")
+actions.scroll_to_element(element).perform()
+
+# 滚动指定距离
+actions.scroll_by_amount(0, 1000).perform()  # 垂直滚动1000像素
+\end{lstlisting}
+
+\subsection{键盘操作和快捷键}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
+
+# 基础键盘操作
+input_field = driver.find_element(By.ID, "text-input")
+
+# 常用按键
+input_field.send_keys(Keys.ENTER)      # 回车
+input_field.send_keys(Keys.TAB)        # Tab键
+input_field.send_keys(Keys.ESCAPE)     # ESC键
+input_field.send_keys(Keys.BACKSPACE)  # 退格键
+input_field.send_keys(Keys.DELETE)     # 删除键
+
+# 功能键
+input_field.send_keys(Keys.F1)         # F1功能键
+input_field.send_keys(Keys.F12)        # F12功能键
+
+# 方向键
+input_field.send_keys(Keys.ARROW_UP)
+input_field.send_keys(Keys.ARROW_DOWN)
+input_field.send_keys(Keys.ARROW_LEFT)
+input_field.send_keys(Keys.ARROW_RIGHT)
+
+# 组合键操作
+input_field.send_keys(Keys.CONTROL, "a")    # Ctrl+A 全选
+input_field.send_keys(Keys.CONTROL, "c")    # Ctrl+C 复制
+input_field.send_keys(Keys.CONTROL, "v")    # Ctrl+V 粘贴
+input_field.send_keys(Keys.CONTROL, "z")    # Ctrl+Z 撤销
+
+# 使用ActionChains进行复杂键盘操作
+actions = ActionChains(driver)
+
+# 按下并保持按键
+actions.key_down(Keys.SHIFT).send_keys("hello").key_up(Keys.SHIFT).perform()
+
+# 组合键操作
+actions.key_down(Keys.CONTROL).send_keys("s").key_up(Keys.CONTROL).perform()  # Ctrl+S
+
+# 在特定元素上执行键盘操作
+actions.click(input_field).key_down(Keys.CONTROL).send_keys("a").key_up(Keys.CONTROL).perform()
+\end{lstlisting}
+
+\subsection{Selenium 4 文件上传和下载}
+
+\subsubsection{Selenium 4 增强的文件上传}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# Selenium 4 新增的文件上传方法
+from selenium.webdriver.common.by import By
+import tempfile
+import os
+
+# 创建测试文件
+def create_test_file(content="Test file content"):
+    temp_file = tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt')
+    temp_file.write(content)
+    temp_file.close()
+    return temp_file.name
+
+# 标准文件上传
+file_path = create_test_file("Hello Selenium 4")
+file_input = driver.find_element(By.CSS_SELECTOR, "input[type='file']")
+file_input.send_keys(file_path)
+
+# 验证文件上传
+upload_button = driver.find_element(By.ID, "upload-btn")
+upload_button.click()
+
+# 等待上传完成
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+success_message = WebDriverWait(driver, 10).until(
+    EC.visibility_of_element_located((By.CLASS_NAME, "upload-success"))
+)
+
+# 清理测试文件
+os.unlink(file_path)
+\end{lstlisting}
+
+\subsubsection{文件下载处理}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+import os
+import time
+from selenium.webdriver.chrome.options import Options
+
+# 设置下载目录
+download_dir = os.path.join(os.getcwd(), "downloads")
+os.makedirs(download_dir, exist_ok=True)
+
+# 配置Chrome下载选项
+chrome_options = Options()
+prefs = {
+    "download.default_directory": download_dir,
+    "download.prompt_for_download": False,
+    "download.directory_upgrade": True,
+    "safebrowsing.enabled": True
+}
+chrome_options.add_experimental_option("prefs", prefs)
+
+driver = webdriver.Chrome(options=chrome_options)
+
+# 执行下载操作
+download_link = driver.find_element(By.ID, "download-link")
+download_link.click()
+
+# 等待文件下载完成
+def wait_for_download(download_path, timeout=30):
+    """等待文件下载完成"""
+    start_time = time.time()
+    while time.time() - start_time < timeout:
+        files = os.listdir(download_path)
+        # 检查是否有.crdownload文件（Chrome下载中的临时文件）
+        if not any(f.endswith('.crdownload') for f in files):
+            if files:  # 确保有文件下载完成
+                return True
+        time.sleep(1)
+    return False
+
+# 验证下载
+if wait_for_download(download_dir):
+    print("文件下载完成")
+    downloaded_files = os.listdir(download_dir)
+    print(f"下载的文件: {downloaded_files}")
+else:
+    print("文件下载超时")
+\end{lstlisting}
+
+\subsection{处理Alert对话框}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+
+# 等待Alert出现并处理
+try:
+    # 触发Alert的操作
+    alert_button = driver.find_element(By.ID, "alert-button")
+    alert_button.click()
+    
+    # 等待Alert出现
+    wait = WebDriverWait(driver, 10)
+    alert = wait.until(EC.alert_is_present())
+    
+    # 获取Alert文本
+    alert_text = alert.text
+    print(f"Alert内容: {alert_text}")
+    
+    # 接受Alert
+    alert.accept()
+    
+except TimeoutException:
+    print("Alert未在预期时间内出现")
+
+# 处理Confirm对话框
+confirm_button = driver.find_element(By.ID, "confirm-button")
+confirm_button.click()
+
+alert = WebDriverWait(driver, 5).until(EC.alert_is_present())
+alert.dismiss()  # 点击"取消"
+
+# 处理Prompt对话框
+prompt_button = driver.find_element(By.ID, "prompt-button")
+prompt_button.click()
+
+alert = WebDriverWait(driver, 5).until(EC.alert_is_present())
+alert.send_keys("用户输入的文本")  # 输入文本
+alert.accept()  # 点击"确定"
+\end{lstlisting}

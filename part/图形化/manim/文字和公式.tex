@@ -1,0 +1,674 @@
+\chapter{Manim文字和公式}
+\label{cha:manim_text_formula}
+\section{Text文字}
+\label{sec:manim_text_formula_text}
+Text系列常用的对象主要有三种：
+\begin{enumerate}[label=\arabic*)]
+    \item Text：一般用于单行的文本
+    \item Paragraph：一般用于多行的文本
+    \item MarkupText：一般用于富文本显示
+\end{enumerate}
+
+\subsection{一般文本}
+\label{subsec:manim_text_formula_text_general}
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 01TextSample.py TextSample
+from  manim import *
+
+class TextSample(Scene):
+    def construct(self):
+        text1 = Text("Hello, World!")
+        self.play(Write(text1))
+        text2 = Text("Hello, World!", font="Arial")
+        self.play(ReplacementTransform(text1, text2))
+        self.play(FadeOut(text2))
+
+        # 创建不同语言的文本
+        english_text = Text("hello world")  # 英文
+        chinese_text = Text("你好，世界")    # 中文
+        japanese_text = Text("こんにちは世界") # 日文
+        russian_text = Text("Привет, мир")   # 俄文
+        arabic_text = Text("مرحبا بالعالم", font="sans-serif") # 阿拉伯文
+        # 对文本进行位置调整，使其按顺序排列
+        english_text.to_edge(UP * 2)
+        chinese_text.next_to(english_text, DOWN, buff=0.5)
+        japanese_text.next_to(chinese_text, DOWN, buff=0.5)
+        russian_text.next_to(japanese_text, DOWN, buff=0.5)
+        arabic_text.next_to(russian_text, DOWN, buff=0.5)
+        # 将所有文本依次显示到场景中
+        self.play(Write(english_text))
+        self.play(Write(chinese_text))
+        self.play(Write(japanese_text))
+        self.play(Write(russian_text))
+        self.play(Write(arabic_text))
+
+        self.wait(2)
+\end{lstlisting}      
+
+\subsection{多行文本}
+\label{subsec:manim_text_formula_text_paragraph}
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 01ParagraphSample.py ParagraphSample
+from manim import *
+
+class ParagraphSample(Scene):
+    def construct(self):
+        # 创建包含古诗的 Paragraph 对象
+        paragraph = Paragraph(
+            "   春晓\n",         # 标题
+            "春眠不觉晓",         # 第一行
+            "处处闻啼鸟",         # 第二行
+            "夜来风雨声",         # 第三行
+            "花落知多少",         # 第四行
+            alignment="center"   # 文本居中对齐
+        )
+
+        # 设置诗的标题样式
+        title = paragraph[0]  # 提取标题部分
+        title.set_color(YELLOW)  # 设置标题颜色
+
+        # 动画显示古诗
+        self.play(Write(paragraph, run_time=3))
+        
+        # 保持场景显示2秒
+        self.wait(2)
+\end{lstlisting}        
+
+\subsection{富文本}
+\label{subsec:manim_text_formula_text_markup}
+使用 \codeinline{MarkupText} 类来创建带有 HTML 样式的文本。
+\begin{enumerate}[label=\arabic*)]
+    \item \codeinline{<b>...</b>}：加粗
+    \item \codeinline{<i>...</i>}：斜体
+    \item \codeinline{<u>...</u>}：下划线
+    \item \codeinline{<s>...</s>}：中划线
+    \item \codeinline{<span underline="double">...</span>}：双下划线
+    \item \codeinline{<span underline="error">...</span>}：错误标记（通常是红色波浪线）
+    \item \codeinline{<sub>...</sub>}：下标
+    \item \codeinline{<sup>...</sup>}：上标
+\end{enumerate}
+
+设置位置
+\begin{enumerate}[label=\arabic*)]
+    \item \codeinline{to\_edge()}：设置文本的位置
+    \item \codeinline{next\_to()}：设置文本相对于另一个对象的位置
+    \item \codeinline{shift()}：设置文本的位置偏移
+    \item \codeinline{move\_to()}：设置文本的位置
+    \item \codeinline{scale()}：设置文本的缩放比例
+\end{enumerate}
+
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 01MarkupTextDemo.py MarkupTextDemo
+
+from manim import *
+
+class MarkupTextDemo(Scene):
+    def construct(self):
+        # 创建不同样式的文本对象
+        bold_italic_text = MarkupText("<b>bold</b> <i>斜体文字</i>")
+        underline_strike_text = MarkupText("<u>下划线</u> <s>中划线</s>")
+        double_underline_error = MarkupText(
+            '<span underline="double">双下划线</span> <span underline="error">错误标记</span>'
+        )
+        subscript_superscript = MarkupText("下标和上标：H<sub>2</sub>O H<sub>3</sub>O<sup>+</sup>")
+
+        # 设置每个文本的位置
+        bold_italic_text.to_edge(UP * 2)
+        underline_strike_text.next_to(bold_italic_text, DOWN, buff=0.5)
+        double_underline_error.next_to(underline_strike_text, DOWN, buff=0.5)
+        subscript_superscript.next_to(double_underline_error, DOWN, buff=0.5)
+
+        # 动画显示文本
+        self.play(Write(bold_italic_text))
+        self.play(Write(underline_strike_text))
+        self.play(Write(double_underline_error))
+        self.play(Write(subscript_superscript))
+
+        # 保持显示2秒
+        self.wait(2)
+\end{lstlisting}        
+
+
+\section{Tex公式}
+\label{sec:manim_text_formula_formula}
+Tex系列的对象主要是用来显示数学公式，
+基于Tex之上，manim还封装了列表和标题两种常用的对象。
+
+不过，Tex默认\textcolor{red}{\textbf{只}}支持显示英文，所以多用于显示公式，
+显示文本还是 \codeinline{Text} 系列的对象比较常用。
+
+\subsection{公式}
+\label{subsec:manim_text_formula_formula_formula}
+\codeinline{Tex} 可以显示任何 Latex格式的数学公式：
+
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 01MathEquations.py MathEquations    
+from manim import *
+
+class MathEquations(Scene):
+    def construct(self):
+        # 创建不同的数学公式
+        pythagorean = Tex(r"$a^2 + b^2 = c^2$")
+        einstein = Tex(r"$E = mc^2$")
+        euler = Tex(r"$e^{i\pi} + 1 = 0$")
+
+        # 设置每个公式的位置
+        pythagorean.to_edge(UP * 2)
+        einstein.next_to(pythagorean, DOWN, buff=0.5)
+        euler.next_to(einstein, DOWN, buff=0.5)
+
+        # 动画显示公式
+        self.play(Write(pythagorean))
+        self.play(Write(einstein))
+        self.play(Write(euler))
+
+        # 保持显示2秒
+        self.wait(2)
+\end{lstlisting}
+
+\subsection{列表}
+\label{subsec:manim_text_formula_formula_list}
+\codeinline{BulletedList}会将传入的多个字符串以列表的方式排列起来
+
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 01MathListDemo.py MathListDemo   
+from manim import *
+
+class MathListDemo(Scene):
+    def construct(self):
+        # 创建包含数学公式的项目符号列表
+        bulleted_list = BulletedList(
+            r"$a^2 + b^2 = c^2$",   # 毕达哥拉斯定理
+            r"$E = mc^2$",          # 爱因斯坦质能方程
+            r"$e^{i\pi} + 1 = 0$"   # 欧拉公式
+        )
+
+        # 将列表居中显示
+        bulleted_list.scale(1.5)  # 调整文本大小以便更好展示
+
+        # 动画展示项目符号列表
+        self.play(Write(bulleted_list))
+
+        # 保持显示2秒
+        self.wait(2)
+\end{lstlisting}
+
+\subsection{标题}
+\label{subsec:manim_text_formula_formula_title}
+\codeinline{Title} 会将传入的字符串以标题的方式展示出来。
+
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 01TitleDemo.py TitleDemo   
+from manim import *
+import manim
+
+class TitleDemo(Scene):
+    def construct(self):
+        # 获取当前 Manim 版本号
+        version_text = f"Manim version {manim.__version__}"
+
+        # 创建标题对象
+        title = Title(version_text)
+
+        # 动画显示标题
+        self.play(Write(title))
+
+        # 保持显示2秒
+        self.wait(2)
+\end{lstlisting} 
+
+\codeinline{Title} 类基于 LaTeX 渲染器，而在渲染中文时，
+LaTeX 的默认设置可能无法正确处理中文字符，因此会导致 LaTeX 编译错误。
+为了解决这个问题，我们可以使用 Title 类中的 Tex 模式来处理非中文字符，
+而对于中文文本则使用 \codeinline{Text} 类。
+
+\begin{lstlisting}[style=pythonstyle]
+from manim import *
+
+class FEMHistory(Scene):
+    def construct(self):
+        #1. 定义有限元方法的历史事件
+        history = [
+            "1943年: 结构工程师柯朗提出有限元方法的早期概念。",
+            "1956年: Turner等人正式提出有限元方法，用于解决结构分析 问题。",
+            "1960年代: 有限元方法被广泛应用于结构力学、热传导和流体 力学领域。",
+            "1970年代: 有限元方法理论化，逐渐推广到非线性问题和复杂 几何形状。",
+            "1980年代: 高性能计算的发展推动了大型有限元模型的应用。",
+            "1990年代: 有限元方法成为工程、航空航天、汽车等行业的标 准工具。",
+            "2000年后: 有限元方法与其他数值方法结合，如多尺度模拟和 优化。"
+        ]
+
+        # 2.创建标题
+        # 1) 使用Title显示英文标题
+        #title = Title("FEM History").scale(1.2)  # 使用Title只能显 示英文
+        # 2) 使用Text显示中文标题
+        # (1)创建标题
+        title = Text("有限元方法的发展历史", font="SimSun").scale(1.2)  # SimSun 字体支持中文
+        # (2)获取标题的宽度并创建下划线
+        underline = Line(
+            start=[-title.width / 2, -0.1, 0],  # 根据标题宽度设置下划线的起始点
+            end=[title.width / 2, -0.1, 0],    # 下划线的终止点
+            stroke_width=2,                    # 下划线的宽度
+            color=WHITE                        # 下划线颜色为白色
+        )
+        # (3)将标题与下划线组合成一个VGroup，便于统一操作
+        title_group = VGroup(title, underline).arrange(DOWN, buff=0.2)
+
+        # 3.播放动画
+        # self.play(FadeIn(title))      # 显示Title
+        self.play(FadeIn(title_group))  # 显示Text标题
+        self.wait(1)
+        #self.play(title.animate.to_edge(UP))
+        self.play(title_group.animate.to_edge(UP))
+
+        # 4.动画显示每个历史事件
+        for event in history:
+            event_text = Text(event, font="SimSun", font_size=24)
+            self.play(FadeIn(event_text))
+            self.wait(2)
+            self.play(FadeOut(event_text))
+
+        # 5.结束语
+        thank_you = Text("感谢观看！", font="SimSun").scale(1.2)
+        self.play(FadeIn(thank_you))
+        self.wait(2)
+
+if __name__ == "__main__":
+    from manim import *
+    scene = FEMHistory()
+    scene.render()
+\end{lstlisting}  
+
+\section{文本样式}
+\label{sec:manim_text_formula_style}
+Manim 支持自定义文本样式，允许用户修改字体、大小、颜色等属性。
+
+\begin{table}[htpb]
+\begin{tabular}{c|c}
+属性              & 备注                                \\ \hline
+font\_size        & 字体大小，默认为48                   \\
+font              & 字体名称，例如 "Arial" 或 "SimSun"    \\
+color             & 文本颜色，默认为白色                 \\
+gradient          & 渐变颜色，可以指定多个颜色            \\
+slant             & 倾斜角度，选项有 ITALIC（斜体）         \\
+weight            & 字重，选项有 BOLD（粗体）             \\
+t2c               & 给定文字的特定部分自定义颜色         \\
+line\_spacing     & 文本行间距                          \\
+alignment         & 文本对齐方式，选项有 "center", "left" 等 \\
+\end{tabular}
+\caption{manim中的文字样式}
+\label{tab:manim中的文字样式}
+\end{table}
+
+\subsection{颜色相关}
+\label{subsec:manim_text_formula_style_color}
+\subsubsection{color 单色}
+\label{subsubsec:manim_text_formula_style_color_single}
+
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 02TextAndMathDemo.py TextAndMathDemo
+from manim import *
+
+class TextAndMathDemo(Scene):
+    def construct(self):
+        # 创建各种文本和数学公式对象，并为它们指定不同的颜色
+        text_english = Text("hello world", color=RED)
+        text_chinese = Text("你好，世界", color=YELLOW)
+        text_japanese = Text("こんにちは世界", color=GREEN)
+
+        tex_pythagoras = Tex(r"$a^2 + b^2 = c^2$", color=RED)
+        tex_einstein = Tex(r"$E = mc^2$", color=YELLOW)
+        tex_euler = Tex(r"$e^{i\pi} + 1 = 0$", color=GREEN)
+
+        # 设置每个文本和公式的位置
+        text_english.to_edge(UP)
+        text_chinese.next_to(text_english, DOWN)
+        text_japanese.next_to(text_chinese, DOWN)
+
+        tex_pythagoras.next_to(text_japanese, DOWN, buff=1)
+        tex_einstein.next_to(tex_pythagoras, DOWN)
+        tex_euler.next_to(tex_einstein, DOWN)
+
+        # 依次显示文本和公式
+        self.play(Write(text_english))
+        self.play(Write(text_chinese))
+        self.play(Write(text_japanese))
+
+        self.play(Write(tex_pythagoras))
+        self.play(Write(tex_einstein))
+        self.play(Write(tex_euler))
+
+        # 保持场景显示一段时间
+        self.wait(2)
+
+if __name__ == "__main__":
+    from manim import config
+    config.background_color = "#fafafa"  # 可选：设置背景颜色
+    scene = TextAndMathDemo()
+    scene.render()
+\end{lstlisting}
+
+\subsubsection{gradient 渐变色}
+\label{subsubsec:manim_text_formula_style_color_gradient}
+\codeinline{set\_color\_by\_gradient} 方法可以为文本和公式设置渐变颜色。
+
+\begin{lstlisting}[style=pythonstyle]
+from manim import *
+
+class GradientTextAndMath(Scene):
+    def construct(self):
+        # 创建英文文本并设置渐变颜色
+        text_english = Text("hello world").set_color_by_gradient(RED, GREEN)
+        # 创建中文文本并设置渐变颜色
+        text_chinese = Text("你好，世界").set_color_by_gradient(YELLOW, BLUE)
+        # 创建日文文本并设置渐变颜色
+        text_japanese = Text("こんにちは世界").set_color_by_gradient(BLUE, RED)
+
+        # 创建数学公式并设置渐变颜色
+        tex_pythagoras = Tex(r"$a^2 + b^2 = c^2$").set_color_by_gradient(RED, GREEN)
+        tex_einstein = Tex(r"$E = mc^2$").set_color_by_gradient(YELLOW, BLUE)
+        tex_euler = Tex(r"$e^{i\pi} + 1 = 0$").set_color_by_gradient(BLUE, RED)
+
+        # 设置每个文本和公式的位置
+        text_english.to_edge(UP)  # 将英文文本移至屏幕上方
+        text_chinese.next_to(text_english, DOWN, buff=0.5)  # 中文文本在英文下方
+        text_japanese.next_to(text_chinese, DOWN, buff=0.5)  # 日文 文本在中文下方
+
+        tex_pythagoras.next_to(text_japanese, DOWN, buff=1)  # 数学 公式在文本下方
+        tex_einstein.next_to(tex_pythagoras, DOWN, buff=0.5)  # 公式E=mc^2在其下方
+        tex_euler.next_to(tex_einstein, DOWN, buff=0.5)  # 欧拉公式 在最下方
+
+        # 使用动画依次显示文本和公式
+        self.play(Write(text_english))
+        self.play(Write(text_chinese))
+        self.play(Write(text_japanese))
+
+        self.play(Write(tex_pythagoras))
+        self.play(Write(tex_einstein))
+        self.play(Write(tex_euler))
+
+        # 保持场景显示2秒
+        self.wait(2)
+
+if __name__ == "__main__":
+    from manim import config
+    config.background_color = "#fafafa"  # 设置浅色背景
+    scene = GradientTextAndMath()
+    scene.render()
+\end{lstlisting}
+
+\subsubsection{按字符设置颜色}
+\label{subsubsec:manim_text_formula_style_color_char}
+
+\begin{enumerate}[label=\arabic*)]
+    \item 文本的颜色设置：\codeinline{t2c}：给定文字的特定部分自定义颜色
+
+    \begin{lstlisting}[style=pythonstyle]
+    # manim -pql 02TextWithColor.py
+    from manim import *
+
+    class TextAndMathWithColors(Scene):
+        def construct(self):
+            # 文本的颜色设置
+            text = Text("JLU.com", t2c={"JL": BLUE, "U": RED, "com": GREEN})
+            text.to_edge(UP)  # 将文本移到屏幕的上边缘
+    
+            text2 = Text("我爱计算机", t2c={"我": BLUE, "爱": RED, "计算机": GREEN})
+    
+    
+            # 动画显示文本和公式
+            self.play(Write(text))
+            self.wait(1)
+            self.play(ReplacementTransform(text, text2))
+    
+            # 保持场景显示2秒
+            self.wait(2)
+    
+    if __name__ == "__main__":
+        from manim import config
+        config.background_color = "#ffffff"  # 设置白色背景
+        scene = TextAndMathWithColors()
+        scene.render()
+    \end{lstlisting}
+
+    \item LaTeX 数学公式的颜色设置 
+    \begin{lstlisting}[style=pythonstyle]
+    # manim -pql 02TextWithColor.py
+    from manim import *
+
+    class TextAndMathWithColors(Scene):
+        def construct(self):
+            # LaTeX 数学公式的颜色设置
+            tex = Tex(r"$a^2$", " + ", r"$b^2$", " = ", r"$c^2$")
+            # 分别为公式中的不同部分设置颜色
+            tex.set_color_by_tex("a^2", RED)
+            tex.set_color_by_tex("b^2", YELLOW)
+            tex.set_color_by_tex("c^2", GREEN)
+    
+            # 动画显示文本和公式
+            self.play(Write(tex))
+    
+            # 保持场景显示2秒
+            self.wait(2)
+    
+    if __name__ == "__main__":
+        from manim import config
+        config.background_color = "#ffffff"  # 设置白色背景
+        scene = TextAndMathWithColors()
+        scene.render()
+    \end{lstlisting}
+\end{enumerate}
+
+
+\subsection{字体相关}
+\label{subsec:manim_text_formula_style_font}
+\subsubsection{font 字体}
+\label{subsubsec:manim_text_formula_style_font_font}
+manim通过 \codeinline{font} 属性设置字体。
+
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 01CustomFontText.py CustomFontText    
+from manim import *
+
+class CustomFontText(Scene):
+    def construct(self):
+        # 英文文本，使用 Consolas 字体
+        text_english = Text("I love", font="Consolas")
+        text_english.to_edge(UP)  # 将文本移到屏幕的上方
+
+        # 中文文本，使用华文行楷字体
+        text_chinese_xingkai = Text("数学", font="STXingkai")  # 华 文行楷字体
+        text_chinese_xingkai.next_to(text_english, DOWN, buff=0.5)  # 将中文放在英文下方
+
+        # 中文文本，使用华文彩云字体
+        text_chinese_caiyun = Text("计算机", font="STCaiyun")  # 华 文彩云字体
+        text_chinese_caiyun.next_to(text_chinese_xingkai, DOWN, buff=0.5)  # 将“之旅”放在“数学”下方
+
+        # 动画依次显示文本
+        self.play(Write(text_english))
+        self.play(Write(text_chinese_xingkai))
+        self.play(Write(text_chinese_caiyun))
+
+        # 保持场景显示2秒
+        self.wait(2)
+
+if __name__ == "__main__":
+    from manim import config
+    config.background_color = "#fafafa"  # 设置浅色背景
+    scene = CustomFontText()
+    scene.render()
+\end{lstlisting}    
+
+引用本地字体文件
+
+\subsubsection{font\_size 字体大小}
+\label{subsubsec:manim_text_formula_style_font_fontsize}
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql  01TextWithDifferentSize.py TextWithDifferentSizes
+from manim import *
+
+class TextWithDifferentSizes(Scene):
+    def construct(self):
+        # 创建不同大小的文本
+        text_1 = Text("I", font_size=20)         # 字体大小为20
+        text_2 = Text("love", font_size=30)      # 字体大小为30
+        text_3 = Text("数学", font_size=40)       # 字体大小为40，中文字符
+        text_4 = Text("&", font_size=50)         # 字体大小为50
+        text_5 = Text("计算机", font_size=60)     # 字体大小为60，中文字符
+
+        # 调整文本位置，使它们按顺序显示在同一行上
+        text_1.to_edge(LEFT)  # 将"I"移到屏幕左边缘
+        text_2.next_to(text_1, RIGHT, buff=0.5)  # "love" 放在 "I"  的右边，间隔0.5
+        text_3.next_to(text_2, RIGHT, buff=0.5)  # "数学" 放在 "love" 的右边，间隔0.5
+        text_4.next_to(text_3, RIGHT, buff=0.5)  # "&" 放在 "数学"  的右边，间隔0.5
+        text_5.next_to(text_4, RIGHT, buff=0.5)  # "计算机" 放在 "&" 的右边，间隔0.5
+
+        # 依次显示每个文本
+        self.play(Write(text_1))
+        self.play(Write(text_2))
+        self.play(Write(text_3))
+        self.play(Write(text_4))
+        self.play(Write(text_5))
+
+        # 保持场景显示2秒
+        self.wait(2)
+
+if __name__ == "__main__":
+    from manim import config
+    config.background_color = "#fafafa"  # 设置浅色背景
+    scene = TextWithDifferentSizes()
+    scene.render()
+\end{lstlisting}    
+
+\subsubsection{weight 字重}
+\label{subsubsec:manim_text_formula_style_font_weight}
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 01TextWithDifferentWeights.py TextWithDifferentWeights
+from manim import *
+
+class TextWithDifferentWeights(Scene):
+    def construct(self):
+        # 正常字体权重的英文文本
+        text_normal = Text("NORMAL font weight")  # 正常字体
+        text_normal.to_edge(UP)  # 将文本移到屏幕的上方
+
+        # 加粗字体权重的英文文本
+        text_bold_english = Text("BOLD font weight", weight=BOLD)  # 加粗字体
+        text_bold_english.next_to(text_normal, DOWN, buff=0.5)  # 在正常字体下方显示
+
+        # 正常字体权重的中文文本，使用宋体
+        text_normal_chinese = Text("正常字重", font="SimSun")  # 正 常宋体
+        text_normal_chinese.next_to(text_bold_english, DOWN, buff=0.5)  # 在英文加粗字体下方显示
+
+        # 加粗字体权重的中文文本
+        text_bold_chinese = Text("加粗字体", font="SimSun", weight=BOLD)  # 加粗宋体
+        text_bold_chinese.next_to(text_normal_chinese, DOWN, buff=0.5)  # 在正常中文字体下方显示
+
+        # 依次显示每个文本
+        self.play(Write(text_normal))
+        self.play(Write(text_bold_english))
+        self.play(Write(text_normal_chinese))
+        self.play(Write(text_bold_chinese))
+
+        # 保持场景显示2秒
+        self.wait(2)
+
+if __name__ == "__main__":
+    from manim import config
+    config.background_color = "#fafafa"  # 设置浅色背景
+    scene = TextWithDifferentWeights()
+    scene.render()
+\end{lstlisting}       
+
+\subsubsection{slant 倾斜}
+\label{subsubsec:manim_text_formula_style_font_slant}
+
+\begin{lstlisting}[style=pythonstyle]
+#  manim -pql 01TextWithItalicAndNormal.py TextWithItalicAndNormal       
+from manim import *
+
+class TextWithItalicAndNormal(Scene):
+    def construct(self):
+        # 正常字体权重的英文文本
+        text_normal = Text("NORMAL font weight")  # 正常字体
+        text_normal.to_edge(UP)  # 将文本移到屏幕的上方
+
+        # 斜体字体权重的英文文本
+        text_italic_english = Text("ITALIC font", slant=ITALIC)  #  斜体字体
+        text_italic_english.next_to(text_normal, DOWN, buff=0.5)  # 在正常字体下方显示
+
+        text_bold_itatic = Text("BOLD ITALIC", slant=ITALIC, weight=BOLD)  # 粗斜体字体
+        text_bold_itatic.next_to(text_italic_english, DOWN, buff=0.5)
+
+        # 正常字体权重的中文文本，使用宋体
+        text_normal_chinese = Text("正常字重", font="SimSun")  # 正 常宋体
+        text_normal_chinese.next_to(text_bold_itatic, DOWN, buff=0.5)
+
+        # 斜体字体权重的中文文本
+        text_italic_chinese = Text("斜体", font="SimSun", slant=ITALIC)  # 斜体宋体
+        text_italic_chinese.next_to(text_normal_chinese, DOWN, buff=0.5)  # 在正常中文字体下方显示
+
+        # 斜体加粗字体权重的中文文本
+        text_bold_italic_chinese = Text("粗斜体", font="SimSun", slant=ITALIC, weight=BOLD)
+        text_bold_italic_chinese.next_to(text_italic_chinese, DOWN, buff=0.5)
+
+        # 依次显示每个文本
+        self.play(Write(text_normal))
+        self.play(Write(text_italic_english))
+        self.play(Write(text_bold_itatic))
+        self.play(Write(text_normal_chinese))
+        self.play(Write(text_italic_chinese))
+        self.play(Write(text_bold_italic_chinese))
+
+
+        # 保持场景显示2秒
+        self.wait(2)
+
+if __name__ == "__main__":
+    from manim import config
+    config.background_color = "#fafafa"  # 设置浅色背景
+    scene = TextWithItalicAndNormal()
+    scene.render()
+\end{lstlisting}       
+
+
+
+\subsubsection{按字符设置}
+\label{subsubsec:manim_text_formula_style_font_char}
+\begin{enumerate}[label=\arabic*)]
+    \item \codeinline{t2f}：按字符设置字体
+    \item \codeinline{t2s}：按字符设置斜体
+    \item \codeinline{t2w}：按字符设置粗体
+\end{enumerate}
+
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 01TextWithStyles.py TextWithStyles
+from manim import *
+
+class TextWithStyles(Scene):
+    def construct(self):
+        # 创建带有不同样式的文本
+        text = Text(
+            "I love 数学计算机",  # 目标文本
+            t2f={"数学": "STXingkai", "之旅": "SimSun"},  # 为"数学"部分使用STXingkai字体，为"之旅"使用SimSun字体
+            t2s={"I": ITALIC},  # 将"ma"部分设置为斜体
+            t2w={"love": BOLD},   # 将"nim"部分设置为加粗
+        )
+
+        # 将文本放置在屏幕中央
+        text.move_to(ORIGIN)
+
+        # 动画显示文本
+        self.play(Write(text))
+
+        # 保持场景显示2秒
+        self.wait(2)
+
+if __name__ == "__main__":
+    from manim import config
+    config.background_color = "#fafafa"  # 设置浅色背景
+    scene = TextWithStyles()
+    scene.render()
+\end{lstlisting}  
+
+

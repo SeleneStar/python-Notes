@@ -1,0 +1,329 @@
+\chapter{多线程编程}
+\label{cha:多线程编程}
+
+\section{线程}
+\label{sec:线程}
+Python3中用到\codeinline{threading}模块来实现多线程编程，线程是操作系统能够进行运算调度的最小单位，它被包含在进程之中，是进程中的实际运作单位。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+Thread(group=None, target=None, name=None, args=(), kwargs={}, *, daemon=None)
+'''
+group: 线程组，目前还没有实现，库引用中应该写None
+target: 要执行的方法
+name: 线程名
+args/kwargs: 方法的参数
+daemon: 是否是守护线程
+'''
+
+start() # 启动线程
+join(timeout=None) # 等待线程终止
+
+\end{lstlisting}
+
+\begin{lstlisting}[style=pythonstyle,numbers=left]
+# 不推荐的写法
+import threading
+
+def func(arg1, arg2):
+    for i in range(5):
+        print('threading: %s, %s %s' % (i, arg1+i, i+arg2))  
+        
+t = threading.Thread(target=func, args=(1,2))
+t.start()
+\end{lstlisting}
+
+\begin{lstlisting}[style=pythonstyle]
+# 推荐的写法
+## 上面的方法虽然用起来简单，但是不推荐使用，因为这样写不利于维护，韩式推荐使用继承的方式来创建线程
+import threading
+from threading import current_thread
+
+def func(arg1, arg2):
+    for i in range(5):
+        print('threading: %s, %s %s' % (i, arg1+i, i+arg2))
+
+class Mythread(threading.Thread):
+    def __init__(self, func, args, tname=''):
+        super(Mythread, self).__init__()
+        self.func = func    # func 存放的是要执行的函数
+        self.args = args    # args 存放的是函数的参数
+        self.tname = tname  # tname 存放的线程的名字，线程的名字是可选的，
+                            # 如果不传入线程名字，线程会自动分配一个名字
+
+    ## 执行线程的具体逻辑
+    ## 通过重写run方法的方式可以自定义线程具体的执行逻辑，
+    ## 相比上面的方法， 这种方法更加灵活、直观。
+    def run(self):
+        print("Runing Threading: ",self.tname)
+        print(current_thread().getName(), "start")        
+        print('run')
+        self.func(*self.args)
+        print(current_thread().getName(), "stop")
+
+t1 = Mythread(func, (1, 2), tname='thread_name')
+t1.start()
+t1.join() # join方法会将主线程挂起，直到子线程运行结束再继续执行主线程中的逻辑
+
+print(current_thread().getName(), "end")
+\end{lstlisting}
+
+\section{线程同步}
+\label{sec:线程同步}
+线程同步是为了保证多个线程能够安全的访问共享的数据，Python中使用\codeinline{Lock}对象来实现线程同步。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+Lock()
+'''
+acquire(blocking=True, timeout=-1) # 获取锁
+release() # 释放锁
+'''
+\end{lstlisting}
+
+如果没有锁直接使用多线程，会出现数据混乱的情况。
+
+程序中多个线程公用相同的资源是导致线程之间产生冲突的主要原因，为了避免这种
+冲突，要求线程在操作公用资源时要获取锁，只有拿到锁的线程才可以使用公用资源，
+没有获取锁的线程只能先等待。
+
+\begin{lstlisting}[style=pythonstyle,numbers=left]
+# 错误示例
+# 因为没有加锁，所以会出现数据混乱的情况
+import time
+import threading
+
+class MyThread(threading.Thread):
+    def __init__(self, input, output):
+        super(MyThread, self).__init__() 
+        # 调用父类的构造函数
+        # super()函数是用于调用父类(超类)的一个方法
+        # 参数 ：
+        #   MyThread - 类名，表示要调用的父类
+        #   self - 对象，表示当前类的实例
+        self.input = input
+        self.output = output
+    
+    def run(self):
+        for line in self.input.readlines():
+            time.sleep(1) # 模拟耗时操作 1s
+            self.output.write(line)
+        print(f'写入: {line.strip()}')
+
+def main():
+    txt1 = open('./threading/1.txt', 'r') # 读取文件
+    txt2 = open('./threading/2.txt', 'r') # 读取文件
+    txt3 = open('./threading/3.txt', 'a') # 追加文件
+    t1 = MyThread(txt1, txt3)
+    t2 = MyThread(txt2, txt3)
+    ``` 
+    创建的两个线程会同时运行run方法，
+    此时就会造成3.txt中的内容混乱，
+    因为tl线程运行run方法插入了一行数据后，
+    t2线程也在运行，将2.txt中的某行数据插入了 3.txt中。
+    ```
+    t1.start()
+    t2.start()
+    t1.join() # 主线程等待子线程结束
+    t2.join() # 主线程等待子线程结束
+    txt1.close()
+    txt2.close()
+    txt3.close()
+
+if __name__ == '__main__':
+    main()
+\end{lstlisting}
+
+\begin{lstlisting}[style=pythonstyle,numbers=left]
+# 正确示例
+import time
+import threading
+
+class MyThread(threading.Thread):
+    def __init__(self, input, output, lock): # 增加一个lock参数
+        super(MyThread, self).__init__() 
+        self.input = input
+        self.output = output
+        self.lock = lock            # 保存锁对象
+    
+    def run(self):
+        print(self.getName(), '获取锁')
+        self.lock.acquire()         # 获取锁,lock状态变为locked,
+                                    # 并且阻塞其他线程获取lock对象
+        for line in self.input.readlines():
+            time.sleep(1) 
+            self.output.write(line)
+        self.lock.release()         # 释放锁,lock状态变为unlocked,
+                                    # 其他线程可以获取lock对象    
+        print(f'写入: {line.strip()}')
+        print(self.getName(), '释放锁')
+
+def main():
+    lock = threading.Lock()         # 创建一个锁对象
+    txt1 = open('./threading/1.txt', 'r') # 读取文件
+    txt2 = open('./threading/2.txt', 'r') # 读取文件
+    txt3 = open('./threading/3.txt', 'a') # 追加文件
+    t1 = MyThread(txt1, txt3, lock)
+    t2 = MyThread(txt2, txt3, lock)
+    t1.start()
+    t2.start()
+    t1.join() # 主线程等待子线程结束
+    t2.join() # 主线程等待子线程结束
+    txt1.close()
+    txt2.close()
+    txt3.close()
+
+if __name__ == '__main__':
+    main()
+\end{lstlisting}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+$ Python ./threading_with_lock.py
+Thread-1 获取锁
+Thread-2 获取锁
+写入: Hello 1.txt
+Thread-1 释放锁
+写入: Hello 2.txt
+Thread-2 释放锁
+\end{lstlisting}
+
+
+\section{线程池}
+\label{sec:线程池}
+有些程序对效率有较高的要求，但自己创建且维护多个线程显得繁杂，此时就可以使
+用线程池。线程池至少会包含一个线程，但通常它都会由多个线程构成。线程池会对池子
+中的线程进行管理，用户只需要关心自己程序的逻辑即可
+
+\subsection{ThreadPoolExecutor}
+\label{sub:ThreadPoolExecutor}
+python中\codeinline{concurrent}标准,提供了线程池功能
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+ThreadPoolExecutor(max_workers=None, thread_name_prefix='', initializer=None, initargs=())
+'''
+max_workers: 线程池中最多能同时运行的线程数
+thread_name_prefix: 线程名的前缀
+initializer: 初始化函数
+initargs: 初始化函数的参数
+'''
+submit(fn, *args, **kwargs) # 提交任务
+shutdown(wait=True) # 关闭线程池
+\end{lstlisting}
+
+\begin{lstlisting}[style=pythonstyle,numbers=left]
+import time
+from concurrent.futures import ThreadPoolExecutor
+# 导入了 concurrent.futures 中的 ThreadPoolExecutor类
+# 通过实例化 ThreadPoolExecutor类来创建线程池，该类的参数为线程池中拥有的线程数
+# 通过submit方法将要执行的方法与该方法对应的参数作为参数提交到线程池中，
+# 线程池会自动安排闲置的线程去执行相应的任务。
+import threading
+
+def worker(input_file, output_file, lock, thread_name):
+    print(thread_name, '获取锁')
+    with lock:  # 使用上下文管理器来自动获取和释放锁
+        for line in input_file.readlines():
+            time.sleep(1)
+            output_file.write(line)
+            print(f'写入: {line.strip()}')
+    print(thread_name, '释放锁')
+
+def main():
+    lock = threading.Lock()
+    txt1 = open('./threading/1.txt', 'r')
+    txt2 = open('./threading/2.txt', 'r')
+    txt3 = open('./threading/3.txt', 'a')
+    
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        futures = []
+        # 使用submit方法提交任务
+        futures.append(executor.submit(worker, txt1, txt3, lock, "线程1"))
+        futures.append(executor.submit(worker, txt2, txt3, lock, "线程2"))
+        
+        # 等待所有线程完成
+        for future in futures:
+            future.result()
+    
+    txt1.close()
+    txt2.close()
+    txt3.close()
+
+if __name__ == '__main__':
+    main()
+\end{lstlisting}
+
+\subsection{返回值}
+\label{sub:线程的返回值}
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 线程执行的方法有相应的返回值
+as_completed(fs, timeout=None)
+'''
+fs: 一个Future对象的迭代器
+timeout: 超时时间
+'''
+\end{lstlisting}
+
+\begin{lstlisting}[style=pythonstyle,numbers=left]
+import time
+from concurrent.futures import ThreadPoolExecutor, as_completed 
+
+executor = ThreadPoolExecutor(max_workers=8)
+
+def longtime(s):
+    print(f"\033[32m线程 {s} 开始\033[0m")
+    time.sleep(2)
+    print(f'\033[92m线程 {s} 结束\033[0m')
+    return s+2
+
+all_task = []
+for i in range(5):
+    # 提交任务
+    ## 通过submit方法将 long_time 函数提交给线程池
+    ## long_time 函数的参数是 i
+    ## long_time 函数的返回值是 i+2
+    task = executor.submit(longtime, i)
+    # 保存任务到列表
+    all_task.append(task)
+    print(f"\033[35m任务 {i} 提交\033[0m")
+
+for future in as_completed(all_task):
+    data = future.result()
+    print(f"\033[95m任务 {i} 完成，返回值为{data} \033[0m")
+\end{lstlisting}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+$ Python ./threading_pool_return.py
+线程 0 开始
+任务 0 提交
+线程 1 开始
+任务 1 提交
+线程 2 开始
+任务 2 提交
+线程 3 开始
+任务 3 提交
+线程 4 开始
+任务 4 提交
+线程 4 结束
+线程 2 结束
+线程 0 结束
+任务 6 完成，返回值为6
+线程 3 结束
+任务 4 完成，返回值为4
+线程 1 结束
+任务 2 完成，返回值为2
+任务 5 完成，返回值为5
+任务 3 完成，返回值为3
+\end{lstlisting}
+
+\section{Python中的多线程}
+\label{sec:Python中的多线程}
+Python中的线程与其他主流语言（如C++、Java等）提供的线程有较大差别，
+主要表现在Python的线程无法利用多核CPU,对程序速度的提升非常有限。
+
+之所以有这样的问题，因为Python线程面临着解释器级别的锁：GIL （ Global
+Interpreter Lock,全局解释器锁），每个线程要运行都需要获得GIL锁，因为GIL锁的存
+在，Python多线程其实依旧以类似单线程的方式在运行。
+
+因此，Python中的多线程适合 \textcolor{YBXPurple}{处理I/O密集型任务}，但不适合处理CPU密集型任务。
+
+
+
+

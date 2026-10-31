@@ -1,0 +1,58 @@
+\chapter{使用openai}
+\label{openai}
+\section{密钥保存}
+\label{key_save}
+
+\subsection{Windows设置方法}
+\label{Windows设置环境方法}
+\begin{figure}[htpb]  
+    \centering  
+    \begin{minipage}{0.8\textwidth}  
+        \centering  
+        \includegraphics[width=\textwidth]{part/自动化/openai/pic/高级系统设置.png}  
+        \caption{环境变量}  
+        \label{fig:环境变量}  
+    \end{minipage}  
+    \vspace{1em}  
+    \begin{minipage}{0.8\textwidth}  
+        \centering  
+        \includegraphics[width=\textwidth]{part/自动化/openai/pic/新建系统变量.png}  
+        \caption{新建系统变量}  
+        \label{fig:新建系统变量}  
+    \end{minipage}  
+    \vspace{1em}  
+    \begin{minipage}{0.8\textwidth}  
+        \centering  
+        \includegraphics[width=\textwidth]{part/自动化/openai/pic/设置apikey环境变量.png}  
+        \caption{设置apikey环境变量}  
+        \label{fig:设置apikey环境变量}  
+    \end{minipage}  
+\end{figure}
+
+
+
+\subsection{Linux设置方法}
+\label{Linux设置环境方法}
+\begin{lstlisting}[style=demostyle,numbers=none]
+vim ~/.bashrc
+export OPENAI_API_KEY="sk-uzm6********************************949bE6"
+source ~/.bashrc
+\end{lstlisting}
+
+\section{使用}
+\label{openai使用}
+最好的办法是将密钥保存在环境变量中，这样不会泄露密钥。
+\begin{lstlisting}[style=demostyle,numbers=none]
+from openai import OpenAI
+client = OpenAI()# 读取环境变量中的密钥
+
+response = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[
+        {
+            "role": "user",
+            "content": "有限元是如何求解PDE的？"
+        }
+    ]
+)
+\end{lstlisting}

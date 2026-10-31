@@ -1,0 +1,94 @@
+\chapter{Python概述}
+\section{Python 版本区别，Python 3 和 Python 2 区别详解}
+
+\subsection{print 由语句变成函数}
+Python 3.x \codeinline{print} 函数代替了 \codeinline{print} 语句
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# Python 2.x
+print "Hello World"
+print "3,4"
+
+# Python 3.x
+print("Hello World")
+print("3,4")
+\end{lstlisting}
+
+\subsection{编码问题}
+Python 3.x 默认使用 \codeinline{UTF-8} 编码，Python 2.x 默认使用 \codeinline{ASCII} 编码
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+>>> import sys
+>>> sys.getdefaultencoding()
+'utf-8'
+\end{lstlisting}
+
+\subsection{整数除法}
+Python 3.x 中整数除法返回浮点数，Python 2.x 中整数除法返回整数，需要使用 \codeinline{//}
+\begin{lstlisting}[style=demostyle,numbers=none]
+# Python 2.x
+>>> 3/2
+1
+>>> 3.0/2
+1.5
+
+# Python 3.x
+>>> 3/2
+1.5
+>>> 3.0/2
+1.5
+\end{lstlisting}        
+
+\subsection{异常}
+\begin{enumerate}[label=\arabic*)]
+    \item 在 Python 2.x 版本中，所有类型的对象都是直接被抛出的，但是在 Python 3.x 版本中，只有继承 \codeinline{BaseException} 的对象才可以被抛出。
+    \item 在 Python 2.x 版本中，捕获异常的语法是“\codeinline{except Exception, var:}”；但在 Python 3.x 版本中，引入了 \codeinline{as} 关键字，捕获异常的语法变更为 “\codeinline{except Exception as var:}”。
+    \item 在 Python 3.x 版本中，处理异常用 “\codeinline{raise Exception(args)}”代替了“\codeinline{raise Exception, args}”。
+    \item Python 3.x 版本中，取消了异常类的序列行为和 \codeinline{.message} 属性。
+\end{enumerate}
+\begin{lstlisting}[style=demostyle,numbers=none]
+#Python 2.x
+>>> try:
+... raise TypeError,"类型错误" 
+... except TypeError,err:
+... print err.message
+...
+类型错误
+#Python 3.x
+>>> try:
+... raise TypeError("类型错误")
+... except TypeError as err:
+... print(err)
+...
+类型错误
+\end{lstlisting}   
+
+\subsection{八进制字面量}
+在 Python 3.x 中，表示八进制字面量的方式只有一种，并且必须写成“\codeinline{0o1000}”这样的方式，原来“\codeinline{01000}”的方式不能使用了。举个例子： 
+\begin{lstlisting}[style=demostyle,numbers=none]
+#Python 2.x
+>>> 0o1000
+512
+>>> 01000
+512
+#Python 3.x
+>>> 01000
+ File "<stdin>", line 1
+ 01000
+ ^ 
+SyntaxError: invalid token
+>>> 0o1000
+512
+\end{lstlisting}
+
+\section{Python 2to3}
+由于 Python 2.x 和 Python 3.x 的差别较大，因此 Python 2.x 的多数代码无法直接在 Python 3.x 环境中运行。
+而由于兼容性的原因，我们在网络上查找的资源多数是 Python 2.x 的代码，如果想要在 Python 3.x 环境下运
+行，就需要修改源代码。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+2to3 -w test.py # -w 选项表示直接修改源文件
+\end{lstlisting}
+
+
+

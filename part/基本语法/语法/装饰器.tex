@@ -1,0 +1,43 @@
+\chapter{装饰器(decorator)}
+
+\section{概述}
+装饰器（decorators）是 Python 中的一种高级功能，
+它允许你动态地修改函数或类的行为。
+
+装饰器是一种函数，它接受一个函数作为参数，
+并返回一个新的函数或修改原来的函数。
+\begin{lstlisting}[style=demostyle,numbers=none]
+#funA 作为装饰器函数
+def funA(fn):
+    #...
+    fn() # 执行传入的 fn 参数
+    #...
+    return '...'
+
+@funA 
+def funB():
+    #...
+\end{lstlisting}
+
+等价于
+\begin{lstlisting}[style=demostyle,numbers=none]
+def funA(fn):
+    #...
+    fn() # 执行传入的 fn 参数
+    #...
+    return '...'
+
+def funB():
+    #...
+
+funB = funA(funB)
+\end{lstlisting}
+
+使用函数装饰器 A() 去装饰另一个函数 B()，其底层执行了如下 2 步操作：
+\begin{enumerate}[label=\arabic*)]
+    \item 将 B 作为参数传给 A() 函数；
+    \item 将 A() 函数执行完成的返回值反馈回 B。
+\end{enumerate}
+
+
+

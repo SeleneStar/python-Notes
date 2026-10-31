@@ -1,0 +1,55 @@
+\chapter{TensorFlow}
+
+2017 年，Google 发布了 TensorFlow 1.0 版本，到了 2019 年，又发布了 2.0 新版本。
+TensorFlow 1.x 版本时期，TensorFlow 框架拥有大量的用户。不过，问题也非常明显，
+主要的弊端就是框架环境配置不兼容，新老版本函数差异也很大，且编程困难。
+
+但凡涉及版本更新，总会出现 API 变化，前后版本不兼容的问题。并且当我阅读别人代码
+的时候，TensorFlow 1.x 的可读性也不是很高。这些问题都增加了我的学习成本。直到
+TensorFlow 2.x 版本，TensorFlow 逐渐借鉴了 PyTorch 的优点，进行了自我完善。
+
+\section{TensorFlow环境搭建}
+访问\href{https://www.tensorflow.org/?hl=zh-cn}{TensorFlow}官网，可以看到TensorFlow支持多种操作系统，包括Windows、Linux、Mac OS等，同时支持多种编程语言，包括Python、C++、Java等。
+
+\subsection{安装TensorFlow前提准备}
+在安装TensorFlow之前确保Cuda和cudnn已经安装
+
+\subsection{conda安装}
+\begin{lstlisting}[style=demostyle,numbers=none]
+# [可选] 创建conda 环境    
+conda create --name mytensorflow python=3.10
+conda activate mytensorflow
+
+# [可选] 升级pip
+pip install --upgrade pip
+
+# 安装 tensorflow cpu
+pip install tensorflow
+pip install tensorflow --user # 用当前系统登入用户权限操作
+
+# 安装 tensorflow-gpu
+python3 -m pip install tensorflow[and-cuda]
+#  pip install 'tensorflow[and-cuda]'
+
+# 验证tensorflow是否安装成功
+python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+\end{lstlisting}
+
+\section{Tensor 张量}
+在 TensorFlow 中，数据是以张量的形式存在的。张量是 TensorFlow 的核心概念，它是一个多维数组。
+
+之所以叫 TensorFlow, 是因为这个网络结构不变，流经网络的数据在网络中的传递过程中，大部分是以张量的形式存在的。
+
+\section{Graph 图}
+TensorFlow 的计算模型是一个有向图，图中的节点称为 op（operation），边表示 op 之间的数据流就是 Tensor。
+
+算法都会表示成 \textcolor{blue}{\textbf{计算图}}(Computational Graph)的形式，也就是数据流图。
+
+计算图就是一种有向图，张量Tensor通过各种操作在有向图中流动，最终得到输出。
+
+\section{Session 会话}
+在 TensorFlow 1.x 版本中，需要创建一个会话（Session）来执行图。TensorFlow的所有对图的操作，都必须在会话中进行。
+
+
+
+

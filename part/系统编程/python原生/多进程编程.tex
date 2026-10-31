@@ -1,0 +1,272 @@
+\chapter{多进程编程}
+\label{cha:多进程编程}
+\section{进程}
+\label{sec:进程}
+Python3中用到\codeinline{multiprocessing}模块来实现多进程编程，进程是操作系统能够进行运算调度的最小单位，是程序的一次执行过程，是一个动态的过程：有它自己的地址空间，有它自己的内存，有它自己的数据，有它自己的打开的文件等等。进程的切换会消耗大量的资源，所以进程间的通信相对复杂。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+Process([group [, target [, name [, args [, kwargs]]]]])
+'''
+group: 线程组，目前还没有实现，库引用中应该写None
+target: 要执行的方法
+name: 进程名
+args/kwargs: 方法的参数
+'''
+start() # 启动进程
+join([timeout]) # 等待进程终止
+\end{lstlisting}
+
+\begin{lstlisting}[style=pythonstyle,numbers=left]
+# 不推荐的写法
+import multiprocessing
+
+def func(arg1, arg2):
+    for i in range(5):
+        print('multiprocessing: %s, %s %s' % (i, arg1+i, i+arg2))
+
+p = multiprocessing.Process(target=func, args=(1,2))
+p.start()
+\end{lstlisting}
+
+一个好的方式是继承\codeinline{multiprocessing.Process}类，然后重写\codeinline{run}方法，这样可以更加灵活、直观。
+
+\begin{lstlisting}[style=pythonstyle]
+# 推荐的写法
+## 上面的方法虽然用起来简单，但是不推荐使用，因为这样写不利于维护，韩式推荐使用继承的方式来创建进程
+import multiprocessing
+
+def func(arg1, arg2):
+    for i in range(5):
+        print('multiprocessing: %s, %s %s' % (i, arg1+i, i+arg2))
+
+class Myprocess(multiprocessing.Process):
+    def __init__(self, func, args, pname=''):
+        super(Myprocess, self).__init__()
+        self.func = func    # func 存放的是要执行的函数
+        self.args = args    # args 存放的函数的参数
+        self.pname = pname  # pname 存放的进程的名字，进程的名字是可选的，
+                            # 如果不传入进程名字，进程会自动分配一个名字
+
+    ## 执行进程的具体逻辑
+    ## 通过重写run方法的方式可以自定义进程具体的执行逻辑，
+    ## 相比上面的方法， 这种方法更加灵活、直观。
+    def run(self):
+        print("Runing Process: ",self.pname)
+        print('run')
+        self.func(*self.args)
+        print(current_process().name, "end")
+
+if __name__ == '__main__':
+    p = Myprocess(func, (1, 2), 'myprocess')
+    p.start()
+    p.join()
+\end{lstlisting}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+$ python  Myprocess.py
+Runing Process:  myprocess
+Myprocess-1 start
+run
+multiprocessing: 0, 1 2
+multiprocessing: 1, 2 3
+multiprocessing: 2, 3 4
+multiprocessing: 3, 4 5
+multiprocessing: 4, 5 6
+Myprocess-1 stop
+\end{lstlisting}
+
+\section{进程间通信}
+\label{sec:进程间通信}
+\begin{Tips}[进程与线程的区别]
+    与线程不同，线程如同车间里的工人，工人之间可以直接使用车间里的任意资源；
+
+    但进程表示车间本身，车间与车间是相互独立的，各自有自身的空间让自己的线程完成具体的子任务，车间之间的信息与资源是不互通的，如何在不同进程中传递信息是进程在使用过程中需要解决的问题。
+\end{Tips}
+
+\subsection{Queue}
+\label{subsec:进程通信Queue}
+
+\begin{lstlisting}[style=pythonstyle,numbers=left]
+# 利用Queue实现生产者消费者模型
+# 利用Queue实现生产者消费者模型
+import os
+import time
+from multiprocessing import Process, Queue
+
+def producer(q):
+    for i in range(5):
+        print(f'\033[32m生产者: {os.getpid()} 生产了商品{i}\033[0m')
+        # 将商品放入队列
+        q.put(i)
+        time.sleep(1)
+
+def consumer(q):
+    while True:
+        try:
+            # 从队列中获取商品
+            i = q.get(timeout=5)
+            print(f'\033[95m消费者: {os.getpid()} 消费了商品{i}\033[0m')
+        except:
+            break
+
+if __name__ == '__main__':
+    q = Queue()
+    p = Process(target=producer, args=(q,))
+    c = Process(target=consumer, args=(q,))
+    p.start() # 生产者进程开始生产商品
+    c.start() # 消费者进程开始消费商品
+    p.join()  # 主进程挂起，等待子进程producer
+    c.join()  # 主进程挂起，等待子进程consumer
+    print('主进程结束')
+\end{lstlisting}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+$ python queue.py
+生产者: 19896 生产了商品0
+消费者: 5856 消费了商品0
+生产者: 19896 生产了商品1
+消费者: 5856 消费了商品1
+生产者: 19896 生产了商品2
+消费者: 5856 消费了商品2
+生产者: 19896 生产了商品3
+消费者: 5856 消费了商品3
+生产者: 19896 生产了商品4
+消费者: 5856 消费了商品4
+主进程结束
+\end{lstlisting}
+
+
+\section{进程池}
+\label{sec:进程池}
+进程池是一种能够提供多个进程的服务，进程池中的进程可以执行任务，当任务执行完毕后，进程会自动回到进程池中，等待下一个任务。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+Pool([processes [, initializer [, initargs [, maxtasksperchild [, context]]]]])
+'''
+processes: 进程池中的进程数
+initializer: 初始化函数
+initargs: 初始化函数的参数
+maxtasksperchild: 每个子进程最多执行的任务数
+context: 上下文
+'''
+apply(func[, args[, kwds]]) # 同步执行
+apply_async(func[, args[, kwds]]) # 异步执行
+map(func, iterable[, chunksize]) # 同步执行
+map_async(func, iterable[, chunksize]) # 异步执行
+\end{lstlisting}
+
+\subsection{同步执行}
+\label{subsec:同步执行}
+\begin{lstlisting}[style=pythonstyle,numbers=left]
+# 进程同步
+# 演示如何使用 multiprocessing.Pool 来创建进程池，
+# 以及如何使用 apply 和 map 方法来执行函数
+
+from multiprocessing import Pool
+import os
+import time
+
+def square(x):
+    print(f'Process {os.getpid()} calculating square of {x}')
+    time.sleep(1)  # 模拟耗时操作
+    return x * x
+
+def worker(num):
+    print(f'Process {os.getpid()} doubling {num}')
+    time.sleep(1)  # 模拟耗时操作
+    return num * 2
+
+if __name__ == "__main__":
+    with Pool(processes=4) as pool: # 创建进程池
+        # 使用 apply 同步执行
+        print("Starting apply()")
+        ## apply方法会阻塞主进程，直到子进程执行完毕并返回结果
+        result_apply = pool.apply(square, (10,))
+        print(f'Result from apply: {result_apply}')
+
+        # 使用 map 同步执行
+        print("Starting map()")
+        numbers = [1, 2, 3, 4, 5]
+        result_map = pool.map(worker, numbers)
+        print(f'Results from map: {result_map}')
+\end{lstlisting}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+$ python pool.py
+Starting apply()
+Process 17668 calculating square of 10
+Result from apply: 100
+Starting map()
+Process 4084 doubling 1
+Process 32672 doubling 2
+Process 12144 doubling 3
+Process 17668 doubling 4
+Process 12144 doubling 5
+Results from map: [2, 4, 6, 8, 10]
+\end{lstlisting}
+
+\subsection{异步执行}
+\label{subsec:异步执行}
+
+\begin{lstlisting}[style=pythonstyle,numbers=left]
+# 进程异步
+# 演示如何使用 multiprocessing.Pool 来创建进程池，
+# 以及如何使用 apply_async 和 map_async 方法来异步执行函数
+
+from multiprocessing import Pool
+import os
+import time
+
+def square(x):
+    print(f'Process {os.getpid()} calculating square of {x}')
+    time.sleep(1)  # 模拟耗时操作
+    return x * x
+
+def worker(num):
+    print(f'Process {os.getpid()} doubling {num}')
+    time.sleep(1)  # 模拟耗时操作
+    return num * 2
+
+if __name__ == "__main__":
+    with Pool(processes=4) as pool:
+        # 使用 apply_async 异步执行
+        print("Starting apply_async()")
+        result_apply_async = pool.apply_async(square, (10,))
+        
+        # 在等待结果的同时，可以做其他事情
+        print("Doing some other work while waiting for apply_async result")
+        time.sleep(2)  # 模拟其他工作耗时
+        print(f'Result from apply_async: {result_apply_async.get()}')  # 获取结果
+
+        # 使用 map_async 异步执行
+        print("Starting map_async()")
+        numbers = [1, 2, 3, 4, 5]
+        result_map_async = pool.map_async(worker, numbers)
+        
+        # 在等待结果的同时，可以做其他事情
+        print("Doing some other work while waiting for map_async results")
+        time.sleep(2)  # 模拟其他工作耗时
+        print(f'Results from map_async: {result_map_async.get()}')  # 获取结果
+\end{lstlisting}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+$ python pool_async.py
+Starting apply_async()
+Doing some other work while waiting for apply_async result
+Process 35528 calculating square of 10
+Result from apply_async: 100
+Starting map_async()
+Doing some other work while waiting for map_async results
+Process 6792 doubling 1
+Process 36048 doubling 2
+Process 36592 doubling 3
+Process 35528 doubling 4
+Process 35528 doubling 5
+Results from map_async: [2, 4, 6, 8, 10]
+\end{lstlisting}
+
+
+
+
+
+

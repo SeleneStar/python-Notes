@@ -1,0 +1,29 @@
+\chapter{venv 环境}
+
+\section{概述}
+\codeinline{venv}就是用来为一个应用创建一套“隔离”的Python运行环境
+
+\section{使用}
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 创建虚拟环境
+python -m venv my_env
+
+# 激活虚拟环境
+## Linux
+source my_env/bin/activate
+## Windows
+my_env\Scripts\activate.bat
+
+# 退出虚拟环境
+deactivate
+\end{lstlisting}
+
+\section{常用命令}
+\subsection{指定python版本}
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 创建虚拟环境
+python -m venv my_env --python=python3.6
+\end{lstlisting}
+
+\section{与Vscode结合}
+\url{https://code.visualstudio.com/docs/python/environments}

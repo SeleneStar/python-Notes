@@ -1,0 +1,131 @@
+Python 的标准库（Standard Library）非常丰富，提供了大量内置模块，
+用于处理各种常见任务，无需额外安装第三方包。
+以下是 Python 标准库中一些常用模块及其主要用途的分类介绍（基于 Python 3.11+ 版本）：
+
+\begin{enumerate}[label=\arabic*)]
+    \item 文本处理
+    \begin{enumerate}[itemindent=1em,label=(\arabic*)]
+        \item \codeinline{string}：字符串操作工具，如模板、常量（如 \codeinline{string.ascii\_letters}）。
+        \item \codeinline{re}：正则表达式支持，用于模式匹配和文本提取。
+        \item \codeinline{difflib}：比较序列（如字符串）的差异。
+        \item \codeinline{textwrap}：格式化文本段落（如自动换行）。
+        \item \codeinline{unicodedata}：访问 Unicode 字符数据库（如标准化、名称查询）。
+    \end{enumerate}
+
+    \item 数据结构与算法
+    \begin{enumerate}[itemindent=1em,label=(\arabic*)]
+        \item \codeinline{collections}：扩展容器类型，如 \codeinline{deque}, \codeinline{Counter}, \codeinline{defaultdict}, \codeinline{OrderedDict}。
+        \item \codeinline{heapq}：堆队列算法（优先队列）。
+        \item \codeinline{bisect}：维护有序列表的二分查找。
+        \item \codeinline{array}：高效存储同类型基本数据（如整数、浮点数）。
+        \item \codeinline{queue}：线程安全的队列实现（如 \codeinline{Queue}, \codeinline{LifoQueue}, \codeinline{PriorityQueue}）。
+    \end{enumerate}
+
+    \item 数值与数学
+    \begin{enumerate}[itemindent=1em,label=(\arabic*)]
+        \item \codeinline{math}：数学函数（如 \codeinline{sin}, \codeinline{log}, \codeinline{sqrt}）。
+        \item \codeinline{cmath}：复数数学函数。
+        \item \codeinline{random}：生成伪随机数。
+        \item \codeinline{statistics}：统计函数（如均值、中位数、标准差）。
+        \item \codeinline{decimal}：高精度十进制浮点运算。
+        \item \codeinline{fractions}：有理数（分数）运算。
+    \end{enumerate}
+
+    \item 日期与时间
+    \begin{enumerate}[itemindent=1em,label=(\arabic*)]
+        \item \codeinline{datetime}：处理日期和时间（\codeinline{date}, \codeinline{time}, \codeinline{datetime}, \codeinline{timedelta}）。
+        \item \codeinline{time}：底层时间函数（如 \codeinline{time()}, \codeinline{sleep()}）。
+        \item \codeinline{calendar}：日历相关功能。
+        \item \codeinline{zoneinfo}（Python 3.9+）：时区支持（基于 IANA 时区数据库）。
+    \end{enumerate}
+
+    \item 文件与目录操作
+    \begin{enumerate}[itemindent=1em,label=(\arabic*)]
+        \item \codeinline{os}：操作系统接口（如环境变量、路径、进程）。
+        \item \codeinline{pathlib}（Python 3.4+）：面向对象的路径操作（推荐替代 \codeinline{os.path}）。
+        \item \codeinline{shutil}：高级文件操作（复制、移动、删除目录等）。
+        \item \codeinline{glob}：文件名模式匹配（如 \codeinline{*.txt}）。
+        \item \codeinline{fnmatch}：Unix shell 风格的通配符匹配。
+        \item \codeinline{tempfile}：创建临时文件和目录。
+        \item \codeinline{zipfile} / \codeinline{tarfile}：读写 ZIP/TAR 压缩文件。
+    \end{enumerate}
+
+    \item 数据持久化
+    \begin{enumerate}[itemindent=1em,label=(\arabic*)]
+        \item \codeinline{pickle}：Python 对象序列化/反序列化。
+        \item \codeinline{json}：JSON 编码与解码。
+        \item \codeinline{csv}：读写 CSV 文件。
+        \item \codeinline{sqlite3}：轻量级嵌入式 SQL 数据库接口。
+        \item \codeinline{dbm}：键值对数据库（类似字典的持久化存储）。
+    \end{enumerate}
+
+    \item 数据压缩与归档
+    \begin{enumerate}[itemindent=1em,label=(\arabic*)]
+        \item \codeinline{zlib}, \codeinline{gzip}, \codeinline{bz2}, \codeinline{lzma}：不同压缩格式的支持。
+        \item \codeinline{tarfile}, \codeinline{zipfile}：归档文件操作（见上文）。
+    \end{enumerate}
+
+    \item 加密与哈希
+    \begin{enumerate}[itemindent=1em,label=(\arabic*)]
+        \item \codeinline{hashlib}：安全哈希算法（如 SHA256, MD5）。
+        \item \codeinline{hmac}：基于密钥的消息认证。
+        \item \codeinline{secrets}（Python 3.6+）：生成安全随机数（用于密码、令牌等）。
+    \end{enumerate}
+
+    \item 网络与互联网
+    \begin{enumerate}[itemindent=1em,label=(\arabic*)]
+        \item \codeinline{socket}：底层网络通信。
+        \item \codeinline{http.client}, \codeinline{http.server}：HTTP 客户端/服务器。
+        \item \codeinline{urllib}：URL 处理（\codeinline{urlopen}, \codeinline{parse}, \codeinline{request} 等子模块）。
+        \item \codeinline{email}：解析和构建电子邮件消息。
+        \item \codeinline{smtplib} / \codeinline{poplib} / \codeinline{imaplib}：发送/接收邮件协议。
+        \item \codeinline{ftplib}：FTP 客户端。
+        \item \codeinline{xml.etree.ElementTree}：解析和创建 XML 文档。
+        \item \codeinline{html.parser}：简单的 HTML 解析器。
+    \end{enumerate}
+
+    \item 并发与并行
+    \begin{enumerate}[itemindent=1em,label=(\arabic*)]
+        \item \codeinline{threading}：线程支持。
+        \item \codeinline{multiprocessing}：多进程支持（绕过 GIL）。
+        \item \codeinline{asyncio}（Python 3.4+）：异步 I/O、事件循环、协程。
+        \item \codeinline{concurrent.futures}：高层并发接口（线程池/进程池）。
+    \end{enumerate}
+
+    \item 开发工具
+    \begin{enumerate}[itemindent=1em,label=(\arabic*)]
+        \item \codeinline{unittest}：单元测试框架。
+        \item \codeinline{doctest}：从文档字符串中提取测试用例。
+        \item \codeinline{pdb}：Python 调试器。
+        \item \codeinline{traceback}：打印或格式化异常栈信息。
+        \item \codeinline{logging}：灵活的日志记录系统。
+        \item \codeinline{argparse}：命令行参数解析（推荐替代 \codeinline{optparse}）。
+        \item \codeinline{profile}, \codeinline{cProfile}：性能分析工具。
+    \end{enumerate}
+
+    \item 运行时服务
+    \begin{enumerate}[itemindent=1em,label=(\arabic*)]
+        \item \codeinline{sys}：访问解释器相关的变量和函数（如 \codeinline{argv}, \codeinline{exit()}）。
+        \item \codeinline{builtins}：内置函数和异常（通常不需要显式导入）。
+        \item \codeinline{gc}：垃圾回收控制。
+        \item \codeinline{inspect}：检查活动对象（函数、类、帧等）。
+        \item \codeinline{importlib}：动态导入模块的工具。
+    \end{enumerate}
+
+    \item 国际化
+    \begin{enumerate}[itemindent=1em,label=(\arabic*)]
+        \item \codeinline{locale}：本地化设置（如数字、日期格式）。
+        \item \codeinline{gettext}：多语言支持（i18n）。
+    \end{enumerate}
+
+    \item 其他实用模块
+    \begin{enumerate}[itemindent=1em,label=(\arabic*)]
+        \item \codeinline{typing}：类型提示支持（如 \codeinline{List[int]}, \codeinline{Optional[str]}）。
+        \item \codeinline{enum}：枚举类型。
+        \item \codeinline{dataclasses}（Python 3.7+）：自动生成类的常用方法（如 \codeinline{\_\_init\_\_}, \codeinline{\_\_repr\_\_}）。
+        \item \codeinline{contextlib}：上下文管理器工具（如 \codeinline{@contextmanager}）。
+        \item \codeinline{functools}：高阶函数和可调用对象操作（如 \codeinline{lru\_cache}, \codeinline{partial}）。
+        \item \codeinline{itertools}：高效迭代器工具（如 \codeinline{chain}, \codeinline{product}, \codeinline{combinations}）。
+        \item \codeinline{operator}：函数形式的标准操作符（如 \codeinline{add}, \codeinline{itemgetter}）。
+    \end{enumerate}
+\end{enumerate}

@@ -1,0 +1,1026 @@
+\chapter{manim动画效果}
+\label{cha:manim_animation}
+
+\section{创建}
+\label{sec:manim_animation_create}
+展示某个元素或者文字时，一下子就全显示出来会显得比较突兀，通过创建效果的动画，让各个元素的出现更加的自然。 常用的创建效果动画主要有：
+\begin{enumerate}[label=\arabic*)]
+    \item \codeinline{Create()}：创建效果，元素从无到有。
+    \item \codeinline{Write()}：书写效果，元素逐渐显示。
+    \item \codeinline{FadeIn()}：淡入效果，元素从透明到不透明。
+\end{enumerate}
+
+\subsection{Create 创建图形}
+\label{subsubsec:manim_animation_create_create}
+\codeinline{Create()} 用于创建图形，绘制时图形逐步显示出来。例如，创建一个圆形：
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 01CreateCircle.py
+from manim import *
+
+class CreateCircle(Scene):
+    def construct(self):
+        circle = Circle()
+        self.play(Create(circle))
+\end{lstlisting}
+
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 01CreateSquare.py CreateSquare
+from manim import *
+class CreateSquare(Scene):
+    def construct(self):
+        s = Square(side_length=2, color=BLUE)
+        self.play(Create(s))
+\end{lstlisting}
+
+\subsection{Write 书写效果}
+\label{subsubsec:manim_animation_create_write}
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 02WriteText.py WriteText
+from manim import *
+
+class WriteText(Scene):
+    def construct(self):
+        text = Text(
+            "Welcome to Manim",
+            t2c={"Welcome": BLUE, "Manim": RED},
+            t2f={"Manim": "STCaiyun"},
+        )
+        self.play(Write(text))
+\end{lstlisting}    
+
+\subsection{FadeIn 淡入效果}
+\label{subsubsec:manim_animation_create_fadein}
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 01FadeInExample.py FadeInExample
+from manim import *
+
+# 使用不同的类名以避免与 Manim 内置类的冲突
+class FadeInExample(Scene):
+    def construct(self):
+        # 创建文本对象
+        text = Text("Welcome to Manim")
+
+        # 渐入显示文本
+        self.play(FadeIn(text))
+        self.wait(2)
+
+        # 渐出文本
+        self.play(FadeOut(text))
+
+        # 创建一个蓝色的正方形
+        square = Square(side_length=2, color=BLUE, fill_opacity=0.6)
+
+        # 渐入显示正方形
+        self.play(FadeIn(square))
+        self.wait(2)
+\end{lstlisting}
+
+\subsection{add 添加元素}
+\label{subsubsec:manim_animation_create_add}
+\codeinline{add()} 方法用于添加元素，可以一次添加多个元素。没有动画效果，元素会立即显示出来。
+
+例如，添加一个圆形和一个正方形：
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 01AddExample.py AddExample
+from manim import *
+
+class AddExample(Scene):
+    def construct(self):
+        # 创建两个对象
+        circle = Circle(color=BLUE)
+        square = Square(side_length=2, color=RED)
+
+        # 添加对象
+        self.add(circle, square)
+\end{lstlisting}
+
+\section{销毁}
+\label{sec:manim_animation_destroy}
+销毁的效果一般用在移除图形和文字的场合。
+
+\subsection{Uncreate 擦除图形}
+\label{subsubsec:manim_animation_destroy_uncreate}
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 02UncreateSquare.py UncreateSquare
+from manim import *
+
+class UncreateSquare(Scene):
+    def construct(self):
+        square = Square(side_length=2, color=BLUE)
+        self.add(square)
+        self.wait(0.5)
+        self.play(Uncreate(square))
+\end{lstlisting}
+
+\subsection{Unwrite 擦除文字}
+\label{subsubsec:manim_animation_destroy_unwrite}
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 02UnwriteText.py UnwriteText
+from manim import *
+
+class UnwriteText(Scene):
+    def construct(self):
+        text = Text(
+            "Welcome to Manim",
+            t2c={"Welcome": BLUE, "Manim": RED},
+            t2f={"Manim": "STCaiyun"},
+        )
+        self.add(text)
+        self.wait(0.5)
+        self.play(Unwrite(text))
+\end{lstlisting}
+
+\subsection{FadeOut 淡出效果}
+\label{subsubsec:manim_animation_destroy_fadeout}
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 02FadeOutExample.py FadeOutExample
+from manim import *
+
+class FadeOutExample(Scene):
+    def construct(self):
+        # 创建两个对象
+        circle = Circle(color=BLUE)
+        square = Square(side_length=2, color=RED)
+
+        # 渐出对象
+        self.play(FadeOut(circle))
+        self.wait(0.5)
+        self.play(FadeOut(square))
+\end{lstlisting}
+
+\section{移动}
+\label{sec:manim_animation_move}
+\subsection{shift 移动指定距离}
+\label{subsubsec:manim_animation_move_shift}
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 03ShiftExample.py ShiftExample
+from manim import *
+class ShiftExample(Scene):
+    def construct(self):
+        # 创建两个对象
+        circle = Circle(color=RED)
+        square = Square(side_length=1, color=BLUE, fill_opacity=0.6)
+
+        # 移动指定距离
+        self.play(circle.animate.shift(UP))     # 上移1个单位
+        self.play(circle.animate.shift(RIGHT))  # 右移1个单位
+        self.play(circle.animate.shift(DOWN*3)) # 下移3个单位
+        self.play(circle.animate.shift(LEFT*2)) # 左移2个单位
+        self.wait(0.5)
+\end{lstlisting}
+
+
+\subsection{move\_to 移动到指定位置}
+\label{subsubsec:manim_animation_move_moveto}
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 03MoveToExample.py MoveToExample
+from manim import *
+
+class MoveToExample(Scene):
+    def construct(self):
+        # 创建两个对象
+        circle = Circle(color=BLUE)
+        square = Square(side_length=2, color=RED)
+
+        # 移动到指定位置
+        self.play(circle.animate.move_to(LEFT))
+        self.wait(0.5)
+        self.play(circle.animate.move_to(UP))
+        self.wait(0.5)
+        self.play(circle.animate.move_to(RIGHT))
+        self.wait(0.5)
+        self.play(circle.animate.move_to(DOWN))
+        self.wait(0.5)
+        self.play(circle.animate.move_to(ORIGIN))
+        self.wait(0.5)
+        self.play(square.animate.move_to(RIGHT))
+        self.wait(0.5)
+        self.play(square.animate.move_to(ORIGIN))
+        self.wait(0.5)
+        self.play(square.animate.move_to(ORIGIN+UP))
+        self.wait(0.5)
+
+\end{lstlisting}
+
+\subsection{MoveAlongPath 沿路径移动}
+\label{subsubsec:manim_animation_move_movealongpath}
+常用的动画一般都是直线运动或者圆弧运动，而 \codeinline{MoveAlongPath} 可以让元素沿着任意的函数轨迹来运动。
+
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 01CosineGraph.py CosineGraph
+from manim import *
+import numpy as np
+
+class CosineGraph(Scene):
+    def construct(self):
+        # 创建一个复杂的余弦函数图像
+        cos_func = FunctionGraph(
+            lambda t: np.cos(t) + 0.5 * np.cos(7 * t) + (1 / 7) * np.cos(14 * t),
+            color=RED,  # 设定图像的颜色为红色
+            x_range=[-PI, PI],  # 设定x轴的范围
+        )
+        
+        # 将函数图像添加到场景中
+        self.add(cos_func)
+        
+        # 创建一个点并放置在曲线的起点位置
+        d1 = Dot(cos_func.get_start(), color=BLUE)
+        
+        # 将点添加到场景中
+        self.add(d1)
+        
+        # 使点沿着余弦函数图像移动
+        self.play(MoveAlongPath(d1, cos_func), rate_func=linear, run_time=3)
+        
+        # 暂停2秒以查看最终效果
+        self.wait(2)
+
+if __name__ == "__main__":
+    scene = CosineGraph()
+    scene.render()
+\end{lstlisting}
+
+\subsection{TracedPath 保留运动路径}
+\label{subsubsec:manim_animation_move_tracedpath}
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 01TracedDotScene.py TracedDotScene
+from manim import *
+
+class TracedDotScene(Scene):
+    def construct(self):
+        # 创建一个点，初始位置在右边 (2, 0, 0)
+        d = Dot(RIGHT * 2, color=BLUE)
+        
+        # 创建一个路径跟踪器，用于记录点的运动轨迹
+        # TracedPath 会跟踪点的中心点（get_center方法）
+        b = TracedPath(d.get_center, stroke_color=YELLOW, stroke_width=4)
+        
+        # 将点和路径添加到场景中
+        self.add(d, b)
+
+        # 播放点的动画，点先沿着一个圆弧（向上的圆弧）移动并向左移动
+        self.play(d.animate(path_arc=PI / 4).shift(LEFT * 2), run_time=2)
+        
+        # 播放点的动画，点沿着另一个圆弧（向下的圆弧）移动并继续向左移动
+        self.play(d.animate(path_arc=-PI / 4).shift(LEFT * 2), run_time=2)
+
+        # 暂停2秒以便查看最终效果
+        self.wait(2)
+
+if __name__ == "__main__":
+    scene = TracedDotScene()
+    scene.render()
+\end{lstlisting}
+
+\section{Rotate 旋转}
+\label{sec:manim_animation_rotate}
+
+\begin{enumerate}[label=\arabic*)]
+    \item 自转
+    \begin{lstlisting}[style=pythonstyle]
+    # manim -pql 04RotateExample.py RotateExample
+    from manim import *
+    
+    class RotateExample(Scene):
+        def construct(self):
+            # 创建一个蓝色的正方形
+            square = Square(side_length=2, color=BLUE, fill_opacity=0.6)
+    
+            # 显示正方形
+            self.play(FadeIn(square))
+    
+            # 逆时针旋转90度
+            self.play(square.animate.rotate(PI / 2))
+            self.wait(0.5)
+    
+            # 顺时针自转一周（360度）
+            self.play(Rotate(square, angle=-2 * PI), run_time=2)  # 自旋转1周
+            # self.play(square.animate.rotate(-2 * PI), run_time=2) # 这条语句没有效果
+            self.wait(0.5)
+    \end{lstlisting}
+    \item 围绕某个点旋转
+    \begin{lstlisting}[style=pythonstyle]
+    # manim -pql 04RotateSquareWithRadius.py RotateSquareWithRadius
+    from manim import *
+
+    class RotateSquareExample(Scene):
+        def construct(self):
+            # 创建一个蓝色的正方形，并将其上移
+            s = Square(side_length=1, color=BLUE, fill_opacity=0.6).shift(UP)
+            
+            # 将正方形添加到场景中
+            self.add(s)
+            
+            # 1. 绕屏幕中心 (ORIGIN) 旋转一周
+            self.play(Rotate(s, angle=2 * PI, about_point=ORIGIN), run_time=2)
+            self.wait(0.5)
+            
+            # 2. 绕 [2, 3, 0] 这个点旋转 3π/2
+            self.play(Rotate(s, angle=3 * PI / 2, about_point=[2, 3, 0]), run_time=2)
+            self.wait(0.5)
+    \end{lstlisting}
+\end{enumerate}
+
+\section{变换}
+\label{sec:manim_animation_transform}
+变换也是使用的比较多的一种动画效果。 尤其是在数学视频中，经常遇到随着参数的变化，图形随之变形；或者反之。
+\subsection{图形变换}
+\label{subsubsec:manim_animation_transform_shape}
+
+\subsubsection{TransformFromCopy 保留原图形}
+\label{subsubsec:manim_animation_transform_shape_transformfromcopy}
+
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 01TransformExample.py TransformExample
+from manim import *
+
+class TransformExample(Scene):
+    def construct(self):
+        # 创建一个蓝色方形，并向左移动2个单位
+        s = Square(side_length=1, color=BLUE, fill_opacity=0.6).shift(LEFT * 2)
+
+        # 创建一个红色圆形，并向右移动2个单位
+        c = Circle(radius=1, color=RED, fill_opacity=0.6).shift(RIGHT * 2)
+
+        # 将方形添加到场景中
+        self.add(s)
+        self.wait(0.5)  # 暂停0.5秒
+
+        # 使用 TransformFromCopy 将方形复制并变换为圆形
+        self.play(TransformFromCopy(s, c))
+
+        # 暂停查看最终效果
+        self.wait(2)
+\end{lstlisting}        
+
+\subsubsection{ReplacementTransform 原图形直接变换成新的图形}
+\label{subsubsec:manim_animation_transform_shape_replacementtransform}
+
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 01ShapeTransform.py ShapeTransform
+from manim import *
+
+class ShapeTransform(Scene):
+    def construct(self):
+        # 创建一个蓝色方形，并向左移动2个单位
+        s = Square(side_length=1, color=BLUE, fill_opacity=0.6).shift(LEFT * 2)
+        
+        # 创建一个红色圆形，并向右移动2个单位
+        c = Circle(radius=1, color=RED, fill_opacity=0.6).shift(RIGHT * 2)
+        
+        # 将方形添加到场景中
+        self.add(s)
+        self.wait(0.5)  # 暂停0.5秒
+        
+        # 使用 ReplacementTransform 从方形逐渐变换为圆形
+        self.play(ReplacementTransform(s, c))
+        
+        # 暂停查看最终效果
+        self.wait(2)
+
+if __name__ == "__main__":
+    from manim import *
+    scene = ShapeTransform()
+    scene.render()
+\end{lstlisting}  
+
+\subsection{文字变换}
+\label{subsubsec:manim_animation_transform_text}
+\subsubsection{TransformFromCopy 保留原文字}
+\label{subsubsec:manim_animation_transform_text_transformfromcopy}
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 02TransformTextExample.py TransformTextExample
+from manim import *
+
+class TransformTextExample(Scene):
+    def construct(self):
+        # 创建一个文本对象，并设置字体大小和颜色
+        text = Text("Hello, World!", font_size=48, color=BLUE)
+
+        # 将文本添加到场景中
+        self.add(text)
+        self.wait(0.5)  # 暂停0.5秒
+
+        # 使用 TransformFromCopy 将文本复制并变换为新文本
+        test2 = Text("Goodbye, World!", font_size=48, color=RED)
+        test2.next_to(text, DOWN)
+        self.play(TransformFromCopy(text, test2))
+
+        # 暂停查看最终效果
+        self.wait(2)
+\end{lstlisting}
+
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 02TransformTextExample.py TransformTextExample
+from manim import *
+
+class TransformTextExample(Scene):
+    def construct(self):
+        # 创建一个文本对象，并设置字体大小和颜色
+        t1 = Tex(r"$(a+b)^2$").shift(UP)
+        t2 = Tex(r"$a^2 + 2ab + b^2$")
+
+        # 将文本添加到场景中
+        self.add(t1)
+        self.wait(0.5)  # 暂停0.5秒
+
+        # 使用 TransformFromCopy 将文本复制并变换为新文本
+        self.play(TransformFromCopy(t1, t2))
+
+        # 暂停查看最终效果
+        self.wait(2)
+\end{lstlisting}
+
+
+\subsubsection{ReplacementTransform 原文字直接变换成新的文字}
+\label{subsubsec:manim_animation_transform_text_replacementtransform}
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 02TextTransform.py TextTransform
+from manim import *
+
+class TextTransform(Scene):
+    def construct(self):
+        # 创建一个文本对象，并设置字体大小和颜色
+        text = Text("Hello, World!", font_size=48, color=BLUE)
+
+        # 将文本添加到场景中
+        self.add(text)
+        self.wait(0.5)  # 暂停0.5秒
+        
+        # 使用 ReplacementTransform 从文本逐渐变换为另一个文本
+        test2 = Text("Goodbye, World!", font_size=48, color=RED)
+        test2.next_to(text, DOWN)
+        self.play(ReplacementTransform(text, test2))
+
+        # 暂停查看最终效果
+        self.wait(2)
+\end{lstlisting}
+
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 02TextTransform.py TextTransform
+from manim import *
+
+class TextTransform(Scene):
+    def construct(self):
+        # 创建一个文本对象，并设置字体大小和颜色
+        t1 = Tex(r"$(a+b)^2$").shift(UP)
+        t2 = Tex(r"$a^2 + 2ab + b^2$")
+
+        # 将文本添加到场景中
+        self.add(t1)
+        self.wait(0.5)  # 暂停0.5秒
+
+        # 使用 ReplacementTransform 从文本逐渐变换为另一个文本
+        self.play(ReplacementTransform(t1, t2))
+
+        # 暂停查看最终效果
+        self.wait(2)
+\end{lstlisting}
+
+\section{动画效果属性}
+\label{sec:manim_animation_animation_style}
+在创建动画时，Manim 提供了多种动画效果和过渡样式。可以自定义动画的播放速度、曲线变化、方向等。
+
+\begin{table}[htpb]
+\begin{tabular}{c|c}
+属性              & 备注                            \\ \hline
+run\_time         & 动画持续时间，默认1秒               \\
+rate\_func        & 动画速率函数，用于控制动画的速度曲线 \\
+lag\_ratio        & 延迟比例，控制多个动画对象的时间偏移  \\
+direction         & 方向，常用于旋转或移动动画         \\
+path\_arc         & 移动路径的弧度，通常用于圆周移动     \\
+reverse           & 是否反向播放动画                  \\
+\end{tabular}
+\caption{manim中的动画样式}
+\label{tab:manim中的动画样式}
+\end{table}
+
+\section{光照样式}
+\label{sec:manim_animation_light}
+Manim 允许用户添加光照效果，使用 OpenGL 渲染时尤其有用。光照可以创建更具深度感的三维效果。
+
+\begin{table}[htpb]
+\begin{tabular}{c|c}
+属性                  & 备注                                \\ \hline
+ambient\_light         & 环境光，控制整体场景的基础光照强度         \\
+directional\_light     & 定向光，模拟来自特定方向的光源           \\
+point\_light           & 点光源，模拟来自单点的光源              \\
+shadow                 & 控制是否生成阴影                     \\
+gloss                  & 表面光泽度                          \\
+reflection\_opacity    & 反射的透明度                         \\
+\end{tabular}
+\caption{manim中的光照样式}
+\label{tab:manim中的光照样式}
+\end{table}
+
+\section{三维对象样式}
+\label{sec:manim_animation_3d}
+在三维空间中，Manim 提供了一些额外的样式，用于调整三维对象的外观。
+
+\begin{table}[htpb]
+\begin{tabular}{c|c}
+属性                  & 备注                                \\ \hline
+shininess             & 物体表面光泽度                       \\
+reflectiveness        & 物体的反射率                        \\
+ambient\_strength     & 环境光照强度                         \\
+diffuse\_strength     & 漫反射光强度                         \\
+specular\_strength    & 镜面反射光强度                       \\
+\end{tabular}
+\caption{manim中的三维对象样式}
+\label{tab:manim中的三维对象样式}
+\end{table}
+
+
+
+\section{动画组合}
+\label{sec:manim_animation_group}
+在常用的动画效果中，一般都是逐个显示各个动画效果，manim中提供了几个控制动画组合的方式。 用的较多的两个分别是：
+
+\begin{enumerate}[label=\arabic*)]
+    \item 多个动画组合时，设置每个动画的延迟启动时间
+    \item 多个动画组合时，前一个动画成功执行后再执行下一个动画
+\end{enumerate}
+
+\subsection{LaggedStart 延迟启动}
+\label{subsubsec:manim_animation_group_laggedstart}
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 01LaggedStart_demo.py LaggedStart_demo
+from manim import *
+
+# 创建一个场景
+class DottedLineAnimation(Scene):
+    def construct(self):
+        # 创建两个点，d1为红色，d2为默认颜色
+        d1 = Dot(LEFT * 2 + UP, color=RED)
+        d2 = Dot(LEFT * 2 + DOWN)
+
+        # 创建一条虚线，颜色为绿色，虚线长度为0.1，虚线与空隙比为0.8，宽度为2
+        dl = DashedLine(
+            RIGHT * 2 + UP * 3,
+            RIGHT * 2 + DOWN * 3,
+            dash_length=0.1,
+            dashed_ratio=0.8,
+            stroke_width=2,
+            color=GREEN,
+        )
+
+        # 将两个点和虚线添加到场景中
+        self.add(d1, d2, dl)
+        self.wait(0.5)
+
+        # 创建两个动画：
+        # d1以1秒时间向右移动4个单位
+        # d2延迟0.5秒启动，但以0.5秒时间向 右移动4个单位
+        ani1 = d1.animate(run_time=1).shift(RIGHT * 4)
+        ani2 = d2.animate(run_time=0.5).shift(RIGHT * 4)
+
+        # 使用LaggedStart函数实现两个动画之间的延迟启动，
+        # lag_ratio为0.5表示动画之间有0.5秒的间隔
+        self.play(LaggedStart(ani1, ani2, lag_ratio=0.5))
+
+        # 场景结束时等待0.5秒
+        self.wait(0.5)
+
+# 使用Manim的命令行渲染代码
+if __name__ == "__main__":
+    scene = DottedLineAnimation()
+    scene.render()
+\end{lstlisting}
+
+\subsection{Succession 顺序启动}
+\label{subsubsec:manim_animation_group_succession}
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 01SuccessionStart_demo.py SuccessionStart_demo
+from manim import *
+
+# 创建一个场景
+class DotMovement(Scene):
+    def construct(self):
+        # 创建四个点，并设置它们的颜色、位置和半径
+        dot1 = Dot(point=LEFT * 2 + UP * 2, radius=0.16, color=BLUE)
+        dot2 = Dot(point=LEFT * 2 + DOWN * 2, radius=0.16, color=MAROON)
+        dot3 = Dot(point=RIGHT * 2 + DOWN * 2, radius=0.16, color=GREEN)
+        dot4 = Dot(point=RIGHT * 2 + UP * 2, radius=0.16, color=YELLOW)
+
+        # 将四个点添加到场景中
+        self.add(dot1, dot2, dot3, dot4)
+
+        # 创建动画：点1移动到点2，点2移动到点3，点3移动到点4，点4移 动到点1
+        self.play(
+            Succession(
+                dot1.animate.move_to(dot2),  # 点1移动到点2的位置
+                dot2.animate.move_to(dot3),  # 点2移动到点3的位置
+                dot3.animate.move_to(dot4),  # 点3移动到点4的位置
+                dot4.animate.move_to(dot1),  # 点4移动到点1的位置
+            )
+        )
+
+        # 等待一会儿以查看最终效果
+        self.wait(1)
+
+# 使用Manim的命令行渲染代码
+if __name__ == "__main__":
+    scene = DotMovement()
+    scene.render()
+\end{lstlisting}
+
+\section{动画联动}
+\label{sec:manim_animation_linkage}
+动画联动是比动画组合更复杂的一种模式，动画组合时，每个动画其实是固定的，只是启动的时机不一样。
+而在动画联动中，一个动画如何运行是完全基于另一个动画的，而不是实现预设的。
+
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 01AngleRotation.py AngleRotation
+from manim import *
+
+class AngleRotation(Scene):
+    def construct(self):
+        # 设置旋转中心点为左侧
+        rotation_center = LEFT
+
+        # 创建一个角度值追踪器，初始值为110度
+        theta_tracker = ValueTracker(110)
+
+        # 创建固定的水平线
+        line1 = Line(LEFT, RIGHT)
+        # 创建可旋转的线段
+        line_moving = Line(LEFT, RIGHT)
+        line_ref = line_moving.copy()  # 参考线段，用于保持线条的一致性
+
+        # 根据初始角度值旋转线条
+        line_moving.rotate(theta_tracker.get_value() * DEGREES, about_point=rotation_center)
+
+        # 绘制角度并标记
+        a = Angle(line1, line_moving, radius=0.5, other_angle=False)
+        tex = MathTex(r"\theta").move_to(
+            Angle(
+                line1, line_moving, radius=0.5 + 3 * SMALL_BUFF, other_angle=False
+            ).point_from_proportion(0.5)
+        )
+
+        # 创建显示角度的文本，红色字体
+        theta_tex = Tex(
+            r"$\theta = $",
+            str(int(theta_tracker.get_value())),
+            r"$^\circ$",
+            font_size=50,
+            color=RED,
+        ).shift(UP * 2)
+
+        # 将线条、角度和文字添加到场景中
+        self.add(line1, line_moving, a, tex, theta_tex)
+        self.wait()
+
+        # 为线条设置更新器，以便实时旋转线条
+        line_moving.add_updater(
+            lambda x: x.become(line_ref.copy()).rotate(
+                theta_tracker.get_value() * DEGREES, about_point=rotation_center
+            )
+        )
+
+        # 为角度添加更新器，确保角度变化时自动更新
+        a.add_updater(
+            lambda x: x.become(Angle(line1, line_moving, radius=0.5, other_angle=False))
+        )
+
+        # 为角度符号添加更新器，确保符号随角度移动
+        tex.add_updater(
+            lambda x: x.move_to(
+                Angle(
+                    line1, line_moving, radius=0.5 + 3 * SMALL_BUFF, other_angle=False
+                ).point_from_proportion(0.5)
+            )
+        )
+
+        # 为角度显示的文本添加更新器，确保文本内容与角度值实时同步
+        theta_tex.add_updater(
+            lambda x: x.become(
+                Tex(
+                    r"$\theta = $",
+                    str(int(theta_tracker.get_value())),
+                    r"$^\circ$",
+                    font_size=50,
+                    color=RED,
+                ).shift(UP * 2)
+            )
+        )
+
+        # 动画部分：将角度从110度变到90度
+        self.play(theta_tracker.animate.set_value(90))
+        # 动画部分：增加角度值到230度，动画时间为3秒
+        self.play(theta_tracker.animate.increment_value(140), run_time=3)
+
+        # 最后等待以展示结果
+        self.wait()
+
+# 使用Manim的命令行渲染代码
+if __name__ == "__main__":
+    scene = AngleRotation()
+    scene.render()
+\end{lstlisting}
+
+\begin{example}
+    \exProblem
+    导数推导的证明动画。
+    \exSolution
+    \begin{lstlisting}[style=pythonstyle]
+    from manim import *
+
+    class DerivationDerivative(Scene):
+        def construct(self):
+            # 首先展示函数乘积导数公式
+            self.MyTopic()
+            self.wait(1)
+            # 然后绘制坐标系并展示曲线切线的变化
+            self.MyAxes()
+            self.wait(2)
+            # 最后展示公式的推导过程
+            self.MyFormula()
+            self.wait(5)
+    
+        # 函数乘积导数公式的展示
+        def MyTopic(self):
+            # 创建标题文本
+            s = Text("证明uv函数乘积的导数公式:\t\t", font_size=30, color=BLUE)
+            s.to_corner(UP + LEFT)  # 将标题放置在左上角
+            self.play(Write(s))  # 播放文本写入动画
+    
+            # 创建乘积导数公式的数学公式
+            m = MathTex("(uv)\' = ", "u\'v", " + ", "uv\'", font_size=50)
+            m.next_to(s, RIGHT)  # 将公式放置在标题旁边
+            self.play(Write(m))  # 播放公式写入动画
+    
+            # 给公式中的各部分加上矩形框强调
+            framebox1 = SurroundingRectangle(m[1], buff=0.1)  # 高亮u'v 部分
+            framebox2 = SurroundingRectangle(m[3], buff=0.1)  # 高亮uv' 部分
+            framebox3 = SurroundingRectangle(m, buff=0.1)  # 高亮整个公 式
+            self.play(Create(framebox1))
+            self.play(ReplacementTransform(framebox1, framebox2))
+            self.play(ReplacementTransform(framebox2, framebox3))
+    
+        # 绘制坐标系及曲线，展示切线及导数的几何意义
+        def MyAxes(self):
+            # 创建坐标系，设定x轴、y轴的范围及刻度
+            ax = Axes(
+                x_range=[-4, 4], y_range=[0, 5],
+                x_axis_config={"numbers_to_include": [0, 1, 2]},  # x轴 刻度
+                y_axis_config={"numbers_to_include": [0, 1, 4]},  # y轴 刻度
+                tips=True  # 显示箭头
+            )
+    
+            # 创建曲线y = x^2
+            curve = ax.plot(lambda x: x ** 2, x_range=[-2, 2], color=RED)
+            self.play(Create(ax), Create(curve))
+            self.wait(2)
+    
+            # 在曲线上标出一个点，设定为x = 1处
+            point = Dot(ax.i2gp(1, curve), color=YELLOW)
+            self.play(Create(point))
+            self.wait(2)
+    
+            # 绘制x=1处的切线，展示导数的几何意义
+            tangent_line = ax.get_secant_slope_group(
+                1, curve, dx_label="\\Delta x", dy_label="\\Delta y",
+                dx_line_color=YELLOW, dy_line_color=YELLOW
+            )
+            self.play(Create(tangent_line), runtime=3)
+            self.wait(2)
+    
+            # 缩小整个图像并将其移到左上角，为后续公式推导留出空间
+            group = VGroup(ax, curve, tangent_line, point)
+            self.play(group.animate.scale(0.4))
+            self.play(group.animate.shift(np.array([4.5, 3, 0])))
+            self.wait(2)
+    
+        # 详细展示公式推导过程
+        def MyFormula(self):
+            # 定义公式推导的各个步骤
+            s1 = Tex(r"$\frac{dy}{dx}=\frac{\Delta y}{\Delta x} = \lim\limits_{\Delta x\to0} \frac{f(x+\Delta x)-f(x)}{\Delta x}$")
+            s2 = Tex(r"$=\lim\limits_{\Delta x\to0} \frac{u(x+ \Delta x)v(x+ \Delta x)-u(x)v(x)}{\Delta x}$")
+            s3 = Tex(r"$=\lim\limits_{\Delta x\to0} \frac{u(x+ \Delta x)v(x+ \Delta x)-u(x)v(x+\Delta x) + u(x)v(x+\Delta x)-u(x)v(x)}{\Delta x}$")
+            s4 = Tex(r"$=\lim\limits_{\Delta x\to0} \frac{u(x+ \Delta x)-u(x)}{\Delta x}v(x+\Delta x)+u(x)\lim\limits_{\Delta x\to0} \frac{v(x+ \Delta x)-v(x)}{\Delta x}$")
+            s5 = Tex(r"$=u'v+uv'$", font_size=100, color=YELLOW)
+    
+            # 设置颜色并将公式1移到上方
+            s1.set_color([BLUE, YELLOW, RED])
+            s1.to_edge(np.array([-3, 3, 0]))
+            self.play(Write(s1))
+    
+            # 依次展示后续的公式推导步骤
+            s2.next_to(s1, DOWN, aligned_edge=LEFT)
+            self.play(Write(s2))
+    
+            s3.next_to(s2, DOWN, aligned_edge=LEFT)
+            self.play(Write(s3))
+    
+            # 对第3步公式进行高亮处理
+            sr = SurroundingRectangle(s3, color=PINK, fill_opacity=0.2)
+            self.play(Create(sr))
+    
+            s4.next_to(s3, DOWN, aligned_edge=LEFT)
+            self.play(Write(s4))
+    
+            # 最后展示最终的结果公式
+            s5.next_to(s4, DOWN, aligned_edge=LEFT)
+            self.play(Write(s5))
+    
+            # 对最终公式进行高亮处理
+            sr1 = SurroundingRectangle(s5)
+            self.play(Create(sr1))
+    \end{lstlisting}
+\end{example}
+
+
+
+\section{相机}
+\label{sec:manim_animation_camera}
+\reminder{\lefthand}{相机则是另一种制作动画的方式，
+它不改变元素在屏幕或者说在坐标系中的位置， 
+通过改变相机的位置和角度来实现动画效果。}
+
+相机（Camera）在二维的场景下使用不多，一般在3D场景中提及的比较多。 
+相机相当于我们看动画的视角，简单来理解的话，相当于我们的眼睛（实际情况会复杂一些，相机还有其他一些辅助功能）。
+
+默认的相机焦点在屏幕的中心位置，相机默认是以俯视的视角查看所有的元素。
+
+之前的介绍的常用动画效果和高级动画效果，都没有对相机进行调整过， 
+所以，是通过移动和变换各个元素来实现动画效果。
+
+\subsection{相机概念}
+\label{subsec:manim_animation_camera_concept}
+举个现实世界中的简单例子，如果有个杯子，我们可以通过转动杯子来从各个角度观察杯子； 而如果是一栋楼的话，我们无法移动它，只能围着楼走一圈来观察它，这个过程就相当于移动相机。
+
+\subsection{相机移动}
+\label{subsec:manim_animation_camera_move}
+相机移动常用的两种方式：
+\begin{enumerate}[label=\arabic*)]
+    \item 移动焦点: 改变相机的焦点，焦点在那个元素，那个元素就会在屏幕中心
+    \item 改变视野: 改变相机与元素的距离，离得越远，物体越小。
+\end{enumerate}
+
+\subsubsection{move\_to 移动焦点}
+\label{subsubsec:manim_animation_camera_move_moveto}
+manim中移动焦点要继承 \codeinline{MovingCameraScene} 类， \\
+然后通过 \codeinline{self.camera.frame.animate.move\_to}函数来移动焦点。
+
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 03CameraSample1.py CameraSample1    
+
+from manim import *
+
+class CameraSample1(MovingCameraScene):
+    def _move_focus(self):
+        s = Square(color=RED, fill_opacity=0.5)
+        t = Triangle(color=GREEN, fill_opacity=0.5)
+        vg = VGroup(s, t)
+        vg.arrange(RIGHT, buff=MED_LARGE_BUFF)
+        self.add(vg)
+
+        self.play(self.camera.frame.animate.move_to(s))
+        self.play(self.camera.frame.animate.move_to(t))
+        self.play(self.camera.frame.animate.move_to(vg))
+
+    def construct(self):
+        self._move_focus()
+
+        self.wait()
+\end{lstlisting}
+
+\subsubsection{set 改变视野}
+\label{subsubsec:manim_animation_camera_move_set}
+改变视野通过 \codeinline{self.camera.frame.animate.set}方法，通过这个方法设置视野的宽度，可以形成缩放元素的效果。
+
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 03CameraSample1.py CameraSample1  
+from manim import *
+
+class CameraSample1(MovingCameraScene):
+    def _scale(self):
+        s = Square(color=RED, fill_opacity=0.5)
+        self.add(s)
+
+        self.camera.frame.save_state()
+        self.play(self.camera.frame.animate.set(width=s.width * 2))
+        self.wait(0.3)
+        self.play(self.camera.frame.animate.set(width=s.width * 8))
+        self.wait(0.3)
+        self.play(Restore(self.camera.frame))
+
+    def construct(self):
+        self._scale()
+
+        self.wait()
+\end{lstlisting}
+
+\subsection{鹰眼效果}
+\label{subsec:manim_animation_camera_birdseye}
+鹰眼的效果是通过两个相机来实现的，两个相机的焦点一样，但是视野不一样。 鹰眼效果一般用在提供全局视图的场合，特别是当元素特别多的时候。
+
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 03CameraSample1.py CameraSample1  
+from manim import *
+
+class CameraSample2(ZoomedScene):
+    def __init__(self, **kwargs):
+        ZoomedScene.__init__(
+            self,
+            zoom_factor=3,
+            zoomed_display_height=1,
+            zoomed_display_width=2,
+            image_frame_stroke_width=5,
+            zoomed_camera_config={
+                "default_frame_stroke_width": 3,
+            },
+            **kwargs
+        )
+
+    def construct(self):
+        s = Square(color=RED, fill_opacity=0.5, side_length=1.5)
+        t = Triangle(color=GREEN, fill_opacity=0.5).scale(0.5)
+        vg = VGroup(s, t)
+        vg.arrange(RIGHT, buff=SMALL_BUFF)
+        self.add(vg)
+        self.activate_zooming(animate=False)
+        self.play(s.animate.shift(LEFT), t.animate.shift(RIGHT))
+        self.play(s.animate.rotate(2 * PI / 3), t.animate.rotate(PI / 2))
+        self.play(s.animate.shift(RIGHT), t.animate.shift(LEFT))
+        self.wait()
+\end{lstlisting}
+
+\subsection{追踪物体}
+\label{subsec:manim_animation_camera_track}
+追踪物体就是将相机的焦点定位在移动的物体上，就像我们坐在火车上的感觉一样，那时，我们觉得火车没动，而是车外的风景不断向后移动。
+
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 03CameraSample1.py CameraSample1  
+from manim import *
+
+class CameraSample3(MovingCameraScene):
+    def construct(self):
+        # 保存当前摄像机状态
+        self.camera.frame.save_state()
+
+        # 创建一个正弦函数图像
+        graph = FunctionGraph(
+            lambda x: np.sin(x),  # 正弦函数
+            x_range=[-3, 3],      # x范围
+            color=RED,            # 颜色为红色
+        )
+
+        # 创建一个点，并将其放置在曲线的起始位置
+        d = Dot(graph.get_start(), color=BLUE)
+        self.add(graph, d)  # 将图形和点添加到场景中
+
+        # 动画：摄像机缩放并移动到点的位置
+        self.play(self.camera.frame.animate.scale(0.5).move_to(d))
+
+        # 定义一个更新器，使摄像机帧与点同步移动
+        def update_curve(mob):
+            mob.move_to(d.get_center())  # 更新摄像机的位置到点的中心
+
+        # 为摄像机添加更新器
+        self.camera.frame.add_updater(update_curve)
+
+        # 让点沿着曲线移动，并让摄像机跟随点
+        self.play(MoveAlongPath(d, graph), rate_func=linear, run_time=2)
+
+        # 移除摄像机更新器，停止跟随点的移动
+        self.camera.frame.remove_updater(update_curve)
+
+        # 恢复摄像机到初始状态
+        self.play(Restore(self.camera.frame))
+\end{lstlisting}
+
+\subsection{3D 场景}
+\label{subsec:manim_animation_camera_3d}
+相机其实主要就是应用在3D场景中的，所以 manim的3D场景类 ThreeDScene中提供了一个非常方便的移动相机的方法 \codeinline{move\_camera}。
+
+\begin{lstlisting}[style=pythonstyle]
+# manim -pql 03CameraSample1.py CameraSample1  
+from manim import *
+
+class CameraSample4(ThreeDScene):
+    def construct(self):
+        axes = ThreeDAxes()
+        sphere = Surface(
+            lambda u, v: np.array(
+                [
+                    1.5 * np.cos(u) * np.cos(v),
+                    1.5 * np.cos(u) * np.sin(v),
+                    1.5 * np.sin(u),
+                ]
+            ),
+            v_range=[0, TAU],
+            u_range=[-PI / 2, PI / 2],
+            checkerboard_colors=[BLUE_D, BLUE_E],
+            resolution=(15, 32),
+        )
+        self.add(axes, sphere)
+
+        self.move_camera(phi=75 * DEGREES, theta=30 * DEGREES)
+        self.move_camera(zoom=1.5)
+        self.move_camera(zoom=0.5)
+        self.wait()
+\end{lstlisting}
+
+

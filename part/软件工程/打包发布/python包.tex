@@ -1,0 +1,19 @@
+\chapter{自定义包}
+
+\section{模块}
+在 python 中，一个扩展名为 "\codeinline{.py}" 的文件称为一个\textcolor{blue}{\textbf{模块}} (module). 
+
+模块可认为是一盒(箱)主题积木，
+通过它可以拼出某一主题(某个系统、某个复杂求解问题)的东西。
+
+与函数或类不同，一个函数或类相当于一块积木，而一个模块中可以包括很多函数或类.
+
+
+\section{概述}
+Python 中， "Package" 就是一个目录，
+其中包括一组模块和一个"\codeinline{\_\_init\_\_.py}" 文件。
+其中 \codeinline{\_\_init\_\_.py} 文件定义了包的属性和方法，
+通常只是一个空文件，但是必须存在，\textcolor{red}{\textbf{切匆随意删除若删除}} \codeinline{\_\_init\_\_.py} 文件，
+则该 Package 仅仅是一个目录，无法被导入或包含其他模型库和嵌套包.
+
+

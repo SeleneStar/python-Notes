@@ -1,0 +1,102 @@
+\chapter{Manim概述}
+\section{简介}
+Manim 最初由 Grant Sanderson 创建，用于他的 YouTube 频道 3Blue1Brown。随着频道的受欢迎程度增加，许多人想使用 Manim 来制作自己的项目。然而，最初的 Manim 仅供个人使用，其他用户很难安装和使用。
+
+\begin{enumerate}[label=\arabic*)]
+    \item 2019 年底: Grant 开始在一个新分支（Shaders 分支）上工作，以实现更快的 OpenGL 渲染。
+    \item 2020 年中: 一组开发者将其分叉成现在的社区版（\href{https://github.com/ManimCommunity/manim/}{ManimCE}）。
+    \item 2021 年初: Grant 将 Shaders 分支合并回主分支，形成了 ManimGL。
+\end{enumerate}
+
+
+        
+\section{Manim(ManimCE)}
+\begin{enumerate}[label=\arabic*)]
+    \item Manim官网: \url{https://www.manim.community/}
+    \item Manim项目地址: \url{https://github.com/ManimCommunity/manim#command-line-arguments}
+    \item Manim 文档: \url{https://docs.manim.community/en/stable/#}
+    % https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzkyODIzMDczMQ==&action=getalbum&album_id=2793721415848935425&scene=173&subscene=&sessionid=svr_d8d296e7dbe&enterid=1726627760&from_msgid=2247483712&from_itemidx=1&count=3&nolastread=1#wechat_redirect
+    % https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzIxNDc3NDc3NQ==&action=getalbum&album_id=3434147620531159045&scene=173&subscene=&sessionid=undefined&enterid=0&from_msgid=2247484898&from_itemidx=1&count=3&nolastread=1#wechat_redirect
+\end{enumerate}
+
+PyPi包名：\codeinline{manim}
+
+\subsection{安装}
+\begin{lstlisting}[style=demostyle,numbers=none]
+pip install manim
+pip install manim  -i https://mirrors.aliyun.com/pypi/simple/
+\end{lstlisting}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+conda create -n my-manim-environment
+conda activate my-manim-environment    
+conda install -c conda-forge manim
+\end{lstlisting}
+
+\subsection{使用}
+\begin{lstlisting}[style=demostyle,numbers=none]
+manim [options] <filename> <scene_name>
+# 1.<filename>: 指定包含动画场景的Python脚本文件名（如myfile.py）
+# 2.<scene_name>: 指定要渲染的场景名称(可选，如果不指定，Manim会渲染文件中的第一个场景)
+# 3.<options>: 可选参数
+-h, --help: 显示帮助信息，列出所有可用的参数。
+-p, --preview: 渲染完成后自动播放动画。
+-ql, --quality low: 以低质量（快速预览模式）渲染动画，适用于快速测试（15fps, 480p）。
+-qm, --quality medium: 以中等质量渲染动画（30fps, 720p）。
+-qh, --quality high: 以高质量渲染动画（60fps, 1080p）。
+-qk, --quality 4k: 以4K超高清质量渲染动画（60fps, 2160p）。
+-s, --save_last_frame: 只渲染场景的最后一帧并保存为图像文件。
+-i, --save_as_gif: 将渲染的场景保存为GIF文件。
+--renderer [cairo | opengl]: 指定使用哪种渲染器（默认为cairo，opengl为高性能渲染器）。
+-r, --resolution <height>x<width>: 设置输出视频的分辨率。例如-r 1920x1080为1080p高清分辨率。
+    -r 854,480:生成 480p 分辨率的视频
+    -r 1280,720:生成 720p 分辨率的视频
+    -r 1920,1080:生成 1080p 分辨率的视频
+    -r 2560,1440:生成 1440p 分辨率的视频
+    -r 3840,2160:生成 2160p 分辨率的视频
+--fps <number>: 设置视频帧率（每秒帧数）。
+-o, --output_file <path>: 指定输出文件的路径和文件名。
+--config_file <path>: 指定自定义配置文件路径，用于设置渲染器的配置。
+--progress_bar: 显示渲染进度条。
+--log_level [DEBUG | INFO | WARNING | ERROR | CRITICAL]: 设置日志级别，控制输出信息的详细程度。
+--write_to_movie: 强制将场景输出为视频文件（mp4格式）
+
+# 最常用的是 -pql 参数，用于快速预览
+manim -ql -p myfile.py MyScene
+\end{lstlisting}    
+
+\subsection{测试}
+\begin{lstlisting}[style=pythonstyle]
+# 测试中文能否显示
+# manim -p .\sample.py 
+# -*- coding: utf-8 -*-
+from manim import *
+
+class TransformExample(Scene):
+    def construct(self):
+        banner = ManimBanner()
+        banner.shift(UP * 0.5)
+        self.play(banner.create(), run_time=1)
+        self.play(banner.animate.scale(0.3), run_time=0.5)
+        self.play(banner.expand(), run_time=1)
+
+        t = Text("测试中文能否显示").next_to(banner, DOWN * 2)
+        tex = VGroup(
+            Text("测试数学公式:", font_size=30),
+            Tex(r"$\sum_{n=1}^\infty \frac{1}{n^2} = \frac{\pi^2}{6}$"),
+        )
+        tex.arrange(RIGHT, buff=SMALL_BUFF)
+        tex.next_to(t, DOWN)
+        self.play(Write(t), run_time=1)
+        self.play(Write(tex), run_time=1)
+
+        self.wait()
+\end{lstlisting}
+
+\section{ManimGL}
+由 Grant Sanderson 维护的最新版本，具有更多实验性功能，PyPI 包名为 \codeinline{manimgl}。
+
+\url{https://3b1b.github.io/manim/getting_started/installation.html#}
+
+\section{ManimCairo}
+Manim 的 Cairo 渲染器，OpenGL 渲染前的旧版本，仅用于渲染 Grant 的旧视频，PyPI 包名为 \codeinline{manimlib}。

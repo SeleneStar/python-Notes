@@ -1,0 +1,129 @@
+\chapter{面向对象}
+
+\section{类与对象}
+\subsection{类}
+定义一个类，使用关键字\texttt{class}，类名的命名规则与变量名相同，首字母大写。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+class Person[(father)]: # 类首字母大写 [] 部分可选，表示继承的父类
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def say(self):
+        print('hello world')
+
+p = Person('Tom', 20) # 实例化
+print(p.name)
+print(p.age)
+p.say()
+\end{lstlisting}
+
+\subsection{继承}
+Python支持多继承，使用逗号分隔。
+\begin{lstlisting}[style=demostyle,numbers=none]
+class Teacher:
+    def teaching(self):
+        print('I am teaching')
+
+class Dad:
+    def cooking(self):
+        print('I am cooking')
+
+class Son(Teacher, Dad):
+    def playing(self):
+        print('I am playing')
+
+s = Son()
+s.teaching()
+s.cooking()
+s.playing()
+\end{lstlisting}
+
+\subsection{接口}
+Python中没有接口的概念，但是可以使用抽象类来实现接口的功能。
+\begin{lstlisting}[style=demostyle,numbers=none]
+class Animal:
+    def run(self):
+        pass # 占位符
+
+class Dog(Animal):
+    def run(self):
+        print('dog is running')
+
+class Cat(Animal):
+    def run(self):
+        print('cat is running')
+
+d = Dog()
+d.run()
+
+c = Cat()
+c.run()
+\end{lstlisting}
+
+
+\subsection{封装}
+\subsubsection{私有属性}
+Python中没有私有属性的概念，但是可以通过在属性名前加两个下划线来实现私有属性。
+\begin{lstlisting}[style=demostyle,numbers=none]
+class Person:
+    def __init__(self, name, age):
+        self.__name = name
+        self.__age = age
+
+    def say(self):
+        print('hello world')
+
+p = Person('Tom', 20)
+print(p.__name) # 不能访问
+
+p.say()
+\end{lstlisting}
+
+\subsubsection{私有方法}
+Python中没有私有方法的概念，但是可以通过在方法名前加一个下划线来实现私有方法。
+\begin{lstlisting}[style=demostyle,numbers=none]
+class Person:
+    def __init__(self, name, age):
+        self.__name = name
+        self.__age = age
+
+    def __say(self):
+        print('hello world')
+
+    def say(self):
+        self.__say()     
+
+p = Person('Tom', 20)
+p.say()
+\end{lstlisting}
+
+\subsection{多态}
+多态是指不同的对象对同一消息做出不同的响应。
+\begin{lstlisting}[style=demostyle,numbers=none]
+class Animal:
+    def run(self):
+        pass
+
+class Dog(Animal):
+    def run(self):
+        print('dog is running')
+
+class Cat(Animal):
+    def run(self):
+        print('cat is running')
+
+def run(animal):
+    animal.run()
+
+d = Dog()
+run(d)
+
+c = Cat()
+run(c)
+\end{lstlisting}
+
+
+
+

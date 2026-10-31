@@ -1,0 +1,19 @@
+# TTS Toolkit 依赖包
+
+# 核心依赖
+edge-tts>=6.1.0
+
+# GUI支持（可选）
+# 如果不使用GUI，可以注释掉
+PyQt5>=5.15.0
+
+# 开发依赖（可选）
+# pytest>=7.0.0
+# pytest-asyncio>=0.21.0
+# black>=23.0.0
+# flake8>=6.0.0
+# mypy>=1.0.0
+
+# 文档生成（可选）
+# sphinx>=5.0.0
+# sphinx-rtd-theme>=1.2.0

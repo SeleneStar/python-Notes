@@ -1,0 +1,35 @@
+\chapter{smtplib库} 
+
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+import smtplib
+from email.mime.text import MIMEText
+
+# 1.设置邮件内容
+from_email = "master@qq.com" # 发件人邮箱
+to_email = "slave@qq.com" # 收件人邮箱
+subject = "测试邮件" # 邮件主题
+body = "这是一封测试邮件。" # 邮件正文
+password = "password" # 授权码
+
+# 2.转成MIME规范
+msg = MIMEText(body, "plain", "utf-8")
+msg["Subject"] = subject
+msg["From"] = from_email
+msg["To"] = to_email
+
+# 3.设置邮箱服务器和端口
+## 1)使用非TLS连接
+# server = smtplib.SMTP("smtp.qq.com", 587) # QQ邮箱的SMTP服务器地址和端口
+## 2)使用TLS连接
+server = smtplib.SMTP_SSL("smtp.qq.com", 465) # 使用SSL连接
+server.login(from_email, password) # 登录邮箱
+
+# 4.发送邮件
+server.sendmail(from_email, to_email, msg.as_string())
+
+print("邮件发送成功！")
+
+# 5.关闭服务器连接
+server.quit()
+\end{lstlisting}

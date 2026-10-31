@@ -1,0 +1,62 @@
+\chapter{excel自动化概述}
+\label{cha:excel自动化}
+Python操作excel的库有\href{https://xlrd.readthedocs.io/en/latest/}{xlrd}、
+\href{https://xlwt.readthedocs.io/en/latest/}{xlwt}、\href{https://openpyxl.readthedocs.io/en/stable/}{openpyxl}、\href{https://xlutils.readthedocs.io/en/latest/}{xlutils}。
+
+\section{Excel介绍}
+\label{sec:Excel介绍}
+Excel工作簿有两种格式:\codeinline{xls}和\codeinline{xlsx}。
+\reminder{\lefthand}{如果存储的数据大于工作簿的极限时，就可以考虑使用数据库来存储数据。}
+
+
+\begin{enumerate}[label=\arabic*)]
+    \item \codeinline{xls}格式的文件是二进制文件，它是Excel 2003及以前版本的文件格式。
+
+    \codeinline{xls}格式的文件最多可写入65 535行、256列的数据量
+
+    \item \codeinline{xlsx}格式的文件是XML文件，它是Excel 2007及以后版本的文件格式。    
+
+    \codeinline{xlsx}格式的文件最多可写入1048576行、16384列的数据量    
+\end{enumerate}
+
+
+\section{处理Excel文件的Python模块}
+可以处理Excel文件的Python模块有很多，如XlsxWriter、xlrd、xlwt、xlutils、openpyxl和xlwings等。
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+\textbf{功能$\backslash$ 模块} & \textbf{XlsxWriter} & \textbf{xlrd} & \textbf{xlwt} & \textbf{xlutils} & \textbf{openpyxl} & \textbf{xlwings} \\ \hline
+\textbf{读} & $x$ & \checkmark & $x$ & \checkmark & \checkmark & \checkmark \\ \hline
+\textbf{写} & \checkmark & $x$ & \checkmark & \checkmark & \checkmark & \checkmark \\ \hline
+\textbf{修改} & $x$ & $x$ & $x$ & \checkmark & \checkmark & \checkmark \\ \hline
+\textbf{支持 xls 格式} & $x$ & \checkmark & \checkmark & \checkmark & $x$ & \checkmark \\ \hline
+\textbf{支持 xlsx 格式} & \checkmark & \checkmark & \checkmark & $x$ & \checkmark & \checkmark \\ \hline
+\textbf{支持批量操作} & $x$ & $x$ & $x$ & $x$ & $x$ & \checkmark \\ \hline
+\end{tabular}
+\caption{python Excel 不同模块支持功能情况}
+\end{table}
+
+通过上表的对比可以发现，xlwings模块的功能是最齐全的。
+它不仅能读、写和修改两种格式的Excel文件（xls和xlsx），而且能批量处理多个Excel文件。
+此外，xlwings模块还能与Excel VBA结合使用，实现更加强大的数据输入和分析功能。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

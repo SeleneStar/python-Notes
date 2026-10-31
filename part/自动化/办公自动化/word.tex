@@ -1,0 +1,34 @@
+\chapter{word自动化}
+\label{cha:word自动化}
+
+\section{docx库}
+\label{sec:docx库}
+python-docx 是 Python 专门用来编辑 Word 文档的库，使用它的好处就是不必自己研究 docx 文件类型的底层实现细
+节，你可以像操作.txt 文本一样直接打开、修改和保存关闭文件。可以说，python-docx
+扩展库降低了用户使用 Python 的复杂度。
+
+\subsection{安装}
+\label{subsec:docx库安装}
+\begin{lstlisting}[style=demostyle,numbers=none]
+# pip 安装
+pip install python-docx
+
+# conda 安装
+conda install python-docx
+\end{lstlisting}
+
+\subsection{创建Word文档}
+\label{subsec:docx创建Word文档}
+\begin{lstlisting}[style=pythonstyle,numbers=left]
+import docx
+
+doc = docx.Document() # Document对象表示整个文档
+doc.add_heading('文章标题', 0) # 添加标题,0 表示标题的级别
+doc.add_paragraph('Hello world!') # 添加段落
+doc.add_heading('子标题', 1) # 添加标题,1 表示标题的级别
+doc.add_paragraph('这是子标题段落') # 添加段落
+doc.save('./word/docx创建文档.docx') # 保存文档
+\end{lstlisting}
+
+
+

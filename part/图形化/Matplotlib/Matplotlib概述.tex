@@ -1,0 +1,95 @@
+\chapter{[Python库] Matplotlib概述}
+
+\section{简介}
+matplotlib 是 python 中一个非常强大的 2D 函数绘图模块，
+它提供了子模块 \codeinline{pyplot} 和 \codeinline{pylab}。
+
+pylab 是对 pyplot 和 numpy 模块的封装，更适合在 IPython 交互式环境中使用。
+
+对于一个项目来说，官方建议分别导入使用，这样代码更清晰，即：
+\begin{lstlisting}[style=pythonstyle]
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 不要使用
+import pylab as pl
+\end{lstlisting}
+
+\section{安装}
+\begin{lstlisting}[style=demostyle,numbers=none]
+conda install matplotlib
+# 或
+pip install matplotlib
+\end{lstlisting}
+
+
+
+\section{基本框架}
+\begin{lstlisting}[style=pythonstyle]
+# 分别导入 numpy 和 pyplot 模块
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 生成 X 坐标，256个采样值足够图像平滑
+X = np.linspace(-np.pi, np.pi, 256, endpoint=True)
+
+# 生成 Y 坐标
+C,S = np.cos(X), np.sin(X)
+
+# 绘制正余弦
+plt.plot(X,S)
+plt.plot(X,C)
+
+# 显示图像
+plt.show()
+\end{lstlisting}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 必须导入的库
+import matplotlib.pyplot as plt
+# legend 功能：用于为图形添加图例
+plt.legend(*args, **kwargs)
+# 参数说明：
+# loc : 图例的位置
+## 'best'：自动选择最佳位置
+## 'upper right'：右上角
+## 'upper left'：左上角
+## 'lower left'：左下角
+## 'lower right'：右下角
+## 'right'：右侧
+## 'center left'：左侧居中
+## 'center right'：右侧居中
+## 'lower center'：底部居中
+## 'upper center'：顶部居中
+## 'center'：中央
+# fontsize : 图例文字的大小
+# title : 图例标题
+# shadow : 是否添加阴影
+# bbox_to_anchor : 图例相对于图形的位置
+\end{lstlisting}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 必须导入的库
+import matplotlib.pyplot as plt
+# title 功能：为图表添加标题
+plt.title(label, fontdict=None, loc='center', pad=None, **kwargs)
+# 参数说明：
+# label : 标题文本
+# fontdict : 设置字体的字典，如字体大小、颜色等
+# loc : 标题的位置
+## 'left'：左对齐
+## 'center'：居中对齐
+## 'right'：右对齐
+# pad : 标题与图像之间的间距
+\end{lstlisting}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 必须导入的库
+import matplotlib.pyplot as plt
+# show 功能：显示当前所有绘图
+plt.show(*args, **kwargs)
+# 参数说明：
+# block : 是否阻塞脚本的运行，直到窗口关闭
+## True：阻塞（默认）
+## False：不阻塞
+\end{lstlisting}

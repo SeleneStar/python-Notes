@@ -1,0 +1,167 @@
+\chapter{异常}
+\section{异常}
+异常$\neq$错误
+
+异常是在程序运行过程中出现的错误，而错误是程序的语法错误。
+
+异常处理的一般流程是：检测到错误，引发异常，捕获异常，处理异常。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 第一种 try ... except
+## 1.当try代码块中的代码报错时，
+##  只有抛出与except关键字后异常类型相同的异常，才会执except代码块中的代码
+## 2.如果except关键字后没有接异常类型，
+##  那么任何异常都会触发except代码块中的代码逻辑
+try:
+    # 代码块
+    pass
+except Exception as e:
+    # 异常处理
+    pass
+
+# 第二种 try ... except ... finally
+try:
+    # 代码块
+    pass
+except Exception as e:
+    # 异常处理
+    pass
+finally:
+    # 无论是否发生异常都会执行
+    pass
+
+# 第三种 try ... except ... else
+try:
+    # 代码块
+    pass
+except Exception as e:
+    # 异常处理
+    pass
+else:
+    # 无异常时执行
+    pass
+
+# 第四种 try ... except ... else ... finally
+try:
+    # 代码块
+    pass
+except Exception as e:
+    # 异常处理
+    pass
+else:
+    # 无异常时执行
+    pass
+finally:
+    # 无论是否发生异常都会执行
+\end{lstlisting}
+
+\section{异常的种类}
+\subsection{文件}
+\begin{lstlisting}[style=pythonstyle,numbers=none]
+try:
+    f = open('test.txt', 'r')
+    print(f.read())
+except FileNotFoundError as e:
+    print('文件不存在')
+finally:
+    f.close()
+\end{lstlisting}
+
+\subsection{除零}
+\begin{lstlisting}[style=pythonstyle,numbers=none]
+try:
+    print(5 / 0)
+except ZeroDivisionError as e:
+    print('除零错误')
+\end{lstlisting}
+
+\subsection{输入异常}
+\begin{lstlisting}[style=pythonstyle,numbers=none]
+year = int(input('请输入年份：'))
+
+try:
+    if year % 4 == 0 and year % 100 != 0 or year % 400 == 0:
+        print('闰年')
+    else:
+        print('平年')
+except ValueError as e:
+    print('输入错误')
+\end{lstlisting}
+
+\subsection{捕获多个异常}
+\begin{lstlisting}[style=pythonstyle,numbers=none]
+try:
+    print(5 / 0)
+    year = int(input('请输入年份：'))
+except ZeroDivisionError as e:
+    print('除零错误')
+except ValueError as e:
+    print('输入错误')
+\end{lstlisting}
+
+\begin{lstlisting}[style=pythonstyle,numbers=none]
+try:
+    print(5 / 0)
+    year = int(input('请输入年份：'))
+except (ZeroDivisionError, ValueError) as e: # 用一个元组来捕获多个异常
+    print('输入错误')
+\end{lstlisting}
+
+\subsection{捕获所有异常}
+\begin{lstlisting}[style=pythonstyle,numbers=none]
+try:
+    print(5 / 0)
+    year = int(input('请输入年份：'))
+except Exception as e:  # Exception是所有异常的基类
+    print('发生异常')
+\end{lstlisting}
+
+\subsection{自定义异常返回信息——raise}
+\begin{lstlisting}[style=pythonstyle,numbers=none]
+try:
+    raise NameError('自定义异常')
+except NameError as e:
+    print("My custom Exception")
+\end{lstlisting}
+
+\subsection{自定义异常}
+\section{异常的处理}
+通过\codeinline{try ... except}可以捕获异常，但如果捕捉到异常无法处理呢？此时最好的方式就是向上抛出异常。
+
+异常处理的原则是处理可预见的异常，向上抛出当前无法处理的异常，最终的目的就
+是方便程序编写者可以很轻松地定位出现异常的位置，以及出现异常的原因。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# raise
+raise [exceptionName('reason')]
+## 中括号“[]”括起的部分是可选参数，
+## exceptionName的作用就是抛出指定类型的异常，
+## reason则是抛出异常时附带的说明信息。
+\end{lstlisting}
+
+\begin{lstlisting}[style=pythonstyle,numbers=none]
+def error_fun():
+    try:
+        name = input('Enter your name: ')
+        if name.isspace():
+            raise ValueError('Name cannot be empty')
+        if name.isdigit():
+            raise ValueError('Name cannot be a number')
+        
+        name = name + 123
+
+    # 无法处理本层抛出的ValueError,会抛出该错误到上一层
+    except ValueError as e:
+        print(f'错误类型: {e}') # f的作用是将{}中的内容替换为变量的值
+    else:
+        print('Name:', name)
+
+# error_fun()层的上一层是__main__，所以抛出的错误会被__main__处理
+try:
+    error_fun()
+except ValueError as e:
+    print(f'主函数抛出异常: {e}, Please try again.')
+    error_fun()
+\end{lstlisting}
+
+

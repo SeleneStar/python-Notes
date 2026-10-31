@@ -1,0 +1,397 @@
+\chapter{基本数据类型}
+
+\section{Number——数字类型}
+Python支持三种不同的 Number 数值类型:
+\begin{enumerate}[label=\arabic*)]
+    \item 整型 (int)：整数类型，表示没有小数部分的数字。
+    \item 浮点型 (float)：浮点数类型，表示有小数部分的数字。
+    \item 复数 (complex)：复数类型，表示实部和虚部
+\end{enumerate}
+
+如果需要对数据内置的类型进行转换，只需要将数据类型作为函数名即可，
+如 \codeinline{int(x)} 转换为一个整数.
+
+\subsection{int 整数类型}
+\subsubsection{bool 布尔类型}
+Python 中 bool 是 int 的子类(继承 \codeinline{int}),
+故\codeinline{True==1}、 \codeinline{False==0}。
+
+如要切实判断，则采用: \codeinline{XXX is True}.
+
+\subsubsection{数字分隔符}
+为了提高数字的的可读性, Python 3.x 允许使用下划线\codeinline{\_}作为数字（包括整数和小数）的分隔符。
+通常每隔三个数字添加一个下划线, 类似于英文数字中的逗号。下划线不会影响数字本身的值。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+>>> 1_000_000
+1000000
+>>> click = 1_301_547
+>>> distance = 384_000_000
+>>> print("Python 教程阅读量：", click)
+>>> print("地球和月球的距离：", distance)
+Python 教程阅读量： 1301547
+地球和月球的距离： 384000000
+\end{lstlisting}
+
+\subsection{float——浮点数(科学计数法)}
+Python 3.x 支持科学计数法, 用\codeinline{e}或\codeinline{E}表示幂。
+\begin{lstlisting}[style=demostyle,numbers=none]
+>>> 1e6
+1000000.0
+>>> 1e-6
+0.000001
+>>> 1e+6
+1000000.0
+>>> 1e+0006
+1000000.0
+>>> 1e+0000006
+1000000.0
+>>> 2.1E5
+210000.0
+\end{lstlisting}
+
+\subsubsection{浮点数精度问题}
+Python 中浮点类型之间的运算, 其结果并不像我们想象的那样
+\begin{lstlisting}[style=demostyle,numbers=none]
+>>> 0.1+0.2
+0.30000000000000004
+>>> 0.1+0.1-0.2
+0.0
+>>> 0.1+0.1+0.1-0.3
+5.551115123125783e-17
+>>> 0.1+0.1+0.1-0.2
+0.10000000000000003
+\end{lstlisting}
+
+如果需要非常精确的结果, 可以使用 \codeinline{decimal} 模块（其实就是别人开发好的程序, 我们可以直接拿来用）, 
+它实现的十进制数运算适合会计方面的应用和有高精度要求的应用。例如：
+\begin{lstlisting}[style=demostyle,numbers=none]
+import decimal
+a = decimal.Decimal("10.0")
+b = decimal.Decimal("3")
+print(10.0/3)
+print(a/b)
+\end{lstlisting}
+\begin{lstlisting}[style=demostyle,numbers=none]
+3.3333333333333335
+3.333333333333333333333333333
+\end{lstlisting}
+
+如果 \codeinline{decimal} 模块还是无法满足需求, 还可以使用 \codeinline{fractions} 模块, 例如：
+\begin{lstlisting}[style=demostyle,numbers=none]
+>>> from fractions import Fraction
+>>> a = Fraction(1, 3)
+>>> b = Fraction(1, 3)
+>>> a + b
+Fraction(2, 3)
+>>> a - b
+Fraction(0, 3)
+>>> a * b
+Fraction(1, 9)
+>>> a / b
+Fraction(3, 1)
+>>> print(Fraction(10,3))
+10/3
+\end{lstlisting}
+
+\subsection{bool——布尔类型}
+布尔类型包含
+\begin{enumerate}[label=\arabic*)]
+    \item \codeinline{True}: 真
+    \item \codeinline{False}: 假
+\end{enumerate}
+
+
+\subsection{complex——复数类型}
+
+
+% \section{String——字符串类型}
+% 用引号括起的都是字符串，其中的引号可以是单引号，也可以是双引号
+% \begin{lstlisting}[style=pythonstyle]
+% "This is a string." 
+% 'This is also a string.'
+% \end{lstlisting}  
+
+% \subsection{修改字符串的大小写}
+% Python 提供了多种方法用于调整字符串的大小写格式：
+% \begin{lstlisting}[style=pythonstyle]
+% s = "This is a string."
+% print(s.upper())   # 转换为大写
+% print(s.lower())   # 转换为小写
+% print(s.title())   # 转换为标题格式：每个单词首字母大写
+% print(s.capitalize())  # 首字母大写，其余小写
+% print(s.swapcase())    # 大小写互换
+% \end{lstlisting}
+% \begin{lstlisting}[style=demostyle,numbers=none]
+% THIS IS A STRING.
+% this is a string.
+% This Is A String.
+% This is a string.
+% tHIS IS A STRING.
+% \end{lstlisting}    
+
+% \subsection{字符串拼接与重复}
+% 可使用 \codeinline{+} 和 \codeinline{*} 运算符进行字符串连接和重复：
+% \begin{lstlisting}[style=pythonstyle]
+% s = "This is a string."
+% print(s + " I am a Python programmer.")  # 拼接
+% print(s * 2)                             # 重复
+% \end{lstlisting}
+% \begin{lstlisting}[style=demostyle,numbers=none]
+% This is a string. I am a Python programmer.
+% This is a string.This is a string.
+% \end{lstlisting}
+
+% \subsection{join：连接字符串}
+% \begin{lstlisting}[style=pythonstyle]
+% s = "apple,banana,cherry"
+% print('-'.join(['a', 'b', 'c']))   # a-b-c
+% \end{lstlisting}
+% \begin{lstlisting}[style=demostyle,numbers=none]
+% a-b-c
+% \end{lstlisting}    
+
+
+
+% \subsection{成员判断：in 与 not in}
+% 用于检测子字符串是否存在于字符串中，返回布尔值：
+% \begin{lstlisting}[style=pythonstyle]
+% s = "This is a string."
+% print("string" in s)        # True
+% print("Python" not in s)    # True
+% \end{lstlisting}
+
+% \subsection{成员类型判断}
+% \begin{enumerate}[label=\arabic*)]
+%     \item \codeinline{str.isalpha()}: 字符串只包含字母
+%     \item \codeinline{str.isdigit()}: 字符串只包含数字
+%     \item \codeinline{str.isalnum()}: 字符串只包含字母或数字
+% \end{enumerate}
+% \begin{lstlisting}[style=pythonstyle]
+% print("123".isdigit())             # True
+% print("Hello".isalpha())           # True
+% print("Hello123".isalnum())        # True
+% \end{lstlisting}
+
+% \subsection{字符串替换}
+% 使用 \codeinline{str.replace(old, new[, count])} 方法替换子串：
+% \begin{lstlisting}[style=pythonstyle]
+% s = "This is a string."
+% print(s.replace("string", "sentence"))      # 全部替换
+% print(s.replace("i", "I", 2))               # 最多替换前2次出现
+% \end{lstlisting}
+% \begin{lstlisting}[style=demostyle,numbers=none]
+% This is a sentence.
+% ThIs Is a string.
+% \end{lstlisting}
+
+% \subsection{删除字符串两端或指定字符}
+% Python 提供多种去除空白或指定字符的方法：
+% \begin{lstlisting}[style=pythonstyle]
+% s = "   Hello, World!   "
+% print(s.strip())        # 去除首尾空白（包括空格、\n、\t等）
+% print(s.lstrip())       # 去除左侧空白
+% print(s.rstrip())       # 去除右侧空白
+
+% # 可指定要去除的字符
+% t = "###Hello###"
+% print(t.strip('#'))     # 输出: Hello
+% \end{lstlisting}
+% \begin{lstlisting}[style=demostyle,numbers=none]
+% Hello, World!
+% Hello, World!   
+%    Hello, World!
+% Hello
+% \end{lstlisting}
+
+% \subsection{子串}
+% \subsubsection{索引与切片}
+% 使用 \codeinline{str.split([sep[, maxsplit]]) } 方法将字符串拆分为子字符串：
+% \begin{lstlisting}[style=pythonstyle]
+% s = "apple,banana,cherry"
+% print(s.split(','))                # ['apple', 'banana', 'cherry']
+% \end{lstlisting}
+% \begin{lstlisting}[style=demostyle,numbers=none]
+% ['apple', 'banana', 'cherry']
+% \end{lstlisting}   
+
+% \begin{lstlisting}[style=pythonstyle]
+% s = "Python"
+
+% # 索引：获取单个字符
+% print(s[0])      # 'P'         （正向索引从0开始）
+% print(s[-1])     # 'n'         （反向索引从-1开始）
+
+% # 切片：获取子串 [start:end:step]
+% print(s[1:4])    # 'yth'       （包含start，不包含end）
+% print(s[:3])     # 'Pyt'       （省略start表示从开头）
+% print(s[3:])     # 'hon'       （省略end表示到末尾）
+% print(s[::2])    # 'Pto'       （步长为2）
+% print(s[::-1])   # 'nohtyP'    （反转字符串）
+% \end{lstlisting}
+% \begin{lstlisting}[style=demostyle,numbers=none]
+% P
+% n
+% yth
+% Pyt
+% hon
+% Pto
+% nohtyP
+% \end{lstlisting}
+
+% \subsubsection{find与index:查找子串位置}
+% \begin{lstlisting}[style=pythonstyle]
+% s = "This is a string."
+% print(s.find("is"))      # 2
+% print(s.index("is"))     # 2
+% print(s.find("Python"))  # -1
+% \end{lstlisting}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{类型转换}
+\subsection{type}
+\begin{lstlisting}[style=demostyle,numbers=none]
+Python 3.9.19 (main, Mar 21 2024, 17:11:28)
+[GCC 11.2.0] :: Anaconda, Inc. on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> type(8)
+<class 'int'>
+>>> type("8")
+<class 'str'>
+>>> type(False)
+<class 'bool'>
+>>> type(true)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'true' is not defined
+>>> num = 20 + 15j
+>>> type(num)
+<class 'complex'>
+\end{lstlisting}
+
+\subsection{显式类型转换}
+\begin{lstlisting}[style=demostyle,numbers=none]
+>>> int("8") # 将字符串转换为整数
+8
+>>> float("8")
+8.0
+>>> str(8) # 将整数转换为字符串
+'8'
+>>> bool(8) # 将整数转换为布尔值
+True
+>>> bool(0)
+False
+\end{lstlisting}
+
+\section{缓存重用机制}
+Python 缓冲机制是为提高程序执行的效率服务的, 实际上就是在 Python 解释器启动时从内存空间中开辟出一小部分, 
+用来存储高频使用的数据, 这样可以大大减少高频使用的数据创建时申请内存和销毁时撤销内存的开销。
+
+\begin{table}[htpb]
+\begin{tabular}{|l|ll|}
+\hline
+\multicolumn{1}{|c|}{\textbf{数据类型}} & \multicolumn{1}{c|}{\textbf{是否可以重用}}                              & \multicolumn{1}{c|}{\textbf{生效范围}} \\ \hline
+范围在 {[}-5, 256{]} 之间的小整数            & \multicolumn{1}{l|}{\multirow{3}{*}{如果之前在程序中创建过, 就直接存入缓存, 后续不再创建。}} & \multirow{3}{*}{全局}                \\ \cline{1-1}
+bool 类型                             & \multicolumn{1}{l|}{}                                             &                                    \\ \cline{1-1}
+字符串类型数据                             & \multicolumn{1}{l|}{}                                             &                                    \\ \hline
+大于 256 的整数                          & \multicolumn{1}{l|}{\multirow{2}{*}{只要在本代码块内创建过, 就直接缓存, 后续不再创建。}}   & \multirow{2}{*}{本代码块}              \\ \cline{1-1}
+大于 0 的浮点型小数                         & \multicolumn{1}{l|}{}                                             &                                    \\ \hline
+小于 0 的浮点型小数                         & \multicolumn{2}{l|}{\multirow{2}{*}{不进行缓存, 每次都需要额外创建。}}                                                 \\ \cline{1-1}
+小于 -5 的整数                           & \multicolumn{2}{l|}{}                                                                                  \\ \hline
+\end{tabular}
+\caption{缓存重用机制}
+\end{table}
+
+\begin{lstlisting}[style=pythonstyle]
+#范围在 [-5, 256] 之间的小整数
+int1 = -5
+int2 = -5
+print("[-5, 256] 情况下的两个变量：", id(int1), id(int2))
+#bool 类型
+bool1 = True
+bool2 = True
+print("bool 类型情况下的两个变量：",id(bool1),id(bool2))
+
+#对于字符串
+s1 = "3344"
+s2 = "3344"
+print("字符串情况下的两个交量", id(s1), id(s2))
+#大于 256 的整数
+int3 = 257
+int4 = 257
+print("大于 256 的整数情况下的两个变量", id(int3), id(int4))
+#大于 0 的浮点数
+f1 = 256.4
+f2 = 256.4
+print("大于 0 的浮点数情况下的两个变量", id(f1), id(f2))
+#小于 0 的浮点数
+f3 = -2.45
+f4 = -2.45
+print("小于 0 的浮点数情况下的两个变量", id(f3), id(f4))
+#小于 -5 的整数
+n1 = -6
+n2 = -6
+print("小于 -5 的整数情况下的两个变量", id(n1), id(n2))
+\end{lstlisting}
+\begin{lstlisting}[style=demostyle,numbers=none]
+[-5, 256] 情况下的两个变量： 2169665579120 2169665579120
+bool 类型情况下的两个变量： 140731067889768 140731067889768
+字符串情况下的两个交量 2169668343408 2169668343408
+大于 256 的整数情况下的两个变量 2169668069648 2169668069648
+大于 0 的浮点数情况下的两个变量 2169666229936 2169666229936
+小于 0 的浮点数情况下的两个变量 2169668070320 2169668070320
+小于 -5 的整数情况下的两个变量 2169668070032 2169668070032
+\end{lstlisting}
+
+\begin{lstlisting}[style=pythonstyle]
+def fun():
+    #[-5,256]
+    int1 = -5
+    int2 = -5
+    print("fun 中 -5 的存储状态",id(int1), id(int2))
+
+    #bool 类型
+    bool2 = True
+    bool3 = True
+    print("fun 中 bool 类型的存储状态",id(bool3),id(bool2))
+
+    #字符串类型
+    s1 = "3344"
+    s2 = "3344"
+    print("fun 中 3344 字符串的存储状态", id(s1), id(s2))
+
+    #大于 256
+    int3 = 257
+    int4 = 257
+    print("fun 中 257 的存储状态", id(int3), id(int4))
+
+    #浮点类型
+    f1 = 256.4
+    f2 = 256.4
+    print("fun 中 256.4 的存储状态",id(f1), id(f2))
+
+    #小于 -5
+    n1 = -6
+    n2 = -6
+    print("fun 中 -6 的存储状态", id(n1), id(n2))
+ 
+fun()
+\end{lstlisting}
+\begin{lstlisting}[style=demostyle,numbers=none]
+fun 中 -5 的存储状态 2022312994928 2022312994928
+fun 中 bool 类型的存储状态 140731067889768 140731067889768
+fun 中 3344 字符串的存储状态 2022319364656 2022319364656
+fun 中 257 的存储状态 2022319089936 2022319089936
+fun 中 256.4 的存储状态 2022313645744 2022313645744
+fun 中 -6 的存储状态 2022319090032 2022319090032
+\end{lstlisting}

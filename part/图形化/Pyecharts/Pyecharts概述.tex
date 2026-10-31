@@ -1,0 +1,39 @@
+\chapter{[Python库] Pyecharts概述}
+\label{cha:pyecharts_intro}
+\section{简介}
+\label{sec:pyecharts_intro}
+\href{https://pyecharts.org/#/zh-cn/}{Echarts} 是一个由百度开源的数据可视化，凭借着良好的交互性，精巧的图表设计，得到了众多开发者的认可。
+而 Python 是一门富有表达力的语言，很适合用于数据处理。
+
+\begin{enumerate}[itemindent=1em,label=\arabic*)]
+    \item V0.5x版本：不在维护，支持 Python2.7，3.4+
+    \item V1.0版本：v0.5.X 和 v1 间不兼容，\textcolor{red}{\textbf{仅}}支持python3.6及以上版本
+    \item V2.0版本：支持 Python3.6 ~ Python 3.11
+\end{enumerate}
+
+\section{安装}
+\label{sec:pyecharts_install}
+\begin{lstlisting}[style=demostyle,numbers=none]
+pip install pyecharts
+
+# 检查版本
+$ python
+Python 3.10.14 (main, May  6 2024, 19:42:50) [GCC 11.2.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import pyecharts
+s.__version__)>>>
+>>> print(pyecharts.__version__)
+2.0.6
+\end{lstlisting}
+
+源码安装
+\begin{lstlisting}[style=demostyle,numbers=none]
+$ git clone https://github.com/pyecharts/pyecharts.git
+$ cd pyecharts
+$ pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+$ python setup.py install
+# 或者执行 python install.py
+\end{lstlisting}
+
+
+

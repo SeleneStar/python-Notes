@@ -1,0 +1,75 @@
+\chapter{进程管理}
+
+\section{创建进程}
+\begin{lstlisting}[style=demostyle,numbers=none]
+import subprocess
+
+subprocess.Popen('calc.exe')    # 打开计算器
+subprocess.Popen('notepad.exe') # 打开记事本
+subprocess.Popen('cmd.exe')     # 打开命令行
+subprocess.Popen('resmon.exe')  # 打开资源管理器
+subprocess.Popen('taskmgr.exe') # 打开任务管理器
+subprocess.Popen('D:\\application\\wps\\WPS Office\\ksolaunch.exe') # 打开WPS
+subprocess.Popen('D:/application/wps/WPS Office/ksolaunch.exe') # 打开WPS
+\end{lstlisting}
+
+\section{获取进程}
+\subsection{显示所有进程及对应的名称}
+\begin{lstlisting}[style=demostyle,numbers=none]
+import psutil
+
+# 获取所有进程的 PID
+pids = psutil.pids()
+
+# 遍历每个 PID，获取进程名称并打印
+for pid in pids:
+    try:
+        # 实例化一个 Process 对象
+        process = psutil.Process(pid)
+        # 获取并打印进程名称
+        print(f"PID: {pid}, Name: {process.name()}")
+    except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+        # 忽略访问被拒绝、进程不存在或僵尸进程的情况
+        pass
+\end{lstlisting}
+\begin{lstlisting}[style=demostyle,numbers=none]
+PID: 0, Name: System Idle Process
+PID: 4, Name: System
+...
+PID: 25836, Name: ChsIME.exe
+PID: 25932, Name: chrome.exe
+PID: 26128, Name: Code.exe
+PID: 26236, Name: wsl.exe
+PID: 26436, Name: conhost.exe
+PID: 26608, Name: wps.exe
+PID: 26612, Name: wslhost.exe
+\end{lstlisting}
+
+\subsection{根据名称获取进程ID}
+\begin{lstlisting}[style=demostyle,numbers=none]
+import psutil
+
+def get_pids_by_name(process_name):
+    pids = []
+    for proc in psutil.process_iter(['pid', 'name']):
+        try:
+            if proc.info['name'] == process_name:
+                pids.append(proc.info['pid'])
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            pass  # 忽略访问被拒绝或进程不存在的情况
+    return pids
+
+process_name_to_find = "python"  # 替换为你想要查找的进程名称
+pids = get_pids_by_name(process_name_to_find)
+
+print(f"进程名称 '{process_name_to_find}' 的进程 ID 列表: {pids}")
+\end{lstlisting}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+import psutil
+
+# 获取所有进程
+psutil.pids()
+# 获取指定进程
+p = psutil.Process(1234) # 1234为进程PID
+\end{lstlisting}

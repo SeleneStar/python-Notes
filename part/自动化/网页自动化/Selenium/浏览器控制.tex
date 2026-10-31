@@ -1,0 +1,903 @@
+\chapter{浏览器控制}
+
+\section{浏览器选项配置}
+
+在进行Web自动化测试时，合理配置浏览器选项可以显著提高脚本的稳定性和执行效率。不同浏览器提供了丰富的配置选项来满足各种测试需求。
+
+\subsection{Chrome浏览器配置}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+import os
+
+# 创建Chrome选项对象
+chrome_options = Options()
+
+# 无头模式（后台运行，不显示浏览器界面）
+chrome_options.add_argument("--headless")
+
+# 窗口大小设置
+chrome_options.add_argument("--window-size=1920,1080")
+
+# 禁用GPU加速（在某些环境下可以避免问题）
+chrome_options.add_argument("--disable-gpu")
+
+# 禁用开发者工具
+chrome_options.add_argument("--disable-dev-shm-usage")
+
+# 禁用沙盒模式（在Docker等环境中可能需要）
+chrome_options.add_argument("--no-sandbox")
+
+# 设置用户代理
+chrome_options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+
+# 禁用图片加载（提高页面加载速度）
+prefs = {"profile.managed_default_content_settings.images": 2}
+chrome_options.add_experimental_option("prefs", prefs)
+
+# 禁用通知
+chrome_options.add_argument("--disable-notifications")
+
+# 禁用弹出窗口阻止程序
+chrome_options.add_argument("--disable-popup-blocking")
+
+# 设置下载目录
+download_dir = os.path.join(os.getcwd(), "downloads")
+prefs = {
+    "download.default_directory": download_dir,
+    "download.prompt_for_download": False,
+    "download.directory_upgrade": True
+}
+chrome_options.add_experimental_option("prefs", prefs)
+
+# 启动最大化窗口
+chrome_options.add_argument("--start-maximized")
+
+# 创建浏览器实例
+driver = webdriver.Chrome(options=chrome_options)
+\end{lstlisting}
+
+\subsection{Firefox浏览器配置}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
+
+# Firefox选项配置
+firefox_options = Options()
+
+# 无头模式
+firefox_options.add_argument("--headless")
+
+# 窗口大小
+firefox_options.add_argument("--width=1920")
+firefox_options.add_argument("--height=1080")
+
+# 创建Firefox配置文件
+profile = FirefoxProfile()
+
+# 禁用图片加载
+profile.set_preference("permissions.default.image", 2)
+
+# 设置下载行为
+profile.set_preference("browser.download.folderList", 2)
+profile.set_preference("browser.download.dir", "/path/to/download")
+profile.set_preference("browser.helperApps.neverAsk.saveToDisk", 
+                      "application/pdf,application/octet-stream")
+
+# 禁用Firefox更新提示
+profile.set_preference("app.update.enabled", False)
+
+# 设置用户代理
+profile.set_preference("general.useragent.override", 
+                      "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0)")
+
+# 应用配置
+firefox_options.profile = profile
+
+driver = webdriver.Firefox(options=firefox_options)
+\end{lstlisting}
+
+\subsection{Edge浏览器配置}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+from selenium import webdriver
+from selenium.webdriver.edge.options import Options
+
+# Edge选项配置
+edge_options = Options()
+
+# 基础配置
+edge_options.add_argument("--headless")
+edge_options.add_argument("--window-size=1920,1080")
+edge_options.add_argument("--disable-gpu")
+
+# Edge特有配置
+edge_options.add_argument("--disable-extensions")
+edge_options.add_argument("--disable-plugins")
+
+# 实验性选项
+edge_options.add_experimental_option("useAutomationExtension", False)
+edge_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+
+driver = webdriver.Edge(options=edge_options)
+\end{lstlisting}
+
+\section{多窗口和标签页管理}
+
+现代Web应用经常涉及多个窗口和标签页的操作，掌握这些技能对于复杂场景的自动化测试至关重要。
+
+\subsection{窗口句柄操作}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+driver = webdriver.Chrome()
+driver.get("https://example.com")
+
+# 获取当前窗口句柄
+main_window = driver.current_window_handle
+print(f"主窗口句柄: {main_window}")
+
+# 获取所有窗口句柄
+all_windows = driver.window_handles
+print(f"所有窗口句柄: {all_windows}")
+
+# 点击链接打开新窗口
+new_window_link = driver.find_element(By.LINK_TEXT, "打开新窗口")
+new_window_link.click()
+
+# 等待新窗口出现
+time.sleep(2)
+
+# 切换到新窗口
+for window_handle in driver.window_handles:
+    if window_handle != main_window:
+        driver.switch_to.window(window_handle)
+        break
+
+print(f"当前窗口标题: {driver.title}")
+
+# 在新窗口中执行操作
+# ... 执行相关操作 ...
+
+# 关闭当前窗口
+driver.close()
+
+# 切换回主窗口
+driver.switch_to.window(main_window)
+
+# 验证已回到主窗口
+print(f"回到主窗口标题: {driver.title}")
+\end{lstlisting}
+
+\subsection{标签页管理}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 打开新标签页的几种方法
+
+# 方法1：使用JavaScript打开新标签页
+driver.execute_script("window.open('https://www.google.com', '_blank');")
+
+# 方法2：使用键盘快捷键
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
+
+# Ctrl+T 打开新标签页
+ActionChains(driver).key_down(Keys.CONTROL).send_keys('t').key_up(Keys.CONTROL).perform()
+
+# 方法3：使用Selenium 4的新方法
+driver.switch_to.new_window('tab')  # 打开新标签页
+driver.switch_to.new_window('window')  # 打开新窗口
+
+# 标签页管理函数
+class TabManager:
+    def __init__(self, driver):
+        self.driver = driver
+        self.tabs = {}
+    
+    def open_new_tab(self, url, name):
+        """打开新标签页并命名"""
+        self.driver.execute_script(f"window.open('{url}', '_blank');")
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        self.tabs[name] = self.driver.current_window_handle
+        return self.driver.current_window_handle
+    
+    def switch_to_tab(self, name):
+        """切换到指定标签页"""
+        if name in self.tabs:
+            self.driver.switch_to.window(self.tabs[name])
+        else:
+            raise ValueError(f"标签页 '{name}' 不存在")
+    
+    def close_tab(self, name):
+        """关闭指定标签页"""
+        if name in self.tabs:
+            self.driver.switch_to.window(self.tabs[name])
+            self.driver.close()
+            del self.tabs[name]
+    
+    def close_all_tabs_except(self, keep_tab):
+        """关闭除指定标签页外的所有标签页"""
+        for name, handle in self.tabs.items():
+            if name != keep_tab:
+                self.driver.switch_to.window(handle)
+                self.driver.close()
+        self.tabs = {keep_tab: self.tabs[keep_tab]}
+
+# 使用标签页管理器
+tab_manager = TabManager(driver)
+tab_manager.open_new_tab("https://www.baidu.com", "baidu")
+tab_manager.open_new_tab("https://www.google.com", "google")
+
+tab_manager.switch_to_tab("baidu")
+print(f"当前页面标题: {driver.title}")
+
+tab_manager.switch_to_tab("google")
+print(f"当前页面标题: {driver.title}")
+\end{lstlisting}
+
+\subsection{窗口位置和大小控制}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 窗口大小和位置操作
+
+# 设置窗口大小
+driver.set_window_size(1200, 800)
+
+# 获取窗口大小
+size = driver.get_window_size()
+print(f"窗口大小: 宽度={size['width']}, 高度={size['height']}")
+
+# 设置窗口位置
+driver.set_window_position(100, 100)
+
+# 获取窗口位置
+position = driver.get_window_position()
+print(f"窗口位置: X={position['x']}, Y={position['y']}")
+
+# 最大化窗口
+driver.maximize_window()
+
+# 最小化窗口
+driver.minimize_window()
+
+# 全屏模式
+driver.fullscreen_window()
+
+# 获取窗口矩形（位置和大小）
+rect = driver.get_window_rect()
+print(f"窗口矩形: {rect}")
+
+# 设置窗口矩形
+driver.set_window_rect(x=50, y=50, width=1400, height=900)
+
+# 多显示器支持
+def move_to_second_monitor(driver):
+    """将窗口移动到第二个显示器"""
+    # 假设第二个显示器在右侧，分辨率为1920x1080
+    driver.set_window_position(1920, 0)
+    driver.set_window_size(1200, 800)
+\end{lstlisting}
+
+\section{页面导航}
+
+页面导航是Web自动化中的基础操作，包括页面跳转、历史记录操作和页面刷新等。
+
+\subsection{基础导航操作}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 导航到指定URL
+driver.get("https://www.example.com")
+
+# 获取当前URL
+current_url = driver.current_url
+print(f"当前URL: {current_url}")
+
+# 获取页面标题
+title = driver.title
+print(f"页面标题: {title}")
+
+# 后退
+driver.back()
+
+# 前进
+driver.forward()
+
+# 刷新页面
+driver.refresh()
+
+# 获取页面源代码
+page_source = driver.page_source
+print(f"页面源代码长度: {len(page_source)}")
+\end{lstlisting}
+
+\subsection{等待页面加载}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+
+# 等待页面标题包含特定文本
+wait = WebDriverWait(driver, 10)
+wait.until(EC.title_contains("预期标题"))
+
+# 等待URL变化
+wait.until(EC.url_contains("/dashboard"))
+
+# 等待特定元素出现
+wait.until(EC.presence_of_element_located((By.ID, "content")))
+
+# 自定义页面加载完成检查
+def page_loaded(driver):
+    """检查页面是否完全加载"""
+    return driver.execute_script("return document.readyState") == "complete"
+
+# 等待页面完全加载
+wait.until(page_loaded)
+
+# 等待Ajax请求完成（jQuery）
+def ajax_complete(driver):
+    """等待jQuery Ajax请求完成"""
+    try:
+        return driver.execute_script("return jQuery.active == 0")
+    except:
+        return True
+
+wait.until(ajax_complete)
+\end{lstlisting}
+
+\subsection{页面滚动操作}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 滚动到页面底部
+driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+# 滚动到页面顶部
+driver.execute_script("window.scrollTo(0, 0);")
+
+# 滚动到指定位置
+driver.execute_script("window.scrollTo(0, 500);")
+
+# 滚动到指定元素
+element = driver.find_element(By.ID, "target-element")
+driver.execute_script("arguments[0].scrollIntoView();", element)
+
+# 平滑滚动到元素
+driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth'});", element)
+
+# 水平滚动
+driver.execute_script("window.scrollBy(500, 0);")
+
+# 在可滚动容器内滚动
+scrollable_div = driver.find_element(By.ID, "scrollable-content")
+driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight;", scrollable_div)
+
+# 分步滚动（模拟用户滚动行为）
+def smooth_scroll_to_bottom(driver, step=300, delay=0.5):
+    """平滑滚动到页面底部"""
+    import time
+    
+    last_height = driver.execute_script("return document.body.scrollHeight")
+    current_position = 0
+    
+    while current_position < last_height:
+        current_position += step
+        driver.execute_script(f"window.scrollTo(0, {current_position});")
+        time.sleep(delay)
+        
+        # 检查页面高度是否发生变化（动态加载内容）
+        new_height = driver.execute_script("return document.body.scrollHeight")
+        if new_height > last_height:
+            last_height = new_height
+
+# 使用ActionChains进行滚动
+from selenium.webdriver.common.action_chains import ActionChains
+
+element = driver.find_element(By.ID, "content")
+actions = ActionChains(driver)
+actions.scroll_to_element(element).perform()
+
+# 鼠标滚轮滚动
+actions.scroll_by_amount(0, 1000).perform()  # 垂直滚动1000像素
+\end{lstlisting}
+
+\section{JavaScript代码执行}
+
+Selenium提供了强大的JavaScript执行能力，可以直接在浏览器中运行JavaScript代码，实现复杂的操作。
+
+\subsection{基础JavaScript执行}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 执行简单JavaScript代码
+result = driver.execute_script("return document.title;")
+print(f"页面标题: {result}")
+
+# 执行无返回值的JavaScript
+driver.execute_script("alert('Hello from Selenium!');")
+
+# 传递参数给JavaScript
+element = driver.find_element(By.ID, "username")
+driver.execute_script("arguments[0].style.border = '3px solid red';", element)
+
+# 多参数传递
+name = "测试用户"
+age = 25
+driver.execute_script("arguments[0].value = arguments[1] + ' - ' + arguments[2];", 
+                     element, name, age)
+
+# 返回复杂数据类型
+page_info = driver.execute_script("""
+    return {
+        title: document.title,
+        url: window.location.href,
+        width: window.innerWidth,
+        height: window.innerHeight,
+        scrollY: window.scrollY
+    };
+""")
+print(f"页面信息: {page_info}")
+\end{lstlisting}
+
+\subsection{DOM操作}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 修改元素内容
+driver.execute_script("document.getElementById('demo').innerHTML = '新内容';")
+
+# 修改元素样式
+element = driver.find_element(By.ID, "target")
+driver.execute_script("""
+    arguments[0].style.backgroundColor = 'yellow';
+    arguments[0].style.fontSize = '20px';
+    arguments[0].style.fontWeight = 'bold';
+""", element)
+
+# 添加新元素
+driver.execute_script("""
+    var newDiv = document.createElement('div');
+    newDiv.innerHTML = '这是动态添加的内容';
+    newDiv.id = 'dynamic-content';
+    document.body.appendChild(newDiv);
+""")
+
+# 移除元素
+driver.execute_script("document.getElementById('unwanted-element').remove();")
+
+# 获取元素属性
+attributes = driver.execute_script("""
+    var elem = arguments[0];
+    return {
+        id: elem.id,
+        className: elem.className,
+        tagName: elem.tagName,
+        innerText: elem.innerText,
+        offsetWidth: elem.offsetWidth,
+        offsetHeight: elem.offsetHeight
+    };
+""", element)
+print(f"元素属性: {attributes}")
+
+# 触发事件
+driver.execute_script("arguments[0].click();", element)
+driver.execute_script("arguments[0].focus();", element)
+
+# 自定义事件
+driver.execute_script("""
+    var event = new Event('custom-event');
+    arguments[0].dispatchEvent(event);
+""", element)
+\end{lstlisting}
+
+\subsection{页面信息获取}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 获取页面加载状态
+ready_state = driver.execute_script("return document.readyState;")
+print(f"页面状态: {ready_state}")
+
+# 获取视口信息
+viewport = driver.execute_script("""
+    return {
+        width: window.innerWidth,
+        height: window.innerHeight,
+        scrollX: window.scrollX,
+        scrollY: window.scrollY,
+        devicePixelRatio: window.devicePixelRatio
+    };
+""")
+
+# 获取所有链接
+links = driver.execute_script("""
+    var links = document.getElementsByTagName('a');
+    var linkData = [];
+    for(var i = 0; i < links.length; i++) {
+        linkData.push({
+            text: links[i].innerText,
+            href: links[i].href,
+            target: links[i].target
+        });
+    }
+    return linkData;
+""")
+
+# 获取表单数据
+form_data = driver.execute_script("""
+    var forms = document.forms;
+    var formData = [];
+    for(var i = 0; i < forms.length; i++) {
+        var form = forms[i];
+        var inputs = form.querySelectorAll('input, select, textarea');
+        var fields = [];
+        for(var j = 0; j < inputs.length; j++) {
+            fields.push({
+                name: inputs[j].name,
+                type: inputs[j].type,
+                value: inputs[j].value
+            });
+        }
+        formData.push({
+            action: form.action,
+            method: form.method,
+            fields: fields
+        });
+    }
+    return formData;
+""")
+
+# 检查元素可见性
+is_visible = driver.execute_script("""
+    var elem = arguments[0];
+    var rect = elem.getBoundingClientRect();
+    return rect.width > 0 && rect.height > 0 && 
+           rect.top >= 0 && rect.left >= 0 &&
+           rect.bottom <= window.innerHeight &&
+           rect.right <= window.innerWidth;
+""", element)
+\end{lstlisting}
+
+\subsection{异步JavaScript执行}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 执行异步JavaScript（已在Selenium 4中移除，但可以用其他方式实现）
+# 使用Promise来处理异步操作
+
+# 等待Ajax请求完成
+def wait_for_ajax_complete(driver, timeout=10):
+    """等待所有Ajax请求完成"""
+    return driver.execute_script("""
+        return new Promise((resolve) => {
+            if (typeof jQuery !== 'undefined') {
+                let checkAjax = () => {
+                    if (jQuery.active === 0) {
+                        resolve(true);
+                    } else {
+                        setTimeout(checkAjax, 100);
+                    }
+                };
+                checkAjax();
+            } else {
+                resolve(true);
+            }
+        });
+    """)
+
+# 等待自定义条件
+def wait_for_condition(driver, condition_script, timeout=10):
+    """等待自定义JavaScript条件为真"""
+    import time
+    start_time = time.time()
+    
+    while time.time() - start_time < timeout:
+        try:
+            result = driver.execute_script(f"return ({condition_script});")
+            if result:
+                return True
+        except:
+            pass
+        time.sleep(0.1)
+    
+    return False
+
+# 使用示例
+condition = "document.querySelectorAll('.dynamic-content').length > 0"
+if wait_for_condition(driver, condition):
+    print("动态内容已加载")
+\end{lstlisting}
+
+\section{Cookie和Session管理}
+
+Cookie和Session管理对于处理用户认证、保持登录状态和测试不同用户场景非常重要。
+
+\subsection{Cookie操作}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 获取所有Cookie
+all_cookies = driver.get_cookies()
+print(f"所有Cookie: {all_cookies}")
+
+# 获取特定Cookie
+session_cookie = driver.get_cookie("sessionid")
+if session_cookie:
+    print(f"Session Cookie: {session_cookie}")
+
+# 添加Cookie
+driver.add_cookie({
+    "name": "test_cookie",
+    "value": "test_value",
+    "domain": "example.com",
+    "path": "/",
+    "httpOnly": False,
+    "secure": False
+})
+
+# 添加带有过期时间的Cookie
+import time
+from datetime import datetime, timedelta
+
+expire_time = int((datetime.now() + timedelta(days=7)).timestamp())
+driver.add_cookie({
+    "name": "persistent_cookie",
+    "value": "persistent_value",
+    "expiry": expire_time
+})
+
+# 删除特定Cookie
+driver.delete_cookie("test_cookie")
+
+# 删除所有Cookie
+driver.delete_all_cookies()
+
+# Cookie管理类
+class CookieManager:
+    def __init__(self, driver):
+        self.driver = driver
+    
+    def save_cookies(self, filepath):
+        """保存Cookie到文件"""
+        import json
+        cookies = self.driver.get_cookies()
+        with open(filepath, 'w') as f:
+            json.dump(cookies, f)
+    
+    def load_cookies(self, filepath):
+        """从文件加载Cookie"""
+        import json
+        try:
+            with open(filepath, 'r') as f:
+                cookies = json.load(f)
+            
+            for cookie in cookies:
+                # 移除可能导致问题的字段
+                if 'expiry' in cookie:
+                    cookie['expiry'] = int(cookie['expiry'])
+                self.driver.add_cookie(cookie)
+        except FileNotFoundError:
+            print(f"Cookie文件 {filepath} 不存在")
+    
+    def get_cookie_dict(self):
+        """获取Cookie字典格式"""
+        cookies = self.driver.get_cookies()
+        return {cookie['name']: cookie['value'] for cookie in cookies}
+    
+    def set_login_cookies(self, user_id, session_token):
+        """设置登录相关Cookie"""
+        self.driver.add_cookie({"name": "user_id", "value": str(user_id)})
+        self.driver.add_cookie({"name": "session_token", "value": session_token})
+        self.driver.add_cookie({"name": "logged_in", "value": "true"})
+
+# 使用Cookie管理器
+cookie_manager = CookieManager(driver)
+
+# 登录后保存Cookie
+driver.get("https://example.com/login")
+# ... 执行登录操作 ...
+cookie_manager.save_cookies("login_cookies.json")
+
+# 下次直接加载Cookie实现免登录
+driver.get("https://example.com")
+cookie_manager.load_cookies("login_cookies.json")
+driver.refresh()  # 刷新页面使Cookie生效
+\end{lstlisting}
+
+\subsection{Session管理}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# Session状态检查
+def check_login_status(driver):
+    """检查登录状态"""
+    try:
+        # 方法1：检查特定元素是否存在
+        user_menu = driver.find_element(By.CLASS_NAME, "user-menu")
+        return True
+    except:
+        try:
+            # 方法2：检查Cookie
+            session_cookie = driver.get_cookie("session_id")
+            return session_cookie is not None
+        except:
+            return False
+
+# 自动登录函数
+def auto_login(driver, username, password):
+    """自动登录函数"""
+    driver.get("https://example.com/login")
+    
+    # 输入用户名和密码
+    username_field = driver.find_element(By.NAME, "username")
+    password_field = driver.find_element(By.NAME, "password")
+    
+    username_field.send_keys(username)
+    password_field.send_keys(password)
+    
+    # 点击登录按钮
+    login_button = driver.find_element(By.ID, "login-button")
+    login_button.click()
+    
+    # 等待登录完成
+    from selenium.webdriver.support.ui import WebDriverWait
+    from selenium.webdriver.support import expected_conditions as EC
+    
+    wait = WebDriverWait(driver, 10)
+    try:
+        # 等待跳转到用户页面或出现用户菜单
+        wait.until(EC.any_of(
+            EC.url_contains("/dashboard"),
+            EC.presence_of_element_located((By.CLASS_NAME, "user-menu"))
+        ))
+        return True
+    except:
+        return False
+
+# 多用户Session管理
+class MultiUserSessionManager:
+    def __init__(self):
+        self.sessions = {}
+    
+    def create_session(self, user_id, driver_options=None):
+        """为用户创建新的浏览器会话"""
+        if driver_options is None:
+            driver_options = webdriver.ChromeOptions()
+            driver_options.add_argument(f"--user-data-dir=./user_data_{user_id}")
+        
+        driver = webdriver.Chrome(options=driver_options)
+        self.sessions[user_id] = driver
+        return driver
+    
+    def switch_to_user(self, user_id):
+        """切换到指定用户的会话"""
+        return self.sessions.get(user_id)
+    
+    def login_user(self, user_id, username, password):
+        """为指定用户执行登录"""
+        driver = self.sessions.get(user_id)
+        if driver:
+            return auto_login(driver, username, password)
+        return False
+    
+    def close_session(self, user_id):
+        """关闭用户会话"""
+        if user_id in self.sessions:
+            self.sessions[user_id].quit()
+            del self.sessions[user_id]
+    
+    def close_all_sessions(self):
+        """关闭所有会话"""
+        for driver in self.sessions.values():
+            driver.quit()
+        self.sessions.clear()
+
+# 使用多用户管理器
+session_manager = MultiUserSessionManager()
+
+# 创建多个用户会话
+admin_driver = session_manager.create_session("admin")
+user_driver = session_manager.create_session("user1")
+
+# 分别登录不同用户
+session_manager.login_user("admin", "admin@example.com", "admin_password")
+session_manager.login_user("user1", "user1@example.com", "user_password")
+
+# 在不同会话中执行操作
+admin_driver.get("https://example.com/admin")
+user_driver.get("https://example.com/profile")
+\end{lstlisting}
+
+\subsection{高级会话管理}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# 会话持久化
+class PersistentSession:
+    def __init__(self, session_file):
+        self.session_file = session_file
+        self.driver = None
+    
+    def start_session(self, restore=True):
+        """启动会话，可选择是否恢复之前的状态"""
+        options = webdriver.ChromeOptions()
+        
+        if restore:
+            # 使用固定的用户数据目录
+            options.add_argument(f"--user-data-dir=./session_data")
+        
+        self.driver = webdriver.Chrome(options=options)
+        
+        if restore:
+            self.restore_session()
+        
+        return self.driver
+    
+    def save_session(self):
+        """保存当前会话状态"""
+        if not self.driver:
+            return
+        
+        session_data = {
+            'url': self.driver.current_url,
+            'cookies': self.driver.get_cookies(),
+            'local_storage': self.driver.execute_script("return localStorage;"),
+            'session_storage': self.driver.execute_script("return sessionStorage;")
+        }
+        
+        import json
+        with open(self.session_file, 'w') as f:
+            json.dump(session_data, f)
+    
+    def restore_session(self):
+        """恢复会话状态"""
+        try:
+            import json
+            with open(self.session_file, 'r') as f:
+                session_data = json.load(f)
+            
+            # 导航到之前的URL
+            self.driver.get(session_data['url'])
+            
+            # 恢复Cookie
+            for cookie in session_data['cookies']:
+                try:
+                    self.driver.add_cookie(cookie)
+                except:
+                    pass
+            
+            # 恢复LocalStorage
+            for key, value in session_data.get('local_storage', {}).items():
+                self.driver.execute_script(
+                    f"localStorage.setItem('{key}', '{value}');"
+                )
+            
+            # 恢复SessionStorage
+            for key, value in session_data.get('session_storage', {}).items():
+                self.driver.execute_script(
+                    f"sessionStorage.setItem('{key}', '{value}');"
+                )
+            
+            # 刷新页面使状态生效
+            self.driver.refresh()
+            
+        except FileNotFoundError:
+            print("未找到会话文件，将创建新会话")
+    
+    def end_session(self, save=True):
+        """结束会话"""
+        if save and self.driver:
+            self.save_session()
+        
+        if self.driver:
+            self.driver.quit()
+
+# 使用持久化会话
+persistent_session = PersistentSession("my_session.json")
+driver = persistent_session.start_session(restore=True)
+
+# 执行操作...
+driver.get("https://example.com")
+
+# 结束时保存会话
+persistent_session.end_session(save=True)
+\end{lstlisting}

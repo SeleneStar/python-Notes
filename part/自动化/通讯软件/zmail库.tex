@@ -1,0 +1,37 @@
+\chapter{zmail库}
+\href{https://github.com/zhangyunhao116/zmail}{zmail库}不需要手动添加服务器地址、端口以及适合的协议，zmail会帮你完成。此外，使用一个python字典来代表邮件内容也更符合直觉。
+
+\textcolor{red}{\textbf{注意}}:2022年5月7月，zmail库的作者停止维护。
+
+\section{安装zmail库}
+\begin{lstlisting}[style=demostyle,numbers=none]
+pip install zmail
+\end{lstlisting}
+
+\section{使用zmail库}
+\subsection{发送邮件}
+\begin{lstlisting}[style=demostyle,numbers=none]
+import zmail
+
+mail = {
+    "subject": "测试邮件", # 邮件主题
+    "content": "这是一封测试邮件。", # 邮件正文
+    "attachments": ["D:/Practice/python/zmail/test.txt", "D:/Practice/python/zmail/test.py"] # 附件列表
+}
+
+password = "087SD4C3B6E3F6G7H8I9J0KLMNOPQRS" # 授权码
+server = zmail.server("master@qq.com", password) # 登录邮箱
+server.send_mail("slave@qq.com", mail) # 发送邮件
+print("邮件发送成功！")
+\end{lstlisting}
+
+\subsection{接收邮件}
+\begin{lstlisting}[style=demostyle,numbers=none]
+import zmail
+
+password = "087SD4C3B6E3F6G7H8I9J0KLMNOPQRS" # 授权码
+server = zmail.server("slave@qq.com", password) # 登录邮箱
+# mail = server.receive() # 接收邮件
+last_mail = server.latest() # 接收最新的一封邮件
+print(mail)
+\end{lstlisting}

@@ -1,0 +1,254 @@
+\chapter{鼠标控制函数}
+
+\section{屏幕和鼠标位置}
+\subsection{屏幕位置}
+屏幕上的位置是通过 X 和 Y 笛卡尔坐标来表示的。
+X 坐标从左侧的 0 开始，向右增大。
+与数学不同，Y 坐标从顶部的 0 开始，向下增大。
+\begin{lstlisting}[style=demostyle,numbers=none]
+0,0       X increases -->
++---------------------------+
+|                           | Y increases
+|                           |     |
+|   1920 x 1080 screen      |     |
+|                           |     V
+|                           |
+|                           |
++---------------------------+ 1919, 1079
+\end{lstlisting}
+
+\subsection{size() 获取屏幕大小}
+\begin{lstlisting}[style=demostyle,numbers=none]
+>>> import pyautogui
+>>> print(pyautogui.size())
+Size(width=2160, height=1440)
+\end{lstlisting}
+
+\subsection{position() 获取鼠标位置}
+\begin{lstlisting}[style=demostyle,numbers=none]
+>>> import pyautogui
+>>> print(pyautogui.position())
+Point(x=1027, y=528)
+\end{lstlisting}
+
+\begin{lstlisting}[style=pythonstyle, title={实时获取鼠标位置.py}]
+import pyautogui, sys
+print('Press Ctrl-C to quit.')
+try:
+    while True:
+        x, y = pyautogui.position()
+        positionStr = 'X: ' + str(x).rjust(4) + ' Y: ' + str(y).rjust(4)
+        print(positionStr, end='')
+        print('\b' * len(positionStr), end='', flush=True)
+except KeyboardInterrupt:
+    print('\n')
+\end{lstlisting}
+
+\subsection{onScreen() 判断坐标是否在屏幕上}
+\codeinline{onScreen(x, y)} 函数用于判断给定的坐标是否在屏幕上。
+\begin{lstlisting}[style=demostyle,numbers=none]
+>>> import pyautogui
+>>> print(pyautogui.onScreen(100, 100))
+True
+>>> print(pyautogui.onScreen(5000, 5000))
+False
+\end{lstlisting}
+
+\section{鼠标移动}
+\subsection{moveTo() 移动鼠标到指定位置}
+\begin{lstlisting}[style=demostyle,numbers=none]
+# x 和 y 是屏幕上的坐标, None 表示不改变当前坐标
+# duration 是移动的时间（秒），默认 0.1(s)
+# tween 是缓动函数, 默认使用 pyautogui.linear
+#   pyautogui.linear 线性缓动
+#   easeInQuad: 加速开始，然后匀速移动。
+#   easeOutQuad: 匀速开始，然后减速停止。
+#   easeInOutQuad: 加速开始，然后匀速，最后减速停止（最常用的自然移动效果）。
+#   easeInBounce: 弹跳效果，像球落地反弹。
+#   easeInElastic: 弹性效果，像橡皮筋拉伸后回弹。
+
+pyautogui.moveTo(x, y, duration=0.0, tween=pyautogui.linear)
+
+>>> pyautogui.moveTo(100, 200)    # 移动 X 到 100, Y 到 200.
+>>> pyautogui.moveTo(None, 500)   # 移动 Y 到 500, X 保持不变.
+>>> pyautogui.moveTo(600, None)   # 移动 X 到 600, Y 保持不变.
+>>> pyautogui.moveTo(100, 200, 2) # 移动到 (100, 200) 的位置，持续时间为 2 秒.
+>>> pyautogui.moveTo(100, 200, 1, pyautogui.easeInOutQuad) # 移动到 (100, 200) 的位置，持续时间为 1 秒, 使用缓动函数 pyautogui.easeInOutQuad.
+\end{lstlisting}
+
+自定义路径移动 (如贝塞尔曲线)
+\begin{lstlisting}[style=pythonstyle, title={自定义路径移动.py}]
+import pyautogui
+import time
+import math
+ 
+def bezier_curve(t, p0, p1, p2):
+    """
+    计算二次贝塞尔曲线上的点
+    t: 参数 (0 <= t <= 1)
+    p0, p1, p2: 控制点坐标 (x, y)
+    """
+    x = (1 - t) * (1 - t) * p0[0] + 2 * (1 - t) * t * p1[0] + t * t * p2[0]
+    y = (1 - t) * (1 - t) * p0[1] + 2 * (1 - t) * t * p1[1] + t * t * p2[1]
+    return (x, y)
+ 
+# 定义贝塞尔曲线的控制点
+p0 = (100, 500)  # 起点
+p1 = (400, 200)  # 控制点
+p2 = (700, 500)  # 终点
+ 
+# 生成路径上的点并移动鼠标
+num_steps = 50  # 路径上的点数
+for i in range(num_steps + 1):
+    t = i / num_steps
+    x, y = bezier_curve(t, p0, p1, p2)
+    # pyautogui.moveTo(x, y, duration=0.05)  # 非常短的 duration 以实现平滑移动
+    pyautogui.dragTo(x, y, duration=0.05)  # 非常短的 duration 以实现平滑移动
+
+ 
+# 或者使用 moveRel 进行相对移动（需要先移动到起点 p0）
+# pyautogui.moveTo(p0[0], p0[1])
+# for i in range(1, num_steps + 1):
+#     t = i / num_steps
+#     x, y = bezier_curve(t, p0, p1, p2)
+#     dx = x - p0[0]
+#     dy = y - p0[1]
+#     pyautogui.moveRel(dx, dy, duration=0.05)
+\end{lstlisting}
+
+\subsection{move() 相对移动鼠标}
+鼠标光标相对于其当前位置移动几个像素，请使用 \codeinline{move()} 函数
+\begin{lstlisting}[style=demostyle,numbers=none]
+# x 和 y 是相对坐标, None 表示不改变当前坐标
+>>> pyautogui.move(0, 50)       # 往下移动 50 像素.
+>>> pyautogui.move(-30, 0)      # 往左移动 30 像素, Y 坐标保持不变.
+>>> pyautogui.move(-30, None)   # 往左移动 30 像素, Y 坐标保持不变.
+\end{lstlisting}
+
+\subsection{dragTo() 拖动鼠标到指定位置}
+\codeinline{dragTo}相比与\codeinline{moveTo}函数多了一个拖动的效果，鼠标会在移动过程中按下左键。
+\begin{lstlisting}[style=demostyle,numbers=none]
+# x 和 y 是屏幕上的坐标, None 表示不改变当前坐标
+# duration 是拖动的时间（秒），默认 0.1(s)
+# tween 是缓动函数, 默认使用 pyautogui.linear
+# button 是鼠标按钮, 默认 'left'
+>>> pyautogui.dragTo(100, 200, button='left')     # 按住鼠标左键，拖动鼠标到X (100), Y (200)
+>>> pyautogui.dragTo(300, 400, 2, button='left')  # 拖动鼠标到 (300, 400) 的位置，持续时间为 2 秒, 按住鼠标左键.
+>>> pyautogui.drag(30, 0, 2, button='right')      # 按住鼠标右键，拖动鼠标到当前位置右边 30 像素的位置，持续时间为 2 秒.
+\end{lstlisting}
+
+\section{鼠标点击}
+\subsection{click() 点击鼠标}
+\codeinline{click()} 函数在鼠标当前位置模拟一次单击左键。"点击"被定义为按下按钮然后释放。
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# x 和 y 是屏幕上的坐标, None 表示不改变当前坐标
+# button 是鼠标按钮, 默认 'left'
+#  - 'left' 左键
+#  - 'right' 右键
+#  - 'middle' 中键
+# clicks 是点击次数, 默认 1
+# interval 是每次点击之间的间隔时间（秒）, 默认 0.0(s)
+# duration 是移动到指定位置的时间（秒）, 默认 0.0(s)
+pyautogui.click(x=None, y=None, button='left', clicks=1, interval=0.0, duration=0.0)
+
+>>> pyautogui.click()                # 在当前位置点击鼠标左键.
+>>> pyautogui.click(100, 200)       # 在 (100, 200) 的位置点击鼠标左键.
+>>> pyautogui.click(100, 200, 2)    # 在 (100, 200) 的位置点击鼠标左键两次.
+>>> pyautogui.click(100, 200, button='right') # 在 (100, 200) 的位置点击鼠标右键.
+>>> pyautogui.click(100, 200, button='middle') # 在 (100, 200) 的位置点击鼠标中键.
+>>> pyautogui.click(100, 200, clicks=2, interval=0.25) # 在 (100, 200) 的位置双击鼠标左键, 每次点击间隔 0.25 秒.
+>>> pyautogui.click(100, 200, duration=1) # 在 (100, 200) 的位置点击鼠标左键，移动到该位置的时间为 1 秒.
+\end{lstlisting}
+
+\subsection{rightClick() 右键点击鼠标}
+\codeinline{rightClick()} 函数在鼠标当前位置模拟一次单击右键。
+\begin{lstlisting}[style=demostyle,numbers=none]
+# x 和 y 是屏幕上的坐标, None 表示不改变当前坐标
+# button 是鼠标按钮, 默认 'right'
+pyautogui.rightClick(x=None, y=None, button='right')  # 在当前位置右键点击鼠标.
+>>> pyautogui.rightClick()                # 在当前位置右键点击鼠标.
+>>> pyautogui.rightClick(100, 200)       # 在 (100, 200) 的位置右键点击鼠标.
+>>> pyautogui.rightClick(100, 200, button='left') # 在 (100, 200) 的位置左键点击鼠标.
+\end{lstlisting}
+
+\subsection{doubleClick() 双击鼠标}
+\codeinline{doubleClick()} 函数在鼠标当前位置模拟两次单击左键。
+\begin{lstlisting}[style=demostyle,numbers=none]
+# x 和 y 是屏幕上的坐标, None 表示不改变当前坐标
+# button 是鼠标按钮, 默认 'left'
+# interval 是每次点击之间的间隔时间（秒）, 默认 0.0(s)
+pyautogui.doubleClick(x=None, y=None, button='left', interval=0.0)  # 在当前位置双击鼠标左键.
+>>> pyautogui.doubleClick()                # 在当前位置双击鼠标左键.
+>>> pyautogui.doubleClick(100, 200)       # 在 (100, 200) 的位置双击鼠标左键.
+>>> pyautogui.doubleClick(100, 200, button='right') # 在 (100, 200) 的位置双击鼠标右键. 
+\end{lstlisting}
+
+\subsection{tripleClick() 三击鼠标}
+\codeinline{tripleClick()} 函数在鼠标当前位置模拟三次单击左键。
+\begin{lstlisting}[style=demostyle,numbers=none]
+# x 和 y 是屏幕上的坐标, None 表示不改变当前坐标
+# button 是鼠标按钮, 默认 'left'
+# interval 是每次点击之间的间隔时间（秒）, 默认 0.0(s)
+pyautogui.tripleClick(x=None, y=None, button='left', interval=0.0)  # 在当前位置三击鼠标左键.
+>>> pyautogui.tripleClick()                # 在当前位置三击鼠标左键
+>>> pyautogui.tripleClick(100, 200)       # 在 (100, 200) 的位置三击鼠标左键.
+>>> pyautogui.tripleClick(100, 200, button='right') # 在 (100, 200) 的位置三击鼠标右键.
+\end{lstlisting}
+
+
+\subsection{mouseDown() 按下鼠标按钮}
+\codeinline{click()} 函数由 \codeinline{mouseDown()} 和 \codeinline{mouseUp()} 函数组成。
+
+\codeinline{mouseDown()} 函数在鼠标当前位置按下指定的鼠标按钮。
+\begin{lstlisting}[style=demostyle,numbers=none]
+# x 和 y 是屏幕上的坐标, None 表示不改变当前坐标
+# button 是鼠标按钮, 默认 'left'
+#  - 'left' 左键
+#  - 'right' 右键
+#  - 'middle' 中键
+# duration 是移动到指定位置的时间（秒）, 默认 0.0(s)
+pyautogui.mouseDown(x=None, y=None, button='left', duration=0.0)
+>>> pyautogui.mouseDown()                # 在当前位置按下鼠标左键.
+>>> pyautogui.mouseDown(100, 200)       # 在 (100, 200) 的位置按下鼠标左键.
+>>> pyautogui.mouseDown(100, 200, button='right') # 在 (100, 200) 的位置按下鼠标右键.
+>>> pyautogui.mouseDown(100, 200, button='middle') # 在 (100, 200) 的位置按下鼠标中键.
+>>> pyautogui.mouseDown(100, 200, duration=1) # 在 (100, 200) 的位置按下鼠标左键，移动到该位置的时间为 1 秒.
+\end{lstlisting}
+
+\subsection{mouseUp() 释放鼠标按钮}
+\codeinline{mouseUp()} 函数在鼠标当前位置释放指定的鼠标按钮。
+\begin{lstlisting}[style=demostyle,numbers=none]
+# x 和 y 是屏幕上的坐标, None 表示不改变当前坐标
+# button 是鼠标按钮, 默认 'left'
+pyautogui.mouseUp(x=None, y=None, button='left')
+>>> pyautogui.mouseUp()                # 在当前位置释放鼠标左键.
+>>> pyautogui.mouseUp(100, 200)       # 在 (100, 200) 的位置释放鼠标左键.
+>>> pyautogui.mouseUp(100, 200, button='right') # 在 (100, 200) 的位置释放鼠标右键.
+>>> pyautogui.mouseUp(100, 200, button='middle') # 在 (100, 200) 的位置释放鼠标中键.
+>>> pyautogui.mouseUp(100, 200, duration=1) # 在 (100, 200) 的位置释放鼠标左键，移动到该位置的时间为 1 秒.
+\end{lstlisting}
+
+\section{鼠标滚轮}
+\subsection{scroll() 滚动鼠标滚轮}
+\codeinline{scroll()} 函数用于滚动鼠标滚轮。
+\begin{lstlisting}[style=demostyle,numbers=none]
+# clicks 是滚动的次数
+pyautogui.scroll(clicks=1) # 向上滚动鼠标滚轮 1 次.
+>>> pyautogui.scroll(10)   # 向上滚动鼠标滚轮 10 次.
+>>> pyautogui.scroll(-10)  # 向下滚动鼠标滚轮 10 次.
+>>> pyautogui.scroll(10, x=100, y=100)  # 鼠标移到 (100, 100) 的位置向上滚动鼠标滚轮 10 次.
+\end{lstlisting}
+
+\codeinline{scroll()} 函数也可以写作\codeinline{vscroll()}
+
+\subsection{hscroll() 水平滚动鼠标滚轮}
+在 OS X 和 Linux 平台上，PyAutoGUI 还可以通过调用 hscroll()函数执行水平滚动
+\begin{lstlisting}[style=demostyle,numbers=none]
+# clicks 是滚动的次数
+pyautogui.hscroll(clicks)
+>>> pyautogui.hscroll(10)   # 向右滚动鼠标滚轮 10 "点击".
+>>> pyautogui.hscroll(-10)   # 向左滚动鼠标滚轮 10 "点击".
+\end{lstlisting}
+
+

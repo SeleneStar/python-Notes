@@ -1,0 +1,544 @@
+\chapter{文本操作的应用}
+\begin{lstlisting}[style=pythonstyle, title={删除文本注释.py}]
+import re
+import os
+import readline  # 支持终端 Tab 补全
+import glob      # 用于文件路径匹配
+
+def complete_path(text, state):
+    """实现终端文件路径 Tab 补全"""
+    results = glob.glob(text + '*') + [None]
+    return results[state]
+
+# 注册路径补全
+readline.set_completer(complete_path)
+readline.parse_and_bind("tab: complete")
+
+def extract_comments(file_content, language):
+    """
+    根据语言类型提取注释。
+    :param file_content: 文件内容
+    :param language: 用户选择的语言类型
+    """
+    if language == "C/C++":
+        single_line_pattern = r"(?m)^\s*//.*$|(?<=\s)//.*$"
+        multi_line_pattern = r"(?s)/\*.*?\*/"
+    elif language == "Python":
+        single_line_pattern = r"(?m)(^\s*#.*$|\s+#.*$)"
+        multi_line_pattern = r"(?s)('''.*?'''|\"\"\".*?\"\"\")"
+    elif language == "LaTeX":
+        single_line_pattern = r"(?m)^\s*%.*$|(?<=\s)%.*$"
+        multi_line_pattern = None
+
+    # 提取注释
+    single_line_comments = re.findall(single_line_pattern, file_content)
+    multi_line_comments = re.findall(multi_line_pattern, file_content) if multi_line_pattern else []
+
+    return [c for c in (single_line_comments + multi_line_comments) if c.strip()]
+
+def list_comments_with_index(comments):
+    """列出所有检测到的注释"""
+    print("检测到以下注释：")
+    for idx, comment in enumerate(comments, 1):
+        print(f"{idx}. {repr(comment.strip())}")
+
+def get_comments_to_keep(comments):
+    """用户选择需要保留的注释"""
+    user_input = input("输入需要保留的注释编号（用逗号分隔），直接回车全部删除： ")
+    if not user_input.strip():
+        return []
+
+    try:
+        indices = [int(x) - 1 for x in user_input.split(',')]
+        return [comments[i] for i in indices if 0 <= i < len(comments)]
+    except ValueError:
+        print("输入格式不正确，将默认删除所有注释。")
+        return []
+
+def remove_comments(file_content, comments_to_keep, all_comments):
+    """删除未保留的注释"""
+    for comment in all_comments:
+        if comment not in comments_to_keep:
+            file_content = file_content.replace(comment, '', 1)
+    return file_content
+
+def clean_file(input_file, language):
+    """主函数：读取文件，处理注释，生成新文件"""
+    with open(input_file, 'r', encoding='utf-8') as f:
+        file_content = f.read()
+
+    comments = extract_comments(file_content, language)
+
+    if not comments:
+        print("未检测到任何注释。")
+        return
+
+    list_comments_with_index(comments)
+    comments_to_keep = get_comments_to_keep(comments)
+
+    cleaned_content = remove_comments(file_content, comments_to_keep, comments)
+
+    # 生成新文件名并写入
+    base_name, ext = os.path.splitext(input_file)
+    new_file_name = f"{base_name}_clean{ext}"
+    with open(new_file_name, 'w', encoding='utf-8') as f:
+        f.write(cleaned_content)
+
+    print(f"处理完成，新文件已保存为：{new_file_name}")
+
+def main():
+    """程序入口，用户选择语言和输入文件"""
+    print("请选择要处理的语言类型：")
+    print("1. C/C++")
+    print("2. Python")
+    print("3. LaTeX")
+
+    language_choice = input("请输入对应的数字： ").strip()
+    language_map = {"1": "C/C++", "2": "Python", "3": "LaTeX"}
+
+    if language_choice not in language_map:
+        print("无效选择，请重新运行程序。")
+        return
+
+    language = language_map[language_choice]
+    input_file = input(f"请输入要处理的 {language} 文件路径： ")
+
+    if os.path.isfile(input_file):
+        clean_file(input_file, language)
+    else:
+        print("文件不存在，请检查路径是否正确。")
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\begin{lstlisting}[style=pythonstyle, title={递归删除整个文件夹中注释.py}]
+import re
+import os
+import shutil
+import readline  # 支持终端 Tab 补全
+import glob      # 用于文件路径匹配
+
+def complete_path(text, state):
+    """
+    实现终端文件路径Tab补全功能。
+    
+    Args:
+        text (str): 用户当前输入的文本
+        state (int): 补全状态索引
+        
+    Returns:
+        str: 匹配的路径补全结果，如果没有更多匹配则返回None
+    """
+    results = glob.glob(text + '*') + [None]
+    return results[state]
+
+# 注册路径补全
+readline.set_completer(complete_path)
+readline.parse_and_bind("tab: complete")
+
+def get_file_language(file_path):
+    """
+    根据文件后缀名判断编程语言类型。
+    
+    Args:
+        file_path (str): 文件路径
+        
+    Returns:
+        str: 语言类型字符串，如果不支持则返回None
+        
+    支持的文件类型：
+        - C/C++: .c, .cpp, .cc, .cxx, .h, .hpp, .hxx
+        - Python: .py, .pyw
+        - LaTeX: .tex, .latex  
+        - Bash: .sh, .bash
+        - Lua: .lua
+    """
+    ext = os.path.splitext(file_path)[1].lower()
+    
+    if ext in ['.c', '.cpp', '.cc', '.cxx', '.h', '.hpp', '.hxx']:
+        return 'C/C++'
+    elif ext in ['.py', '.pyw']:
+        return 'Python'
+    elif ext in ['.tex', '.latex']:
+        return 'LaTeX'
+    elif ext in ['.sh', '.bash']:
+        return 'Bash'
+    elif ext in ['.lua']:
+        return 'Lua'
+    else:
+        return None
+
+def extract_comments(file_content, language):
+    """
+    根据编程语言类型提取文件中的注释内容。
+    
+    Args:
+        file_content (str): 文件内容
+        language (str): 编程语言类型
+        
+    Returns:
+        list: 提取到的注释列表
+        
+    支持的注释格式：
+        - C/C++: 单行注释(//) 和 多行注释(/* */)
+        - Python: 单行注释(#) 和 文档字符串(''' ''' 或 """ """)
+        - LaTeX: 单行注释(%)
+        - Bash: 单行注释(#) 和 多行注释(<< 'EOF' ... EOF)
+        - Lua: 单行注释(--) 和 多行注释(--[[ ]])
+    """
+    if language == "C/C++":
+        # C/C++ 单行注释 // 和多行注释 /* */
+        single_line_pattern = r"(?m)^\s*//.*$|(?<=\s)//.*$"
+        multi_line_pattern = r"(?s)/\*.*?\*/"
+    elif language == "Python":
+        # Python 单行注释 # 和文档字符串 ''' """ 
+        single_line_pattern = r"(?m)(^\s*#.*$|\s+#.*$)"
+        multi_line_pattern = r"(?s)('''.*?'''|\"\"\".*?\"\"\")"
+    elif language == "LaTeX":
+        # LaTeX 单行注释 %
+        single_line_pattern = r"(?m)^\s*%.*$|(?<=\s)%.*$"
+        multi_line_pattern = None
+    elif language == "Bash":
+        # Bash 单行注释 # 和多行注释 << 'EOF' ... EOF 或 << "EOF" ... EOF
+        single_line_pattern = r"(?m)(^\s*#.*$|\s+#.*$)"
+        multi_line_pattern = r"(?s)<<\s*['\"]?(\w+)['\"]?\s*\n.*?\n\1"
+    elif language == "Lua":
+        # Lua 单行注释 -- 和多行注释 --[[ ]] 或 --[=[ ]=] 等
+        single_line_pattern = r"(?m)^\s*--(?!\[).*$|(?<=\s)--(?!\[).*$"
+        multi_line_pattern = r"(?s)--\[=*\[.*?\]=*\]"
+    else:
+        return []
+
+    # 提取注释
+    single_line_comments = re.findall(single_line_pattern, file_content)
+    multi_line_comments = re.findall(multi_line_pattern, file_content) if multi_line_pattern else []
+
+    return [c for c in (single_line_comments + multi_line_comments) if c.strip()]
+
+def list_comments_with_index(comments):
+    """
+    列出检测到的所有注释并显示编号，用于用户选择保留哪些注释。
+    
+    Args:
+        comments (list): 注释列表
+        
+    说明:
+        此函数会在控制台打印所有检测到的注释，每个注释前面都有编号，
+        方便用户在交互模式下选择需要保留的注释。
+    """
+    print("检测到以下注释：")
+    for idx, comment in enumerate(comments, 1):
+        print(f"{idx}. {repr(comment.strip())}")
+
+def get_comments_to_keep(comments):
+    """
+    交互式获取用户希望保留的注释。
+    
+    Args:
+        comments (list): 注释列表
+        
+    Returns:
+        list: 用户选择保留的注释列表
+        
+    说明:
+        此函数提示用户输入需要保留的注释编号（用逗号分隔），
+        如果用户直接回车则删除所有注释。输入格式错误时默认删除所有注释。
+    """
+    user_input = input("输入需要保留的注释编号（用逗号分隔），直接回车全部删除： ")
+    if not user_input.strip():
+        return []
+
+    try:
+        indices = [int(x) - 1 for x in user_input.split(',')]
+        return [comments[i] for i in indices if 0 <= i < len(comments)]
+    except ValueError:
+        print("输入格式不正确，将默认删除所有注释。")
+        return []
+
+def remove_comments(file_content, comments_to_keep, all_comments):
+    """
+    从文件内容中移除未被保留的注释。
+    
+    Args:
+        file_content (str): 原始文件内容
+        comments_to_keep (list): 用户选择保留的注释列表
+        all_comments (list): 所有检测到的注释列表
+        
+    Returns:
+        str: 移除指定注释后的文件内容
+        
+    说明:
+        此函数会遍历所有检测到的注释，如果注释不在保留列表中，
+        就从文件内容中移除该注释。使用replace方法进行替换，
+        每次只替换一个匹配项以避免误删。
+    """
+    for comment in all_comments:
+        if comment not in comments_to_keep:
+            file_content = file_content.replace(comment, '', 1)
+    return file_content
+
+def clean_file(input_file, output_file, interactive=True):
+    """
+    处理单个文件的注释清理。
+    
+    Args:
+        input_file (str): 输入文件的完整路径
+        output_file (str): 输出文件的完整路径
+        interactive (bool): 是否使用交互模式，默认True
+        
+    Returns:
+        bool: 处理成功返回True，失败返回False
+        
+    说明:
+        1. 根据文件后缀名自动识别语言类型
+        2. 读取文件内容并提取注释
+        3. 在交互模式下让用户选择保留的注释
+        4. 移除未保留的注释并写入输出文件
+        5. 如果文件不支持或没有注释，将直接复制原文件
+    """
+    # 根据文件后缀名判断语言类型
+    language = get_file_language(input_file)
+    if not language:
+        print(f"跳过不支持的文件类型：{input_file}")
+        return False
+
+    # 尝试读取文件内容
+    try:
+        with open(input_file, 'r', encoding='utf-8') as f:
+            file_content = f.read()
+    except Exception as e:
+        print(f"读取文件失败 {input_file}: {e}")
+        return False
+
+    # 提取注释
+    comments = extract_comments(file_content, language)
+
+    # 如果没有注释，直接复制文件
+    if not comments:
+        print(f"文件 {input_file} 未检测到任何注释，直接复制。")
+        try:
+            with open(output_file, 'w', encoding='utf-8') as f:
+                f.write(file_content)
+            return True
+        except Exception as e:
+            print(f"写入文件失败 {output_file}: {e}")
+            return False
+
+    # 根据交互模式处理注释选择
+    if interactive:
+        print(f"\n处理文件：{input_file} ({language})")
+        list_comments_with_index(comments)
+        comments_to_keep = get_comments_to_keep(comments)
+    else:
+        # 非交互模式下删除所有注释
+        comments_to_keep = []
+
+    # 移除注释并生成清理后的内容
+    cleaned_content = remove_comments(file_content, comments_to_keep, comments)
+
+    # 尝试写入输出文件
+    try:
+        with open(output_file, 'w', encoding='utf-8') as f:
+            f.write(cleaned_content)
+        print(f"处理完成：{input_file} -> {output_file}")
+        return True
+    except Exception as e:
+        print(f"写入文件失败 {output_file}: {e}")
+        return False
+
+def process_directory(input_dir, output_dir=None, interactive=True):
+    """
+    递归处理目录中所有支持的文件，移除注释并输出到新目录。
+    
+    Args:
+        input_dir (str): 要处理的输入目录路径
+        output_dir (str, optional): 输出目录路径，默认为输入目录名 + '_clean'
+        interactive (bool): 是否使用交互模式，默认True
+        
+    说明:
+        1. 递归遍历输入目录中的所有文件和子目录
+        2. 对于支持的文件类型（C/C++, Python, LaTeX, Bash, Lua）进行注释清理
+        3. 对于不支持的文件类型，直接复制到输出目录
+        4. 保持原有的目录结构和文件层次关系
+        5. 在交互模式下，每个文件都会让用户选择保留的注释
+        6. 如果输出目录已存在，会询问用户是否删除重建
+    """
+    # 检查输入目录是否存在
+    if not os.path.isdir(input_dir):
+        print(f"目录不存在：{input_dir}")
+        return
+    
+    # 设置默认输出目录
+    if output_dir is None:
+        output_dir = f"{input_dir}_clean"
+    
+    # 处理已存在的输出目录
+    if os.path.exists(output_dir):
+        response = input(f"输出目录 {output_dir} 已存在，是否删除重建？(y/n): ").strip().lower()
+        if response == 'y':
+            shutil.rmtree(output_dir)
+        else:
+            print("操作已取消。")
+            return
+    
+    # 创建输出目录
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # 初始化计数器
+    processed_count = 0  # 已处理的文件数量
+    skipped_count = 0    # 跳过的文件数量
+    
+    # 递归遍历输入目录
+    for root, dirs, files in os.walk(input_dir):
+        # 计算当前目录相对于输入目录的相对路径
+        rel_path = os.path.relpath(root, input_dir)
+        
+        # 确定当前目录对应的输出目录路径
+        if rel_path != '.':
+            current_output_dir = os.path.join(output_dir, rel_path)
+        else:
+            current_output_dir = output_dir
+        
+        # 创建对应的输出目录（如果不存在）
+        os.makedirs(current_output_dir, exist_ok=True)
+        
+        # 处理当前目录下的所有文件
+        for file in files:
+            input_file = os.path.join(root, file)
+            output_file = os.path.join(current_output_dir, file)
+            
+            # 检查文件是否为支持的类型
+            if get_file_language(input_file):
+                # 支持的文件类型，进行注释处理
+                if clean_file(input_file, output_file, interactive):
+                    processed_count += 1
+                else:
+                    skipped_count += 1
+            else:
+                # 不支持的文件类型，直接复制到输出目录
+                try:
+                    shutil.copy2(input_file, output_file)
+                    skipped_count += 1
+                except Exception as e:
+                    print(f"复制文件失败 {input_file}: {e}")
+                    skipped_count += 1
+    
+    # 打印处理结果统计
+    print(f"\n处理完成！")
+    print(f"已处理文件：{processed_count} 个")
+    print(f"跳过文件：{skipped_count} 个")
+    print(f"输出目录：{output_dir}")
+
+def main():
+    """
+    程序主入口函数，负责用户交互和参数设置。
+    
+    功能说明：
+        1. 显示程序介绍和支持的文件类型
+        2. 获取用户输入的目录路径
+        3. 询问用户是否使用交互模式
+        4. 设置输出目录路径
+        5. 调用process_directory函数开始处理
+        
+    支持的文件类型：
+        - C/C++: .c, .cpp, .cc, .cxx, .h, .hpp, .hxx
+        - Python: .py, .pyw
+        - LaTeX: .tex, .latex
+        - Bash: .sh, .bash
+        - Lua: .lua
+        
+    交互模式说明：
+        - 交互模式(y)：对每个有注释的文件，都会显示所有注释并让用户选择保留哪些
+        - 批处理模式(n)：自动删除所有检测到的注释，无需用户干预
+    """
+    # 显示程序标题和功能介绍
+    print("代码注释清理工具 - 目录批处理版本")
+    print("支持的文件类型：C/C++ (.c, .cpp, .h, .hpp等), Python (.py), LaTeX (.tex), Bash (.sh), Lua (.lua)")
+    print()
+    
+    # 获取用户输入的目录路径
+    input_dir = input("请输入要处理的目录路径：").strip()
+    
+    # 验证目录是否存在
+    if not os.path.isdir(input_dir):
+        print("目录不存在，请检查路径是否正确。")
+        return
+    
+    # 询问是否使用交互模式
+    print("\n模式选择：")
+    print("交互模式(y)：每个文件都会询问保留哪些注释")
+    print("批处理模式(n)：自动删除所有注释")
+    interactive_choice = input("是否使用交互模式？(y/n，默认n): ").strip().lower()
+    interactive = interactive_choice == 'y'
+    
+    # 设置输出目录
+    default_output = f"{input_dir}_clean"
+    print(f"\n输出目录设置（默认：{default_output}）")
+    output_dir = input(f"请输入输出目录路径（直接回车使用默认）：").strip()
+    if not output_dir:
+        output_dir = default_output
+    
+    # 显示处理参数确认
+    print(f"\n=== 处理参数确认 ===")
+    print(f"输入目录: {input_dir}")
+    print(f"输出目录: {output_dir}")
+    print(f"处理模式: {'交互模式' if interactive else '批处理模式'}")
+    print("=" * 20)
+    
+    # 开始处理目录
+    process_directory(input_dir, output_dir, interactive)
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+\begin{lstlisting}[style=demostyle,numbers=none]
+$> python uncomment_dir.py
+代码注释清理工具 - 目录批处理版本
+支持的文件类型：C/C++ (.c, .cpp, .h, .hpp等), Python (.py), LaTeX (.tex), Bash (.sh), Lua (.lua)
+
+请输入要处理的目录路径：./old
+
+模式选择：
+交互模式(y)：每个文件都会询问保留哪些注释
+批处理模式(n)：自动删除所有注释
+是否使用交互模式？(y/n，默认n):
+
+输出目录设置（默认：./old_clean）
+请输入输出目录路径（直接回车使用默认）：
+
+=== 处理参数确认 ===
+输入目录: ./old
+输出目录: ./old_clean
+处理模式: 批处理模式
+====================
+输出目录 ./old_clean 已存在，是否删除重建？(y/n): y
+处理完成：./old/bash/7z_unrar.sh -> ./old_clean/bash/7z_unrar.sh
+处理完成：./old/bash/7z_unzip.sh -> ./old_clean/bash/7z_unzip.sh
+处理完成：./old/C/zipfolder.c -> ./old_clean/C/zipfolder.c
+处理完成：./old/C/zip_split_folder.c -> ./old_clean/C/zip_split_folder.c
+处理完成：./old/python/audio2video.py -> ./old_clean/python/audio2video.py
+处理完成：./old/python/chinese_num_covert.py -> ./old_clean/python/chinese_num_covert.py
+处理完成：./old/python/git_add_batch.py -> ./old_clean/python/git_add_batch.py
+处理完成：./old/python/git_batch_folder.py -> ./old_clean/python/git_batch_folder.py
+处理完成：./old/python/merged_avi.py -> ./old_clean/python/merged_avi.py
+处理完成：./old/python/merged_flv.py -> ./old_clean/python/merged_flv.py
+处理完成：./old/python/merged_mp4.py -> ./old_clean/python/merged_mp4.py
+处理完成：./old/python/merged_ts.py -> ./old_clean/python/merged_ts.py
+文件 ./old/python/name.py 未检测到任何注释，直接复制。
+文件 ./old/python/name_dir.py 未检测到任何注释，直接复制。
+处理完成：./old/python/uncomment.py -> ./old_clean/python/uncomment.py
+处理完成：./old/python/uncomment_dir.py -> ./old_clean/python/uncomment_dir.py
+处理完成：./old/python/unzip.py -> ./old_clean/python/unzip.py
+处理完成：./old/python/unzip_file.py -> ./old_clean/python/unzip_file.py
+处理完成：./old/python/video_timeline.py -> ./old_clean/python/video_timeline.py
+处理完成：./old/python/video_timeline_cur_folder.py -> ./old_clean/python/video_timeline_cur_folder.py
+处理完成：./old/python/zip.py -> ./old_clean/python/zip.py
+处理完成：./old/python/zip100.py -> ./old_clean/python/zip100.py
+
+处理完成！
+已处理文件：22 个
+跳过文件：4 个
+输出目录：./old_clean
+\end{lstlisting}
+

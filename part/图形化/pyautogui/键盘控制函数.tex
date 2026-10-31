@@ -1,0 +1,282 @@
+\chapter{键盘控制函数}
+
+\section{键盘输入}
+\subsection{write() 输入文本}
+\codeinline{write()} 函数模拟键盘输入文本。
+\begin{lstlisting}[style=demostyle,numbers=none]
+# text 是要输入的文本
+# interval 是每个字符之间的间隔时间（秒）, 默认 0.0(s)
+pyautogui.write(text)
+>> pyautogui.write('Hello world!')                  # 输入 "Hello world!"，没有间隔时间
+>>> pyautogui.write('Hello world!', interval=0.25)  # 输入 "Hello world!"，每个字符之间间隔 0.25 秒
+\end{lstlisting}
+
+\section{键盘按键}
+\subsection{单键按键}
+\begin{enumerate}[label=\arabic*)]
+    \item \codeinline{keyDown()} 按下键盘按键
+    \item \codeinline{keyUp()} 松开键盘按键
+    \item \codeinline{press()} 按下并松开键盘按键
+\end{enumerate}
+\codeinline{press()} 函数是 \codeinline{keyDown()} 和 \codeinline{keyUp()} 的组合。
+\begin{lstlisting}[style=demostyle,numbers=none]
+# key 是要按下的键
+# interval 是按下和松开之间的间隔时间（秒）, 默认 0.0(s)
+# presses 是按键的次数, 默认 1
+pyautogui.keyDown(key)
+pyautogui.keyUp(key)
+pyautogui.press(key, interval=0.0)  
+
+>>> pyautogui.keyDown('shift')  # 持续按 左shift 键
+>>> pyautogui.press('left')     # 按左箭头键
+>>> pyautogui.press('left')     # 按左箭头键
+>>> pyautogui.press('left')     # 按左箭头键
+>>> pyautogui.keyUp('shift')    # 松开 左shift 键
+>>> pyautogui.press('left', presses=3)  # 连续按三次左箭头键
+
+# 如果连续按键可以使用列表
+>>> pyautogui.press(['left', 'left', 'left'])   # 连续按三次左箭头键
+\end{lstlisting}
+
+
+press可以输入键盘按键
+\begin{enumerate}[label=\arabic*)]
+    \item \codeinline{\^{} t}: 按下 Tab 键（通常用于文本缩进或切换输入焦点）
+    \item \codeinline{\^{} n}: 按下 Enter 键（回车键，用于确认操作或换行）
+    \item \codeinline{\textbackslash t}: 表示 Tab 字符（水平制表符）
+    \item \codeinline{\textbackslash n}: 表示换行符（将光标移动到下一行）
+    \item \codeinline{\textbackslash r}: 表示回车符（将光标移动到当前行的开头）
+    \item \codeinline{ }: 按下空格键（输入一个空白字符）
+    \item \codeinline{!}: 按下感叹号键
+    \item \codeinline{"}: 按下双引号键
+    \item \codeinline{\#}: 按下井号键
+    \item \codeinline{\$}: 按下美元符号键
+    \item \codeinline{\%}: 按下百分号键
+    \item \codeinline{\&}: 按下与号键
+    \item \codeinline{'}: 按下单引号键
+    \item \codeinline{(}: 按下左圆括号键
+    \item \codeinline{)}: 按下右圆括号键
+    \item \codeinline{*}: 按下星号键（乘法符号）
+    \item \codeinline{+}: 按下加号键
+    \item \codeinline{,}: 按下逗号键
+    \item \codeinline{-}: 按下减号键
+    \item \codeinline{.}: 按下句点键（小数点 / 句号）
+    \item \codeinline{/}: 按下斜杠键（正斜杠）
+    \item \codeinline{0}: 按下数字 0 键
+    \item \codeinline{1}: 按下数字 1 键
+    \item \codeinline{2}: 按下数字 2 键
+    \item \codeinline{3}: 按下数字 3 键
+    \item \codeinline{4}: 按下数字 4 键
+    \item \codeinline{5}: 按下数字 5 键
+    \item \codeinline{6}: 按下数字 6 键
+    \item \codeinline{7}: 按下数字 7 键
+    \item \codeinline{8}: 按下数字 8 键
+    \item \codeinline{9}: 按下数字 9 键
+    \item \codeinline{:}: 按下冒号键
+    \item \codeinline{;}: 按下分号键
+    \item \codeinline{<}: 按下小于号键
+    \item \codeinline{=}: 按下等号键
+    \item \codeinline{>}: 按下大于号键
+    \item \codeinline{?}: 按下问号键
+    \item \codeinline{@}: 按下 at 符号键
+    \item \codeinline{[}: 按下左方括号键
+    \item \codeinline{\textbackslash}: 按下反斜杠键
+    \item \codeinline{]}: 按下右方括号键
+    \item \codeinline{\^{}}: 按下插入符号键（脱字符号）
+    \item \codeinline{\_}: 按下下划线键
+    \item \codeinline{`}: 按下重音符号键（反引号）
+    \item \codeinline{a}: 按下字母 a 键
+    \item \codeinline{b}: 按下字母 b 键
+    \item \codeinline{c}: 按下字母 c 键
+    \item \codeinline{d}: 按下字母 d 键
+    \item \codeinline{e}: 按下字母 e 键
+    \item \codeinline{f}: 按下字母 f 键
+    \item \codeinline{g}: 按下字母 g 键
+    \item \codeinline{h}: 按下字母 h 键
+    \item \codeinline{i}: 按下字母 i 键
+    \item \codeinline{j}: 按下字母 j 键
+    \item \codeinline{k}: 按下字母 k 键
+    \item \codeinline{l}: 按下字母 l 键
+    \item \codeinline{m}: 按下字母 m 键
+    \item \codeinline{n}: 按下字母 n 键
+    \item \codeinline{o}: 按下字母 o 键
+    \item \codeinline{p}: 按下字母 p 键
+    \item \codeinline{q}: 按下字母 q 键
+    \item \codeinline{r}: 按下字母 r 键
+    \item \codeinline{s}: 按下字母 s 键
+    \item \codeinline{t}: 按下字母 t 键
+    \item \codeinline{u}: 按下字母 u 键
+    \item \codeinline{v}: 按下字母 v 键
+    \item \codeinline{w}: 按下字母 w 键
+    \item \codeinline{x}: 按下字母 x 键
+    \item \codeinline{y}: 按下字母 y 键
+    \item \codeinline{z}: 按下字母 z 键
+    \item \codeinline{\{}: 按下左花括号键
+    \item \codeinline{|}: 按下竖线键（管道符）
+    \item \codeinline{\}}: 按下右花括号键
+    \item \codeinline{~}: 按下波浪线键
+    \item \codeinline{accept}: 接受键（某些系统中的确认键）
+    \item \codeinline{add}: 加号键（常用于数字键盘）
+    \item \codeinline{alt}: Alt 键（替代键，用于组合快捷键）
+    \item \codeinline{altleft}: 左侧 Alt 键
+    \item \codeinline{altright}: 右侧 Alt 键
+    \item \codeinline{apps}: 应用程序菜单键（类似于鼠标右键菜单）
+    \item \codeinline{backspace}: 退格键（删除前一个字符）
+    \item \codeinline{browserback}: 浏览器返回键
+    \item \codeinline{browserfavorites}: 浏览器收藏夹键
+    \item \codeinline{browserforward}: 浏览器前进键
+    \item \codeinline{browserhome}: 浏览器主页键
+    \item \codeinline{browserrefresh}: 浏览器刷新键
+    \item \codeinline{browsersearch}: 浏览器搜索键
+    \item \codeinline{browserstop}: 浏览器停止键
+    \item \codeinline{capslock}: 大写锁定键（切换大小写状态）
+    \item \codeinline{clear}: 清除键（在数字键盘上常见）
+    \item \codeinline{convert}: 转换键（部分亚洲语言输入法使用）
+    \item \codeinline{ctrl}: Ctrl 键（控制键，用于组合快捷键）
+    \item \codeinline{ctrlleft}: 左侧 Ctrl 键
+    \item \codeinline{ctrlright}: 右侧 Ctrl 键
+    \item \codeinline{decimal}: 小数点键（数字键盘专用）
+    \item \codeinline{del}: 删除键（删除后一个字符）
+    \item \codeinline{delete}: 同上，删除键
+    \item \codeinline{divide}: 除法键（数字键盘专用）
+    \item \codeinline{down}: 向下箭头键（导航方向）
+    \item \codeinline{end}: End 键（跳转到内容末尾）
+    \item \codeinline{enter}: 回车键（等同于 Enter）
+    \item \codeinline{esc}: Esc 键（退出或中断当前操作）
+    \item \codeinline{escape}: 同上，Esc 键
+    \item \codeinline{execute}: 执行键（较少使用）
+    \item \codeinline{f1}: 功能键 F1（帮助文档常用）
+    \item \codeinline{f10}: 功能键 F10
+    \item \codeinline{f11}: 功能键 F11
+    \item \codeinline{f12}: 功能键 F12
+    \item \codeinline{f13}: 功能键 F13
+    \item \codeinline{f14}: 功能键 F14
+    \item \codeinline{f15}: 功能键 F15
+    \item \codeinline{f16}: 功能键 F16
+    \item \codeinline{f17}: 功能键 F17
+    \item \codeinline{f18}: 功能键 F18
+    \item \codeinline{f19}: 功能键 F19
+    \item \codeinline{f2}: 功能键 F2
+    \item \codeinline{f20}: 功能键 F20
+    \item \codeinline{f21}: 功能键 F21
+    \item \codeinline{f22}: 功能键 F22
+    \item \codeinline{f23}: 功能键 F23
+    \item \codeinline{f24}: 功能键 F24
+    \item \codeinline{f3}: 功能键 F3
+    \item \codeinline{f4}: 功能键 F4
+    \item \codeinline{f5}: 功能键 F5
+    \item \codeinline{f6}: 功能键 F6
+    \item \codeinline{f7}: 功能键 F7
+    \item \codeinline{f8}: 功能键 F8
+    \item \codeinline{f9}: 功能键 F9
+    \item \codeinline{final}: 最终模式键（日语输入法使用）
+    \item \codeinline{fn}: Fn 键（笔记本功能键切换）
+    \item \codeinline{hanguel}: 韩语音节键（韩语输入法使用）
+    \item \codeinline{hangul}: 韩文输入切换键
+    \item \codeinline{hanja}: 汉字键（韩语输入法中使用）
+    \item \codeinline{help}: 帮助键（较少使用）
+    \item \codeinline{home}: Home 键（跳转到内容开头）
+    \item \codeinline{insert}: 插入键（切换插入/覆盖模式）
+    \item \codeinline{junja}: 全角输入键（部分亚洲语言使用）
+    \item \codeinline{kana}: 片假名键（日语输入法使用）
+    \item \codeinline{kanji}: 汉字键（日语输入法使用）
+    \item \codeinline{launchapp1}: 启动应用程序 1
+    \item \codeinline{launchapp2}: 启动应用程序 2
+    \item \codeinline{launchmail}: 启动邮件客户端键
+    \item \codeinline{launchmediaselect}: 启动媒体选择键
+    \item \codeinline{left}: 向左箭头键
+    \item \codeinline{modechange}: 输入法模式切换键
+    \item \codeinline{multiply}: 乘法键（数字键盘专用）
+    \item \codeinline{nexttrack}: 下一曲目键（多媒体控制）
+    \item \codeinline{nonconvert}: 不转换键（亚洲输入法使用）
+    \item \codeinline{num0}: 数字键盘上的 0 键
+    \item \codeinline{num1}: 数字键盘上的 1 键
+    \item \codeinline{num2}: 数字键盘上的 2 键
+    \item \codeinline{num3}: 数字键盘上的 3 键
+    \item \codeinline{num4}: 数字键盘上的 4 键
+    \item \codeinline{num5}: 数字键盘上的 5 键
+    \item \codeinline{num6}: 数字键盘上的 6 键
+    \item \codeinline{num7}: 数字键盘上的 7 键
+    \item \codeinline{num8}: 数字键盘上的 8 键
+    \item \codeinline{num9}: 数字键盘上的 9 键
+    \item \codeinline{numlock}: 数字锁定键（开启/关闭数字键盘）
+    \item \codeinline{pagedown}: 页面向下滚动键
+    \item \codeinline{pageup}: 页面向上滚动键
+    \item \codeinline{pause}: 暂停键（通常用于游戏或调试）
+    \item \codeinline{pgdn}: 同 PageDown 键
+    \item \codeinline{pgup}: 同 PageUp 键
+    \item \codeinline{playpause}: 播放/暂停键（多媒体控制）
+    \item \codeinline{prevtrack}: 上一曲目键（多媒体控制）
+    \item \codeinline{print}: 打印键（截图功能）
+    \item \codeinline{printscreen}: 屏幕截图键
+    \item \codeinline{prntscrn}: 同 PrintScreen 键
+    \item \codeinline{prtsc}: 同上
+    \item \codeinline{prtscr}: 同上
+    \item \codeinline{return}: 回车键（等同于 Enter）
+    \item \codeinline{right}: 向右箭头键
+    \item \codeinline{scrolllock}: 滚动锁定键（较少使用）
+    \item \codeinline{select}: 选择键（较少使用）
+    \item \codeinline{separator}: 分隔符键（数字键盘使用）
+    \item \codeinline{shift}: Shift 键（大小写切换或组合键）
+    \item \codeinline{shiftleft}: 左侧 Shift 键
+    \item \codeinline{shiftright}: 右侧 Shift 键
+    \item \codeinline{sleep}: 睡眠键（使计算机进入睡眠模式）
+    \item \codeinline{space}: 空格键
+    \item \codeinline{stop}: 停止键（多媒体控制）
+    \item \codeinline{subtract}: 减号键（数字键盘专用）
+    \item \codeinline{tab}: Tab 键（等同于 \^{} t）
+    \item \codeinline{up}: 向上箭头键
+    \item \codeinline{volumedown}: 音量减小键
+    \item \codeinline{volumemute}: 静音键
+    \item \codeinline{volumeup}: 音量增大键
+    \item \codeinline{win}: Windows 徽标键
+    \item \codeinline{winleft}: 左侧 Windows 键
+    \item \codeinline{winright}: 右侧 Windows 键
+    \item \codeinline{yen}: 日元符号键（部分日语键盘使用）
+    \item \codeinline{command}: Command 键（macOS 上的修饰键）
+    \item \codeinline{option}: Option 键（macOS 上的修饰键）
+    \item \codeinline{optionleft}: 左侧 Option 键
+    \item \codeinline{optionright}: 右侧 Option 键
+\end{enumerate}
+
+
+\subsection{hold() 按住键盘按键}
+\codeinline{hold()} 函数按住键盘按键，直到调用 \codeinline{release()} 函数松开。
+\begin{lstlisting}[style=demostyle,numbers=none]
+# key 是要按住的键
+pyautogui.hold(key)
+
+>>> with pyautogui.hold('shift'):
+        pyautogui.press(['left', 'left', 'left'])
+
+# 等同于
+>>> pyautogui.keyDown('shift')  # hold down the shift key
+>>> pyautogui.press('left')     # press the left arrow key
+>>> pyautogui.press('left')     # press the left arrow key
+>>> pyautogui.press('left')     # press the left arrow key
+>>> pyautogui.keyUp('shift')    # release the shift key
+\end{lstlisting}
+
+\subsection{hotkey() 组合按键}
+\codeinline{hotkey()} 函数模拟组合按键操作。
+\begin{lstlisting}[style=demostyle,numbers=none]
+# keys 是要组合按下的键，可以是单个键或多个键
+# interval 是按下和松开之间的间隔时间（秒）, 默认 0
+pyautogui.hotkey('ctrl', 'c')   # 按下 Ctrl + C 组合键
+
+
+>>> pyautogui.hotkey('ctrl', 'shift', 'esc')
+# 等同于
+>>> pyautogui.keyDown('ctrl')
+>>> pyautogui.keyDown('shift')
+>>> pyautogui.keyDown('esc')
+>>> pyautogui.keyUp('esc')
+>>> pyautogui.keyUp('shift')
+>>> pyautogui.keyUp('ctrl')
+\end{lstlisting}
+
+
+
+
+
+

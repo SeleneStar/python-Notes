@@ -1,0 +1,16 @@
+\chapter{Keras}
+
+\begin{lstlisting}[style=demostyle,numbers=none]
+# [可选] 创建conda 环境    
+conda create --name mykeras python=3.10
+conda activate mykeras
+
+# [可选] 升级pip
+pip install --upgrade pip
+
+# 安装 keras 
+pip install keras
+
+# 验证tensorflow是否安装成功
+python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+\end{lstlisting}
